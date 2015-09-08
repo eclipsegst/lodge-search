@@ -1,4 +1,4 @@
-package common;
+package com.example.reserve;
 
 import org.springframework.boot.builder.SpringApplicationBuilder;
 import org.springframework.boot.context.web.SpringBootServletInitializer;
@@ -7,7 +7,7 @@ public class ServletInitializer extends SpringBootServletInitializer {
 
 	@Override
 	protected SpringApplicationBuilder configure(SpringApplicationBuilder application) {
-		return application.sources(LodgeSearchApplication.class);
+		return application.sources(Application.class);
 	}
 
 }
