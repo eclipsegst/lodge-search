@@ -20,17 +20,24 @@
 	<script src="//code.jquery.com/jquery-1.11.0.min.js"></script>
 	<script type="text/javascript">
 		
-	function updateLodge(lodgeId) {
-	    var form = $("#foodEatenForm-" + lodgeId);
-	    var action = $("#action-" + lodgeId);
+	function updateImageDefault(imageId) {
+	    var form = $("#foodEatenForm-" + imageId);
+	    var action = $("#action-" + imageId);
 	    $(action).val("update");
 	    $(form).submit();
 	}
 	
-	function deleteLodge(lodgeId) {
-		if ( confirm('Are you sure you want to delete this lodge entry?')) {
-			var form = $("#foodEatenForm-" + lodgeId);
-	        var action = $("#action-" + lodgeId);
+	function removeImageDefault(imageId) {
+	    var form = $("#foodEatenForm-" + imageId);
+	    var action = $("#action-" + imageId);
+	    $(action).val("false");
+	    $(form).submit();
+	}
+	
+	function deleteImage(imageId) {
+		if ( confirm('Are you sure you want to delete this image?')) {
+			var form = $("#foodEatenForm-" + imageId);
+	        var action = $("#action-" + imageId);
 	        $(action).val("delete");
 	        $(form).submit();
 		}
@@ -202,14 +209,22 @@
 			    
 					    <div th:each="gallery : ${gallerys}">
 					    	<div class="col-sm-6 col-md-4">
-					    		<div><img th:src="@{/image/view(id=${gallery.id})}" />
-					    		</div>
-						    	
-						    	<div>
-						    		Default image: <strong th:text="${gallery.active}"></strong> <br />
-						    		<a href="">Delete</a>
-						    		<a href="" class="pull-right">Set Default</a>
-						    	</div>
+					    		<form th:id="'foodEatenForm-' + ${gallery.id}" action="./image">
+				                    <input type="hidden" name="id" th:value="${gallery.id}"/>
+				                    <input type="hidden" th:id="'action-' + ${gallery.id}" name="action" value="update"/>
+					                    
+						    		<div><img th:src="@{/image/view(id=${gallery.id})}" />
+						    		</div>
+							    	
+							    	<div>
+							    		<p>Default image: <strong th:text="${gallery.active}"></strong> <a href="#" th:onclick="'removeImageDefault(\'' + ${gallery.id} + '\');'" class="pull-right">Remove default</a>
+				                    	</p>
+				                    	<p>
+							    		<a href="#" th:onclick="'deleteImage(\'' + ${gallery.id} + '\');'">Delete</a>
+				                    	<a href="#" th:onclick="'updateImageDefault(\'' + ${gallery.id} + '\');'" class="pull-right">Set default</a>
+				                    	</p>
+							    	</div>
+							    </form>
 					    	</div>
 					    	
 					    </div>

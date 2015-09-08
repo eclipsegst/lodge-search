@@ -69,14 +69,18 @@ public class LodgeController{
 			@Nonnull @RequestParam(value = "action", required = true) final String action,
 			Model model) {
 		
-		Lodge lodge = lodgeService.findOne(lodgeId);
-		
 		this.fk = lodgeId;
 		model.addAttribute("fk", this.fk);
 		
 		if (action.equalsIgnoreCase("update")) {
 			return updateForm(lodgeId, model);
 		} else if (action.equalsIgnoreCase("delete")) {
+			// If there are images associated with this lodge, those images are also be deleted at the same time.
+			List<Gallery> gallerys = galleryService.findByFkByCategory(lodgeId, "lodge");
+			for(Gallery gallery : gallerys) {
+				galleryService.deleteGallery(gallery.getId());
+			}
+			
 			lodgeService.deleteLodge(lodgeId);
 		}
 		
@@ -95,9 +99,6 @@ public class LodgeController{
 		this.fk = lodgeId;
 		model.addAttribute("fk", this.fk);
 		
-		System.out.println("lodgeId: " + lodgeId);
-		Gallery gallery = galleryService.findOne(1L);
-		System.out.println(gallery.getTitle());
 		List<Gallery> gallerys = galleryService.findByFkByCategory(lodgeId, "lodge");
 		if (gallerys != null) {
 			System.out.println("size: " + gallerys.size());
@@ -137,5 +138,33 @@ public class LodgeController{
         
         return "new-lodge-result";
     }
+	
+	/*
+	 * Update image
+	 */
+	@RequestMapping(value="/lodge/image")
+	@Transactional(readOnly = false)
+	public String updateImage(
+			@Nonnull @RequestParam(value = "id", required = true) final long imageId,
+			@Nonnull @RequestParam(value = "action", required = true) final String action,
+			Model model) {
+		
+		Gallery gallery = galleryService.findOne(imageId);
+		
+		
+		if (action.equalsIgnoreCase("update")) {
+			gallery.setActive(true);
+			galleryService.save(gallery);
+		} else if (action.equalsIgnoreCase("false")) {
+			gallery.setActive(false);
+			galleryService.save(gallery);
+		} else if (action.equalsIgnoreCase("delete")) {
+			galleryService.deleteGallery(imageId);
+		}
+		
+		List<Lodge> lodges = lodgeService.findAll();
+		model.addAttribute("lodges", lodges);
+		return "lodges";
+	}
 
 }

@@ -58,10 +58,12 @@ public class ImageController {
 		if (!file.isEmpty()) {
 			try {
 				byte[] bytes = file.getBytes();
-				BufferedOutputStream stream = 
-						new BufferedOutputStream(new FileOutputStream(new File(name)));
-				stream.write(bytes);
-				stream.close();
+				// It will save image in file directory using following lines.
+				
+//				BufferedOutputStream stream = 
+//						new BufferedOutputStream(new FileOutputStream(new File(name)));
+//				stream.write(bytes);
+//				stream.close();
 				
 				// Save image to database
 				Blob blob = new SerialBlob(bytes);
