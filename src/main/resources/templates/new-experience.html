@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+<!-- Latest compiled and minified CSS -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css" />
+
+<!-- Optional theme -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap-theme.min.css" />
+
+<!-- Latest compiled and minified JavaScript -->
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+
+<script src="//code.jquery.com/jquery-1.11.0.min.js"></script>
+
+</head>
+<body>
+    <div class="navbar navbar-default navbar-static-top">
+      <div class="container0">
+        <div class="navbar-header">
+          <button class="navbar-toggle" type="button" data-toggle="collapse" data-target="#navbar-main">
+            <span class="icon-bar">a</span>
+            <span class="icon-bar">b</span>
+            <span class="icon-bar">c</span>
+          </button>
+        </div>
+        <div class="navbar-collapse collapse" id="navbar-main">
+          <ul class="nav navbar-nav navbar-right">          
+            <li><a href="./duima/対馬.html" target="_blank"><i class="fa fa-shopping-cart"></i>マイカート</a></li>
+            <li><a href="./duima/対馬.html" target="_blank">ご利用方法</a></li>
+            <li><a href="./duima/対馬.html" target="_blank"><i class="fa fa-envelope-o"></i>Q&amp;A</a></li>
+            <li><a href="./duima/対馬.html" target="_blank"><i class="fa fa-weixin"></i>問合せ</a></li>   
+          </ul>
+        </div>
+      </div>
+    </div><!--navbar-->
+
+      
+
+
+    <div id="show-houses">
+      <div class="container">
+        <div class="page-header">
+          <h1>New Experience</h1>
+        </div>   
+        <div class="row">
+        
+<!-- 	<form class="form-horizontal" action="#" th:action="@{/experience/new}" th:object="${experience}" method="post">
+
+    	<p>Id: <input type="text" th:field="*{id}" /></p>
+        <p>Name: <input type="text" th:field="*{name}" /></p>
+        <p>Description: <input type="text" th:field="*{description}" /></p>
+        <p>Location: <input type="text" th:field="*{location}" /></p>
+        <p><input type="submit" value="Submit" /> <input type="reset" value="Reset" /></p>
+    </form> -->
+		
+			<form class="form-horizontal" action="#" th:action="@{/experience/new}" th:object="${experience}" method="post">
+			  <fieldset>
+			    <div class="form-group">
+			      <!-- <label for="inputId" class="col-lg-2 control-label">ID</label> -->
+			      <div class="col-lg-10">
+			        <input type="hidden" class="form-control" id="inputId" placeholder="id"  th:field="*{id}"/>
+			      </div>
+			    </div>
+			    <div class="form-group">
+			      <label for="inputName" class="col-lg-2 control-label">Name</label>
+			      <div class="col-lg-10">
+			        <input type="text" class="form-control" id="inputName" placeholder="Name" th:field="*{name}"/>
+			      </div>
+			    </div>
+			    <div class="form-group">
+			      <label for="textArea" class="col-lg-2 control-label">Description</label>
+			      <div class="col-lg-10">
+			        <textarea class="form-control" rows="3" id="textArea" th:field="*{description}"></textarea>
+			      </div>
+			    </div>
+			
+			    <div class="form-group">
+			      <label for="inputLocation" class="col-lg-2 control-label">Location</label>
+			      <div class="col-lg-10">
+			        <input type="text" class="form-control" id="inputLocation" placeholder="Location" th:field="*{location}"/>
+			      </div>
+			    </div>
+			    
+			    <div class="form-group">
+			      <label for="inputCourse" class="col-lg-2 control-label">Course</label>
+			      <div class="col-lg-10">
+			        <input type="text" class="form-control" id="inputCourse" placeholder="Course" th:field="*{course}"/>
+			      </div>
+			    </div>
+			    
+			    <div class="form-group">
+			      <label for="inputPickup" class="col-lg-2 control-label">Pickup</label>
+			      <div class="col-lg-10">
+			        <input type="text" class="form-control" id="inputPickup" placeholder="Pickup" th:field="*{pickup}"/>
+			      </div>
+			    </div>
+			    
+			    <div class="form-group">
+			      <label for="inputAdult" class="col-lg-2 control-label">Adult</label>
+			      <div class="col-lg-10">
+			        <input type="text" class="form-control" id="inputAdult" placeholder="Adult" th:field="*{adult}"/>
+			      </div>
+			    </div>
+			    
+			    <div class="form-group">
+			      <label for="inputTeenager" class="col-lg-2 control-label">Teenager</label>
+			      <div class="col-lg-10">
+			        <input type="text" class="form-control" id="inputTeenager" placeholder="Teenager" th:field="*{teenager}"/>
+			      </div>
+			    </div>
+			    
+			    <div class="form-group">
+			      <label for="inputTeenager" class="col-lg-2 control-label">Infant</label>
+			      <div class="col-lg-10">
+			        <input type="text" class="form-control" id="inputTeenager" placeholder="Teenager" th:field="*{infant}"/>
+			      </div>
+			    </div>
+			    
+			    <div class="form-group">
+			      <div class="col-lg-10 col-lg-offset-2">
+			        <button type="reset" class="btn btn-default"><a href="/experience/">Cancel</a></button>
+			        <button type="submit" class="btn btn-primary" value="Submit">Submit</button>
+			      </div>
+			    </div>
+			  </fieldset>
+			</form>
+		</div>
+	  </div>
+	</div>
+</body>
+
+</html>

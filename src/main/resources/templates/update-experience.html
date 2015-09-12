@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
 <head lang="en">
     <meta charset="utf-8" />
-    <title>Lodge Management</title>
+    <title>Experience Management</title>
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <link rel="stylesheet" href="../css/bootstrap.css" media="screen" />
@@ -121,10 +121,10 @@
         <div class="row">
           <div class="col-lg-12">
             <div class="page-header">
-              <h1 id="tables">Edit Lodge</h1>
+              <h1 id="tables">Edit Experience</h1>
               <div class="row">
               	<div class="col-lg-12">
-              	<h4><a href="/lodge/" class="pull-right">Back</a></h4>
+              	<h4><a href="/experience/" class="pull-right">Back</a></h4>
               	</div>
               </div>
             </div>
@@ -134,7 +134,7 @@
 		        	<div class="col-lg-12">
         
 	
-<!-- 						<form class="form-horizontal" action="#" th:action="@{/lodge/updated}" th:object="${lodge}" method="post">
+<!-- 						<form class="form-horizontal" action="#" th:action="@{/experience/updated}" th:object="${experience}" method="post">
 					    	<input type="hidden" th:field="*{id}"/>
 					        <p>Name: <input type="text" th:field="*{name}" /></p>
 					        <p>Description: <input type="text" th:field="*{description}" /></p>
@@ -142,7 +142,7 @@
 					        <p><input type="submit" value="Submit" /> <input type="reset" value="Reset" /></p>
 					    </form> -->
 		
-						<form class="form-horizontal" action="#" th:action="@{/lodge/updated}" th:object="${lodge}" method="post" accept-charset="UTF-8">
+						<form class="form-horizontal" action="#" th:action="@{/experience/updated}" th:object="${experience}" method="post" accept-charset="UTF-8">
 						  <fieldset>
 						    <div class="form-group">
 						      <!-- <label for="inputId" class="col-lg-2 control-label">ID</label> -->
@@ -153,7 +153,7 @@
 						    <div class="form-group">
 						      <label for="inputName" class="col-lg-2 control-label">Name</label>
 						      <div class="col-lg-10">
-						        <input type="text" class="form-control" id="inputName" placeholder="Lodge Name" th:field="*{name}"/>
+						        <input type="text" class="form-control" id="inputName" placeholder="Experience Name" th:field="*{name}"/>
 						      </div>
 						    </div>
 						    <div class="form-group">
@@ -166,14 +166,48 @@
 						    <div class="form-group">
 						      <label for="inputLocation" class="col-lg-2 control-label">Location</label>
 						      <div class="col-lg-10">
-						        <input type="text" class="form-control" id="inputLocation" placeholder="Lodge Location" th:field="*{location}"/>
+						        <input type="text" class="form-control" id="inputLocation" placeholder="Experience Location" th:field="*{location}"/>
 						      </div>
 						    </div>
-						
+						    
+						    <div class="form-group">
+						      <label for="inputCourse" class="col-lg-2 control-label">Course</label>
+						      <div class="col-lg-10">
+						        <input type="text" class="form-control" id="inputCourse" placeholder="Course" th:field="*{course}"/>
+						      </div>
+						    </div>
+						    
+						    <div class="form-group">
+						      <label for="inputPickup" class="col-lg-2 control-label">Pickup</label>
+						      <div class="col-lg-10">
+						        <input type="text" class="form-control" id="inputPickup" placeholder="Pickup" th:field="*{pickup}"/>
+						      </div>
+						    </div>
+						    
+						    <div class="form-group">
+						      <label for="inputAdult" class="col-lg-2 control-label">Adult</label>
+						      <div class="col-lg-10">
+						        <input type="text" class="form-control" id="inputAdult" placeholder="Adult" th:field="*{adult}"/>
+						      </div>
+						    </div>
+						    
+						    <div class="form-group">
+						      <label for="inputTeenager" class="col-lg-2 control-label">Teenager</label>
+						      <div class="col-lg-10">
+						        <input type="text" class="form-control" id="inputTeenager" placeholder="Teenager" th:field="*{teenager}"/>
+						      </div>
+						    </div>
+						    
+						    <div class="form-group">
+						      <label for="inputTeenager" class="col-lg-2 control-label">Infant</label>
+						      <div class="col-lg-10">
+						        <input type="text" class="form-control" id="inputTeenager" placeholder="Teenager" th:field="*{infant}"/>
+						      </div>
+						    </div>
 						    
 						    <div class="form-group">
 						      <div class="col-lg-10 col-lg-offset-2">
-						        <button type="reset" class="btn btn-default"><a href="/lodge/">Cancel</a></button>
+						        <button type="reset" class="btn btn-default"><a href="/experience/">Cancel</a></button>
 						        <button type="submit" class="btn btn-primary" value="Submit">Submit</button>
 						      </div>
 						    </div>
@@ -197,7 +231,7 @@
               <h3 id="galleries">Edit Gallery</h3>
               <div class="row">
               	<div class="col-lg-12">
-              	<h4><a th:href="@{../image/(fk=${fk}, category=lodge)}" class="pull-right">Add image</a></h4>
+              	<h4><a th:href="@{../image/(fk=${fk}, category=experience)}" class="pull-right">Add image</a></h4>
               	</div>
               </div>
               
@@ -258,7 +292,7 @@
 
             <ul class="list-unstyled">
               <li class="pull-right"><a href="#top">Back to top</a></li>
-              <li><a href="https://github.com/eclipsegst/lodge">GitHub</a></li>
+              <li><a href="https://github.com/eclipsegst/experience">GitHub</a></li>
               <li><a href="../help/#support">Support</a></li>
             </ul>
             <p>Made by <a href="" rel="nofollow">Zhaolong Zhong</a>. Contact him at <a href="mailto:zztg2@missouri.edu?Subject=Hello%20hello">zztg2@missouri.edu</a></p>
