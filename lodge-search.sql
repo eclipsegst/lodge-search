@@ -5,6 +5,8 @@
 drop table if exists lodge;
 create table lodge (
 	id bigint auto_increment,
+	landlord_id  bigint,--landlord
+	
 	name varchar(100),
 	description varchar(500),
 	location varchar(200),
@@ -61,3 +63,15 @@ SHOW VARIABLES LIKE 'char%'
 ALTER DATABASE databasename CHARACTER SET utf8 COLLATE utf8_unicode_ci;
 ALTER TABLE lodge CONVERT TO CHARACTER SET utf8 COLLATE utf8_unicode_ci;
 --must alter all the tables
+
+drop table if exists landlord;
+create table landlord (
+	id bigint auto_increment,
+	name varchar(50),
+	description varchar(500),
+	location varchar(200),
+	email varchar(200),
+	lodge_number int,
+	experience_number int,
+	primary key (id)
+) Engine=InnoDB;

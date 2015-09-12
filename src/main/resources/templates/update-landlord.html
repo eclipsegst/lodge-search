@@ -1,0 +1,308 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head lang="en">
+    <meta charset="utf-8" />
+    <title>Landlord Management</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <link rel="stylesheet" href="../css/bootstrap.css" media="screen" />
+    <link rel="stylesheet" href="../css/custom.min.css" />
+    
+    <!-- Latest compiled and minified JavaScript -->
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+	<script src="//code.jquery.com/jquery-1.11.0.min.js"></script>
+    <script>
+    </script>
+    
+    <!-- Latest compiled and minified JavaScript -->
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+	
+	<script src="//code.jquery.com/jquery-1.11.0.min.js"></script>
+	<script type="text/javascript">
+		
+	function updateImageDefault(imageId) {
+	    var form = $("#foodEatenForm-" + imageId);
+	    var action = $("#action-" + imageId);
+	    $(action).val("update");
+	    $(form).submit();
+	}
+	
+	function removeImageDefault(imageId) {
+	    var form = $("#foodEatenForm-" + imageId);
+	    var action = $("#action-" + imageId);
+	    $(action).val("false");
+	    $(form).submit();
+	}
+	
+	function deleteImage(imageId) {
+		if ( confirm('Are you sure you want to delete this image?')) {
+			var form = $("#foodEatenForm-" + imageId);
+	        var action = $("#action-" + imageId);
+	        $(action).val("delete");
+	        $(form).submit();
+		}
+	}
+	</script>
+	<style>
+		img {
+		    max-width: 100%;
+		    max-height: 100%;
+		}
+	</style>
+
+  </head>
+  <body>
+    <div class="navbar navbar-default navbar-fixed-top">
+      <div class="container">
+        <div class="navbar-header">
+          <a href="../" class="navbar-brand">Hitonchi Tsushima</a>
+          <button class="navbar-toggle" type="button" data-toggle="collapse" data-target="#navbar-main">
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+        </div>
+        <div class="navbar-collapse collapse" id="navbar-main">
+          <ul class="nav navbar-nav">
+            <!-- <li class="dropdown">
+              <a class="dropdown-toggle" data-toggle="dropdown" href="#" id="themes">Themes <span class="caret"></span></a>
+              <ul class="dropdown-menu" aria-labelledby="themes">
+                <li><a href="../default/">Default</a></li>
+                <li class="divider"></li>
+                <li><a href="../cerulean/">Cerulean</a></li>
+                <li><a href="../cosmo/">Cosmo</a></li>
+                <li><a href="../yeti/">Yeti</a></li>
+              </ul>
+            </li> -->
+            <li>
+              <a href="../help/">Help</a>
+            </li>
+            <li>
+              <a href="http://news.bootswatch.com">Blog</a>
+            </li>
+            
+            
+          </ul>
+
+          <ul class="nav navbar-nav navbar-right">
+          	<li><a href="../cart/" target="_blank"><i class="fa fa-shopping-cart"></i>マイカート</a></li>
+            <li><a href="../howto/" target="_blank">ご利用方法</a></li>
+            <li><a href="../question/" target="_blank"><i class="fa fa-envelope-o"></i>Q&amp;A</a></li>
+            <li><a href="../inquiry/" target="_blank"><i class="fa fa-weixin"></i>問合せ</a></li>  
+          </ul>
+
+        </div>
+      </div>
+    </div>
+
+
+    <div class="container">
+
+      <!-- <div class="page-header" id="banner">
+        <div class="row">
+          <div class="col-lg-8 col-md-7 col-sm-6">
+            <h1>Yeti</h1>
+            <p class="lead">A friendly foundation</p>
+          </div>
+          <div class="col-lg-4 col-md-5 col-sm-6">
+            <div class="sponsor">
+              <a href="http://www.shopify.com/?ref=bootswatch" target="_blank" onclick="_gaq.push(['_trackEvent', 'banner', 'click', 'shopify']);">
+                <img src="../assets/img/shopify.png" alt="Shopify" width="180" height="150" onload="_gaq.push(['_trackEvent', 'banner', 'impression', 'shopify']);" />
+              </a>
+            </div>
+          </div>
+        </div>
+      </div> -->
+      
+		<!-- Tables
+      ================================================== -->
+      <div class="bs-docs-section">
+
+        <div class="row">
+          <div class="col-lg-12">
+            <div class="page-header">
+              <h1 id="tables">Edit Landlord</h1>
+              <div class="row">
+              	<div class="col-lg-12">
+              	<h4><a href="/landlord/" class="pull-right">Back</a></h4>
+              	</div>
+              </div>
+            </div>
+
+            <div class="bs-component">     
+		        <div class="row">
+		        	<div class="col-lg-12">
+        
+	
+<!-- 						<form class="form-horizontal" action="#" th:action="@{/landlord/updated}" th:object="${landlord}" method="post">
+					    	<input type="hidden" th:field="*{id}"/>
+					        <p>Name: <input type="text" th:field="*{name}" /></p>
+					        <p>Description: <input type="text" th:field="*{description}" /></p>
+					        <p>Location: <input type="text" th:field="*{location}" /></p>
+					        <p><input type="submit" value="Submit" /> <input type="reset" value="Reset" /></p>
+					    </form> -->
+		
+						<form class="form-horizontal" action="#" th:action="@{/landlord/updated}" th:object="${landlord}" method="post" accept-charset="UTF-8">
+						  <fieldset>
+						    <div class="form-group">
+						      <!-- <label for="inputId" class="col-lg-2 control-label">ID</label> -->
+						      <div class="col-lg-10">
+						        <input type="hidden" class="form-control" id="inputId" placeholder="id"  th:field="*{id}"/>
+						      </div>
+						    </div>
+						    <div class="form-group">
+						      <label for="inputName" class="col-lg-2 control-label">Name</label>
+						      <div class="col-lg-10">
+						        <input type="text" class="form-control" id="inputName" placeholder="Landlord Name" th:field="*{name}"/>
+						      </div>
+						    </div>
+						    <div class="form-group">
+						      <label for="textArea" class="col-lg-2 control-label">Description</label>
+						      <div class="col-lg-10">
+						        <textarea class="form-control" rows="3" id="textArea" th:field="*{description}"></textarea>
+						      </div>
+						    </div>
+						
+						    <div class="form-group">
+						      <label for="inputLocation" class="col-lg-2 control-label">Location</label>
+						      <div class="col-lg-10">
+						        <input type="text" class="form-control" id="inputLocation" placeholder="Landlord Location" th:field="*{location}"/>
+						      </div>
+						    </div>
+						    
+						    <div class="form-group">
+						      <label for="inputEmail" class="col-lg-2 control-label">Email</label>
+						      <div class="col-lg-10">
+						        <input type="text" class="form-control" id="inputEmail" placeholder="Landlord Email" th:field="*{email}"/>
+						      </div>
+						    </div>
+						    
+						    <div class="form-group">
+						      <label for="inputLocation" class="col-lg-2 control-label">Lodge Number</label>
+						      <div class="col-lg-10">
+						        <input type="text" class="form-control" id="inputLodge" placeholder="Lodge Number" th:field="*{lodgeNumber}"/>
+						      </div>
+						    </div>
+						    
+						    <div class="form-group">
+						      <label for="inputExperience" class="col-lg-2 control-label">Experience Number</label>
+						      <div class="col-lg-10">
+						        <input type="text" class="form-control" id="inputExperience" placeholder="Experience Number" th:field="*{experienceNumber}"/>
+						      </div>
+						    </div>
+						
+						    
+						    <div class="form-group">
+						      <div class="col-lg-10 col-lg-offset-2">
+						        <button type="reset" class="btn btn-default"><a href="/landlord/">Cancel</a></button>
+						        <button type="submit" class="btn btn-primary" value="Submit">Submit</button>
+						      </div>
+						    </div>
+						  </fieldset>
+						</form>
+					</div> <!-- col-lg-12 -->
+				</div> <!-- row -->
+		
+		  	</div><!-- /example -->
+          </div>
+        </div>
+      </div>
+      
+      <!-- Galleries
+      ================================================== -->
+      <div class="bs-docs-section">
+
+        <div class="row">
+          <div class="col-lg-12">
+            <div class="page-header">
+              <h3 id="galleries">Edit Gallery</h3>
+              <div class="row">
+              	<div class="col-lg-12">
+              	<h4><a th:href="@{../image/(fk=${fk}, category=landlord)}" class="pull-right">Add image</a></h4>
+              	</div>
+              </div>
+              
+            </div>
+
+            <div class="bs-component">     
+		        <div class="row">
+		        	<div class="col-lg-12">
+			    
+					    <div th:each="gallery : ${gallerys}">
+					    	<div class="col-sm-6 col-md-4">
+					    		<form th:id="'foodEatenForm-' + ${gallery.id}" action="./image">
+				                    <input type="hidden" name="id" th:value="${gallery.id}"/>
+				                    <input type="hidden" th:id="'action-' + ${gallery.id}" name="action" value="update"/>
+					                    
+						    		<div><img th:src="@{/image/view(id=${gallery.id})}" />
+						    		</div>
+							    	
+							    	<div>
+							    		<p>Default image: <strong th:text="${gallery.active}"></strong> <a href="#" th:onclick="'removeImageDefault(\'' + ${gallery.id} + '\');'" class="pull-right">Remove default</a>
+				                    	</p>
+				                    	<p>
+							    		<a href="#" th:onclick="'deleteImage(\'' + ${gallery.id} + '\');'">Delete</a>
+				                    	<a href="#" th:onclick="'updateImageDefault(\'' + ${gallery.id} + '\');'" class="pull-right">Set default</a>
+				                    	</p>
+							    	</div>
+							    </form>
+					    	</div>
+					    	
+					    </div>
+		
+					</div> <!-- col-lg-12 -->
+				</div> <!-- row -->
+		
+		  	</div><!-- /example -->
+          </div>
+        </div>
+      </div>
+
+
+	<div id="source-modal" class="modal fade">
+        <div class="modal-dialog modal-lg">
+          <div class="modal-content">
+            <div class="modal-header">
+              <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+              <h4 class="modal-title">Source Code</h4>
+            </div>
+            <div class="modal-body">
+              <pre></pre>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <footer>
+        <div class="row">
+          <div class="col-lg-12">
+
+            <ul class="list-unstyled">
+              <li class="pull-right"><a href="#top">Back to top</a></li>
+              <li><a href="https://github.com/eclipsegst/landlord">GitHub</a></li>
+              <li><a href="../help/#support">Support</a></li>
+            </ul>
+            <p>Made by <a href="" rel="nofollow">Zhaolong Zhong</a>. Contact him at <a href="mailto:zztg2@missouri.edu?Subject=Hello%20hello">zztg2@missouri.edu</a></p>
+            <p>Based on <a href="http://getbootstrap.com" rel="nofollow">Bootstrap</a>. Icons from <a href="http://fortawesome.github.io/Font-Awesome/" rel="nofollow">Font Awesome</a>. Web fonts from <a href="http://www.google.com/webfonts" rel="nofollow">Google</a>.</p>
+
+          </div>
+        </div>
+
+      </footer>
+
+
+    </div>
+
+
+    <script src="https://code.jquery.com/jquery-1.10.2.min.js"></script>
+    <script src="../js/bootstrap.min.js"></script>
+    <script src="../js/custom.js"></script>
+  <script type="text/javascript">
+/* <![CDATA[ */
+(function(){try{var s,a,i,j,r,c,l=document.getElementsByTagName("a"),t=document.createElement("textarea");for(i=0;l.length-i;i++){try{a=l[i].getAttribute("href");if(a&&a.indexOf("/cdn-cgi/l/email-protection") > -1  && (a.length > 28)){s='';j=27+ 1 + a.indexOf("/cdn-cgi/l/email-protection");if (a.length > j) {r=parseInt(a.substr(j,2),16);for(j+=2;a.length>j&&a.substr(j,1)!='X';j+=2){c=parseInt(a.substr(j,2),16)^r;s+=String.fromCharCode(c);}j+=1;s+=a.substr(j,a.length-j);}t.innerHTML=s.replace(/</g,"&lt;").replace(/>/g,"&gt;");l[i].setAttribute("href","mailto:"+t.value);}}catch(e){}}}catch(e){}})();
+/* ]]> */
+</script>
+</body>
+</html>
+
+		
