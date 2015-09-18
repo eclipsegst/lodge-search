@@ -18,9 +18,7 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter
 import org.springframework.web.servlet.i18n.LocaleChangeInterceptor;
 import org.springframework.web.servlet.i18n.SessionLocaleResolver;
 
-import com.example.reserve.domain.Customer;
 import com.example.reserve.domain.Lodge;
-import com.example.reserve.service.CustomerRepository;
 import com.example.reserve.service.LodgeRepository;
 
 import org.springframework.boot.CommandLineRunner;
@@ -42,8 +40,6 @@ import java.util.*;
 public class Application extends WebMvcConfigurerAdapter implements CommandLineRunner{
 
 	@Autowired
-    CustomerRepository repository;
-	@Autowired
 	LodgeRepository lodgeRepository;
 	
     public static void main(String[] args) {
@@ -55,23 +51,4 @@ public class Application extends WebMvcConfigurerAdapter implements CommandLineR
     public void run(String... strings) throws Exception {
 
     }
-    
-//    @Bean
-//    public LocaleResolver localeResolver() {
-//        SessionLocaleResolver slr = new SessionLocaleResolver();
-//        slr.setDefaultLocale(Locale.JAPAN);
-//        return slr;
-//    }
-//
-//    @Bean
-//    public LocaleChangeInterceptor localeChangeInterceptor() {
-//        LocaleChangeInterceptor lci = new LocaleChangeInterceptor();
-//        lci.setParamName("lang");
-//        return lci;
-//    }
-//
-//    @Override
-//    public void addInterceptors(InterceptorRegistry registry) {
-//        registry.addInterceptor(localeChangeInterceptor());
-//    }
 }

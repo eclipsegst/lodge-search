@@ -1,11 +1,25 @@
 --login in mysql
 ./mysql -u USERNAME -pPASSWORD -h HOSTNAMEORIP DATABASENAME 
 
---lodge
+create database lodge_search;
+
+drop table if exists landlord;
+create table landlord (
+	id bigint auto_increment,
+	name varchar(50),
+	description varchar(500),
+	location varchar(200),
+	email varchar(200),
+	lodge_number int,
+	experience_number int,
+	primary key (id)
+) Engine=InnoDB;
+show columns from landlord;
+
 drop table if exists lodge;
 create table lodge (
 	id bigint auto_increment,
-	landlord_id  bigint,--landlord
+	landlord_id  bigint,
 	
 	name varchar(100),
 	description varchar(500),
@@ -27,9 +41,7 @@ create table lodge (
 
 show columns from lodge;
 
--- gallery
 drop table if exists gallery;
-
 create table gallery (
 	id bigint auto_increment,
 	fk  bigint,
@@ -39,13 +51,12 @@ create table gallery (
 	image longblob not null,
 	primary key (id)
 ) Engine=InnoDB;
-
 show columns from gallery;
 
--- experience
 drop table if exists experience;
 create table experience (
 	id bigint auto_increment,
+	landlord_id  bigint,
 	name varchar(100),
 	description varchar(500),
 	location varchar(200),
@@ -59,19 +70,9 @@ create table experience (
 
 show columns from experience;
 
-SHOW VARIABLES LIKE 'char%'
-ALTER DATABASE databasename CHARACTER SET utf8 COLLATE utf8_unicode_ci;
+SHOW VARIABLES LIKE 'char%';
+ALTER DATABASE lodge_search CHARACTER SET utf8 COLLATE utf8_unicode_ci;
 ALTER TABLE lodge CONVERT TO CHARACTER SET utf8 COLLATE utf8_unicode_ci;
---must alter all the tables
-
-drop table if exists landlord;
-create table landlord (
-	id bigint auto_increment,
-	name varchar(50),
-	description varchar(500),
-	location varchar(200),
-	email varchar(200),
-	lodge_number int,
-	experience_number int,
-	primary key (id)
-) Engine=InnoDB;
+ALTER TABLE landlord CONVERT TO CHARACTER SET utf8 COLLATE utf8_unicode_ci;
+ALTER TABLE experience CONVERT TO CHARACTER SET utf8 COLLATE utf8_unicode_ci;
+ALTER TABLE gallery CONVERT TO CHARACTER SET utf8 COLLATE utf8_unicode_ci;
