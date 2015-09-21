@@ -36,4 +36,9 @@ public final class ExperienceService {
 		final Experience experience = experienceRepository.findOne(experienceId);
 		experienceRepository.delete(experience);
 	}
+	
+	public final List<Experience> findByCapacity(String location, String category, int adult, int teenager, int infant) {
+		final List<Experience> experiences = (List<Experience>) experienceRepository.findByCapacity(location, category, adult, teenager, infant);
+		return experiences;
+	}
 }

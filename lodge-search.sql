@@ -62,6 +62,7 @@ create table experience (
 	location varchar(200),
 	course varchar (500),
 	pickup varchar (500),
+	category varchar(100),
 	adult int,
 	teenager int,
 	infant int, 

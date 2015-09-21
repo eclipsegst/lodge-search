@@ -352,6 +352,7 @@
               </div>
             </div>
           </div>
+          
           <div class="col-sm-6 col-md-4">
             <div class="thumbnail">
               <img src="./duima/5.jpg" alt="..."/>
@@ -359,7 +360,20 @@
                     <h3><strong>Fishing</strong></h3>        
               </div>
             </div>
-          </div>  
+          </div> 
+          
+          <div th:each="experience : ${experiences}">	
+          	<div class="col-sm-6 col-md-4">
+	            <div class="thumbnail">
+	            	<img th:src="@{/image/view(id=${experienceGallery.get(experience.id)})}" />
+		            <div class="caption1">
+		            	<h3 ><strong th:text="${experience.name}"></strong></h3>           
+		            </div>
+					
+	            </div>
+	      	</div> 		                    					
+          </div>
+           
         </div>
       </div>
     </div><!-- Section 宿泊 -->

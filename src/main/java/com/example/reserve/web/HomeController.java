@@ -12,8 +12,10 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import com.example.reserve.domain.Experience;
 import com.example.reserve.domain.Gallery;
 import com.example.reserve.domain.Lodge;
+import com.example.reserve.service.ExperienceService;
 import com.example.reserve.service.GalleryService;
 import com.example.reserve.service.LodgeService;
 
@@ -24,14 +26,20 @@ public class HomeController {
 	private final LodgeService lodgeService;
 	
 	@Autowired
+	private final ExperienceService experienceService;
+	
+	@Autowired
 	private final GalleryService galleryService;
+
 	
 	@Autowired
 	public HomeController(
 			@Nonnull final LodgeService lodgeService,
+			@Nonnull final ExperienceService experienceService,
 			@Nonnull final GalleryService galleryService
 			) {
 		this.lodgeService = lodgeService;
+		this.experienceService = experienceService;
 		this.galleryService = galleryService;
 	}
 	
@@ -52,10 +60,25 @@ public class HomeController {
 			}
 		}
 		
-		System.out.println(lodgeGallery.get(111L));
-		
 		model.addAttribute("lodges", lodges);
 		model.addAttribute("lodgeGallery", lodgeGallery);
+		
+		// experience and gallery
+		List<Experience> experiences = experienceService.findAll();
+		
+		Map<Long, Long> experienceGallery = new HashMap<Long, Long>();
+		for(int i = 0; i < experiences.size(); i++) {
+			List<Gallery> galleries = galleryService.findByFkByCategory(experiences.get(i).getId(), "experience");
+			if (!galleries.isEmpty()) {
+				System.out.println(galleries.size());
+				long imageId = galleries.get(0).getId();
+				System.out.println("image id: " + imageId);
+				experienceGallery.put(experiences.get(i).getId(), galleries.get(0).getId());
+			}
+		}
+		
+		model.addAttribute("experiences", experiences);
+		model.addAttribute("experienceGallery", experienceGallery);
 		
 		return "index";
 	}

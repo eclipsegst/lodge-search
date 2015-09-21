@@ -5,8 +5,10 @@ import javax.persistence.Column;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.Table;
 
 @Entity
+@Table(name = "experience")
 public class Experience {
 
 	@Id
@@ -28,6 +30,9 @@ public class Experience {
 	@Column(nullable = true)
 	private String pickup;
 	
+	@Column(nullable = true)
+	private String category;
+
 	@Column(nullable = false)
 	private int adult;
 	
@@ -39,12 +44,13 @@ public class Experience {
     
     public Experience() {}
 
-    public Experience(String name, String description, String location, String course, String pickup, int adult, int teenager, int infant) {
+    public Experience(String name, String description, String location, String course, String pickup, String category, int adult, int teenager, int infant) {
         this.name = name;
         this.description = description;
         this.location = location;
         this.course = course;
         this.pickup = pickup;
+        this.category = category;
         this.adult = adult;
         this.teenager = teenager;
         this.infant = infant;
@@ -98,6 +104,14 @@ public class Experience {
 		this.pickup = pickup;
 	}
 
+	public String getCategory() {
+		return category;
+	}
+
+	public void setCategory(String category) {
+		this.category = category;
+	}
+	
 	public int getAdult() {
 		return adult;
 	}

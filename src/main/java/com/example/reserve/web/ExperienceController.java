@@ -1,7 +1,10 @@
 package com.example.reserve.web;
 
-
+import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+
 import javax.annotation.Nonnull;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -36,6 +39,10 @@ public class ExperienceController{
 		this.experienceService = experienceService;
 		this.galleryService = galleryService;
 	}
+	
+	public List<String> locations = Arrays.asList("厳原港近辺", "比田勝港近辺", "対馬空港近辺");
+	public List<String> categories = Arrays.asList("boating", "climbing", "cooking", "fishing");
+	public List<Integer> numbers = Arrays.asList(0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10);
 	
 	@RequestMapping(value="/experience")
 	@Transactional(readOnly = true)
@@ -89,6 +96,9 @@ public class ExperienceController{
 			System.out.println("cannot find any image by this fk and experienceid");
 		}
 		
+		
+		model.addAttribute("categories", categories);
+		
 		model.addAttribute("gallerys", gallerys);
         model.addAttribute("experience", experience);
         return "update-experience";
@@ -104,7 +114,6 @@ public class ExperienceController{
 		model.addAttribute("experiences", experiences);
 		return "experiences";
     }
-	
 	
 //	Add new experience
 	@RequestMapping(value="/experience/new", method=RequestMethod.GET)
@@ -148,5 +157,67 @@ public class ExperienceController{
 		model.addAttribute("experiences", experiences);
 		return "experiences";
 	}
-
+	
+	@RequestMapping(value="/experience/search", method=RequestMethod.GET)
+	@Transactional(readOnly = true)
+	public String searchExperience(
+			Model model) {
+		model.addAttribute("experience", new Experience());
+		List<Experience> experiences = experienceService.findAll();
+		model.addAttribute("experiences", experiences);
+		model.addAttribute("locations", locations);
+		model.addAttribute("categories", categories);
+		model.addAttribute("numbers", numbers);
+		
+		Map<Long, Long> experienceGallery = new HashMap<Long, Long>();
+		for(int i = 0; i < experiences.size(); i++) {
+			List<Gallery> galleries = galleryService.findByFkByCategory(experiences.get(i).getId(), "experience");
+			if (!galleries.isEmpty()) {
+				experienceGallery.put(experiences.get(i).getId(), galleries.get(0).getId());
+			}
+		}
+		
+		model.addAttribute("experiences", experiences);
+		model.addAttribute("experienceGallery", experienceGallery);
+		
+		return "experience-search";
+	}
+	
+	@RequestMapping(value="/experience/search", method=RequestMethod.POST)
+	@Transactional(readOnly = true)
+	public String searchExperienceResult(@ModelAttribute Experience experience, Model model) {
+        model.addAttribute("experience", experience);
+        
+        String location = experience.getLocation();
+        String category = experience.getCategory();
+        
+        int adult = experience.getAdult();
+        int teenager = experience.getTeenager();
+        int infant = experience.getInfant();
+        if (location.isEmpty() || location == "") {
+			location = null;
+		}
+        if (category.isEmpty() || category == "") {
+        	category = null;
+		}
+        
+		List<Experience> experiences = experienceService.findByCapacity(location, category, adult, teenager, infant);
+		
+		model.addAttribute("experiences", experiences);
+		model.addAttribute("locations", locations);
+		model.addAttribute("categories", categories);
+		model.addAttribute("numbers", numbers);
+		
+		Map<Long, Long> experienceGallery = new HashMap<Long, Long>();
+		for(int i = 0; i < experiences.size(); i++) {
+			List<Gallery> galleries = galleryService.findByFkByCategory(experiences.get(i).getId(), "experience");
+			if (!galleries.isEmpty()) {
+				experienceGallery.put(experiences.get(i).getId(), galleries.get(0).getId());
+			}
+		}
+		
+		model.addAttribute("experiences", experiences);
+		model.addAttribute("experienceGallery", experienceGallery);
+		return "experience-search";
+	}
 }
