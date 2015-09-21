@@ -34,17 +34,17 @@ public class Experience {
 	private String category;
 
 	@Column(nullable = false)
-	private int adult;
+	private Integer adult;
 	
 	@Column(nullable = false)
-	private int teenager;
+	private Integer teenager;
 	
 	@Column(nullable = false)
-	private int infant;
+	private Integer infant;
     
     public Experience() {}
 
-    public Experience(String name, String description, String location, String course, String pickup, String category, int adult, int teenager, int infant) {
+    public Experience(String name, String description, String location, String course, String pickup, String category, Integer adult, Integer teenager, Integer infant) {
         this.name = name;
         this.description = description;
         this.location = location;
@@ -112,27 +112,27 @@ public class Experience {
 		this.category = category;
 	}
 	
-	public int getAdult() {
+	public Integer getAdult() {
 		return adult;
 	}
 
-	public void setAdult(int adult) {
+	public void setAdult(Integer adult) {
 		this.adult = adult;
 	}
 
-	public int getTeenager() {
+	public Integer getTeenager() {
 		return teenager;
 	}
 
-	public void setTeenager(int teenager) {
+	public void setTeenager(Integer teenager) {
 		this.teenager = teenager;
 	}
 
-	public int getInfant() {
+	public Integer getInfant() {
 		return infant;
 	}
 
-	public void setInfant(int infant) {
+	public void setInfant(Integer infant) {
 		this.infant = infant;
 	}
 }

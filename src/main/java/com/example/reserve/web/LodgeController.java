@@ -1,6 +1,9 @@
 package com.example.reserve.web;
 
+import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
@@ -29,6 +32,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.example.reserve.domain.Experience;
 import com.example.reserve.domain.Gallery;
 import com.example.reserve.domain.Lodge;
 import com.example.reserve.service.GalleryService;
@@ -53,6 +57,10 @@ public class LodgeController{
 		this.lodgeService = lodgeService;
 		this.galleryService = galleryService;
 	}
+	
+	public List<String> locations = Arrays.asList("厳原港近辺", "比田勝港近辺", "対馬空港近辺");
+	public List<String> categories = Arrays.asList("boating", "climbing", "cooking", "fishing");
+	public List<Integer> numbers = Arrays.asList(0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10);
 	
 	@RequestMapping(value="/lodge")
 	@Transactional(readOnly = true)
@@ -165,6 +173,64 @@ public class LodgeController{
 		List<Lodge> lodges = lodgeService.findAll();
 		model.addAttribute("lodges", lodges);
 		return "lodges";
+	}
+	
+	@RequestMapping(value="/lodge/search", method=RequestMethod.GET)
+	@Transactional(readOnly = true)
+	public String searchLodge(
+			Model model) {
+		model.addAttribute("lodge", new Lodge());
+		List<Lodge> lodges = lodgeService.findAll();
+		model.addAttribute("lodges", lodges);
+		model.addAttribute("locations", locations);
+		model.addAttribute("categories", categories);
+		model.addAttribute("numbers", numbers);
+		
+		Map<Long, Long> lodgeGallery = new HashMap<Long, Long>();
+		for(int i = 0; i < lodges.size(); i++) {
+			List<Gallery> galleries = galleryService.findByFkByCategory(lodges.get(i).getId(), "lodge");
+			if (!galleries.isEmpty()) {
+				lodgeGallery.put(lodges.get(i).getId(), galleries.get(0).getId());
+			}
+		}
+		
+		model.addAttribute("lodges", lodges);
+		model.addAttribute("lodgeGallery", lodgeGallery);
+		
+		return "lodge-search";
+	}
+	
+	@RequestMapping(value="/lodge/search", method=RequestMethod.POST)
+	@Transactional(readOnly = true)
+	public String searchLodgeResult(@ModelAttribute Lodge lodge, Model model) {
+        model.addAttribute("lodge", lodge);
+        
+        String location = lodge.getLocation();
+        
+        int adult = lodge.getAdult();
+        int teenager = lodge.getTeenager();
+        int infant = lodge.getInfant();
+        if (location.isEmpty() || location == "") {
+			location = null;
+		}
+         
+		List<Lodge> lodges = lodgeService.findLodgeByCriteria(location, adult, teenager, infant);
+		System.out.println("lodge search criteria:" + location + adult + teenager + infant);
+		model.addAttribute("lodges", lodges);
+		model.addAttribute("locations", locations);
+		model.addAttribute("numbers", numbers);
+		
+		Map<Long, Long> lodgeGallery = new HashMap<Long, Long>();
+		for(int i = 0; i < lodges.size(); i++) {
+			List<Gallery> galleries = galleryService.findByFkByCategory(lodges.get(i).getId(), "lodge");
+			if (!galleries.isEmpty()) {
+				lodgeGallery.put(lodges.get(i).getId(), galleries.get(0).getId());
+			}
+		}
+		
+		model.addAttribute("lodges", lodges);
+		model.addAttribute("lodgeGallery", lodgeGallery);
+		return "lodge-search";
 	}
 
 }

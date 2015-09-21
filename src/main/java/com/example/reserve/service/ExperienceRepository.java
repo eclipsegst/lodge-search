@@ -26,7 +26,7 @@ public interface ExperienceRepository extends CrudRepository<Experience, Long> {
                 + "ORDER BY experience.name ASC"
     )
     @Nonnull
-    public List<Experience> findByCapacity(
+    public List<Experience> findExperienceByCriteria(
     		@Param("location") String location,
     		@Param("category") String category,
             @Param("adult") int adult,

@@ -4,6 +4,7 @@ import java.util.List;
 import javax.annotation.Nonnull;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
 import com.example.reserve.domain.Lodge;
 
 @Service
@@ -34,5 +35,10 @@ public final class LodgeService {
 	public final void deleteLodge(Long lodgeId) {
 		final Lodge lodge = lodgeRepository.findOne(lodgeId);
 		lodgeRepository.delete(lodge);
+	}
+	
+	public final List<Lodge> findLodgeByCriteria(String location, int adult, int teenager, int infant) {
+		final List<Lodge> lodges = (List<Lodge>) lodgeRepository.findLodgeByCriteria(location, adult, teenager, infant);
+		return lodges;
 	}
 }

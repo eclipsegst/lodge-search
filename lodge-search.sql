@@ -41,6 +41,27 @@ create table lodge (
 
 show columns from lodge;
 
+drop table if exists experience;
+create table experience (
+	id bigint auto_increment,
+	landlord_id  bigint,
+	
+	name varchar(100),
+	description varchar(500),
+	location varchar(200),
+	
+	course varchar (500),
+	pickup varchar (500),
+	category varchar(100),
+	
+	adult int,
+	teenager int,
+	infant int, 
+	primary key (id)
+) Engine=InnoDB;
+
+show columns from experience;
+
 drop table if exists gallery;
 create table gallery (
 	id bigint auto_increment,
@@ -53,23 +74,7 @@ create table gallery (
 ) Engine=InnoDB;
 show columns from gallery;
 
-drop table if exists experience;
-create table experience (
-	id bigint auto_increment,
-	landlord_id  bigint,
-	name varchar(100),
-	description varchar(500),
-	location varchar(200),
-	course varchar (500),
-	pickup varchar (500),
-	category varchar(100),
-	adult int,
-	teenager int,
-	infant int, 
-	primary key (id)
-) Engine=InnoDB;
 
-show columns from experience;
 
 SHOW VARIABLES LIKE 'char%';
 ALTER DATABASE lodge_search CHARACTER SET utf8 COLLATE utf8_unicode_ci;

@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+<!-- Latest compiled and minified CSS -->
+<link rel="stylesheet" href="../css/bootstrap.min.css" />
+
+<!-- Optional theme -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap-theme.min.css" />
+
+<!-- Latest compiled and minified JavaScript -->
+<script src="../js/bootstrap.min.js"></script>
+
+<script src="../js/jquery-1.11.0.min.js"></script>
+
+	<style>
+		img {
+		    max-width: 100%;
+		    max-height: 100%;
+		}
+		
+		.col-xs-15,
+		.col-sm-15,
+		.col-md-15,
+		.col-lg-15 {
+		    position: relative;
+		    min-height: 1px;
+		    padding-right: 10px;
+		    padding-left: 10px;
+		}
+		
+		.col-xs-15 {
+		    width: 20%;
+		    float: left;
+		}
+		@media (min-width: 768px) {
+		.col-sm-15 {
+		        width: 20%;
+		        float: left;
+		    }
+		}
+		@media (min-width: 992px) {
+		    .col-md-15 {
+		        width: 20%;
+		        float: left;
+		    }
+		}
+		@media (min-width: 1200px) {
+		    .col-lg-15 {
+		        width: 20%;
+		        float: left;
+		    }
+		}
+	</style>
+</head>
+<body>
+    <div class="navbar navbar-default navbar-static-top">
+      <div class="container0">
+        <div class="navbar-header">
+          <button class="navbar-toggle" type="button" data-toggle="collapse" data-target="#navbar-main">
+            <span class="icon-bar">a</span>
+            <span class="icon-bar">b</span>
+            <span class="icon-bar">c</span>
+          </button>
+        </div>
+        <div class="navbar-collapse collapse" id="navbar-main">
+          <ul class="nav navbar-nav navbar-right">          
+            <li><a href="./duima/対馬.html" target="_blank"><i class="fa fa-shopping-cart"></i>マイカート</a></li>
+            <li><a href="./duima/対馬.html" target="_blank">ご利用方法</a></li>
+            <li><a href="./duima/対馬.html" target="_blank"><i class="fa fa-envelope-o"></i>Q&amp;A</a></li>
+            <li><a href="./duima/対馬.html" target="_blank"><i class="fa fa-weixin"></i>問合せ</a></li>   
+          </ul>
+        </div>
+      </div>
+    </div><!--navbar-->
+
+      
+
+
+    <div id="show-houses">
+      <div class="container">
+        <div class="page-header">
+          <h1>民泊 検索結果</h1>
+        </div>   
+        <div class="row">
+		
+			<form class="form-horizontal" action="#" th:action="@{/lodge/search}" th:object="${lodge}" method="post">
+			  <fieldset>
+			
+			    <div class="form-group col-md-15 col-sm-3">
+			      
+			      <div class="col-lg-10">
+			        <select th:field="*{location}">
+			        	<option th:value="null">select a location</option>
+			        	<option th:each="location : ${locations}" 
+				          th:value="${location}" 
+				          th:text="${location}"></option>
+					</select>
+			      </div>
+			    </div>
+			   
+			    
+			    <div class="form-group col-md-15 col-sm-3">
+			    
+				    <div class="form-group">
+				        <select th:field="*{adult}">
+				        	<option th:value="-1">Adult</option>
+							<option th:each="number : ${numbers}" 
+						        th:value="${number}" 
+						        th:text="${number}"></option>
+						</select>
+						<select th:field="*{teenager}">
+							<option th:value="-1">Teenager</option>
+						  	<option th:each="number : ${numbers}" 
+								th:value="${number}" 
+								th:text="${number}"></option>
+						</select>
+						<select th:field="*{infant}"> 
+							<option th:value="-1">Infant</option>  	  
+						    <option th:each="number : ${numbers}" 
+						        th:value="${number}" 
+						        th:text="${number}"></option>
+						 </select>
+				    </div>
+			    </div>
+			    
+			    <div class="form-group col-md-15 col-sm-3">
+			      <div class="col-lg-10 col-lg-offset-2">
+			        <button type="submit" class="btn btn-primary" value="Submit">Search</button>
+			      </div>
+			    </div>
+			  </fieldset>
+			</form>
+		</div>
+		
+		<div class="row">
+		    <div th:each="lodge : ${lodges}">	
+          	<div class="col-sm-6 col-md-4">
+	            <div class="thumbnail">
+	            	<img th:src="@{/image/view(id=${lodgeGallery.get(lodge.id)})}" />
+		            <div class="caption1">
+		            	<h3 ><strong th:text="${lodge.name}"></strong></h3>           
+		            </div>
+					
+	            </div>
+	      	</div> 		                    					
+          </div>
+		</div>
+	  </div>
+	</div>
+</body>
+
+</html>

@@ -200,8 +200,8 @@ public class ExperienceController{
         if (category.isEmpty() || category == "") {
         	category = null;
 		}
-        
-		List<Experience> experiences = experienceService.findByCapacity(location, category, adult, teenager, infant);
+         
+		List<Experience> experiences = experienceService.findExperienceByCriteria(location, category, adult, teenager, infant);
 		
 		model.addAttribute("experiences", experiences);
 		model.addAttribute("locations", locations);
