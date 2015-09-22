@@ -33,8 +33,10 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.example.reserve.domain.Experience;
+import com.example.reserve.domain.Food;
 import com.example.reserve.domain.Gallery;
 import com.example.reserve.domain.Lodge;
+import com.example.reserve.service.FoodService;
 import com.example.reserve.service.GalleryService;
 import com.example.reserve.service.LodgeRepository;
 import com.example.reserve.service.LodgeService;
@@ -47,15 +49,20 @@ public class LodgeController{
 	@Autowired
 	private final GalleryService galleryService;
 
+	@Autowired
+	private final FoodService foodService;
+	
 	protected long fk = -1L
 			;
 	@Autowired
 	public LodgeController(
 			@Nonnull final LodgeService lodgeService,
-			@Nonnull final GalleryService galleryService
+			@Nonnull final GalleryService galleryService,
+			@Nonnull final FoodService foodService
 			) {
 		this.lodgeService = lodgeService;
 		this.galleryService = galleryService;
+		this.foodService = foodService;
 	}
 	
 	public List<String> locations = Arrays.asList("厳原港近辺", "比田勝港近辺", "対馬空港近辺");
@@ -108,14 +115,10 @@ public class LodgeController{
 		model.addAttribute("fk", this.fk);
 		
 		List<Gallery> gallerys = galleryService.findByFkByCategory(lodgeId, "lodge");
-		if (gallerys != null) {
-			System.out.println("size: " + gallerys.size());
-		} else {
-			System.out.println("cannot find any image by this fk and lodgeid");
-		}
-		
-		model.addAttribute("gallerys", gallerys);
+		List<Food> foods = foodService.findByFkByCategory(lodgeId, "lodge");
         model.addAttribute("lodge", lodge);
+        model.addAttribute("gallerys", gallerys);
+        model.addAttribute("foods", foods);
         return "update-lodge";
     }
 	

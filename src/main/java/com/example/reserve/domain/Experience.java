@@ -51,9 +51,12 @@ public class Experience {
 	@Column(nullable = false)
 	private BigDecimal longitude;
 	
+	@Column(nullable = false)
+	private Long fk;
+	
     public Experience() {}
 
-    public Experience(String name, String description, String location, String course, String pickup, String category, Integer adult, Integer teenager, Integer infant, BigDecimal latitude, BigDecimal longitude) {
+    public Experience(String name, String description, String location, String course, String pickup, String category, Integer adult, Integer teenager, Integer infant, BigDecimal latitude, BigDecimal longitude, Long fk) {
         this.name = name;
         this.description = description;
         this.location = location;
@@ -65,6 +68,7 @@ public class Experience {
         this.infant = infant;
         this.latitude = latitude;
         this.longitude = longitude;
+        this.fk = fk;
     }
 
 	public long getId() {
@@ -162,4 +166,13 @@ public class Experience {
 	public void setLongitude(BigDecimal longitude) {
 		this.longitude = longitude;
 	}
+
+	public Long getFk() {
+		return fk;
+	}
+
+	public void setFk(Long fk) {
+		this.fk = fk;
+	}
+	
 }

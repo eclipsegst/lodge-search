@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.example.reserve.domain.Food;
+import com.example.reserve.domain.Gallery;
 import com.example.reserve.service.FoodService;
 
 @Controller
@@ -22,6 +23,7 @@ public class FoodController{
 	private final FoodService foodService;
 
 	protected long fk = -1L;
+	protected String category;
 	
 	@Autowired
 	public FoodController(
@@ -86,15 +88,25 @@ public class FoodController{
 	
 //	Add new food
 	@RequestMapping(value="/food/new", method=RequestMethod.GET)
-    public String foodForm(Model model) {
-        model.addAttribute("food", new Food());
-        return "new-food";
-    }
-
+	public String image(
+			@Nonnull @RequestParam(value = "fk", required = true) final long fk,
+			@Nonnull @RequestParam(value = "category", required = true) final String category,
+			Model model
+			) {
+		model.addAttribute("food", new Food());
+		model.addAttribute("fk", fk);
+		model.addAttribute("category", category);
+		this.fk = fk;
+		this.category = category;
+		return "new-food";
+	}
+	
 	@RequestMapping(value="/food/new", method=RequestMethod.POST)
     public String foodSubmit(@ModelAttribute Food food, Model model) {
         model.addAttribute("food", food);
         
+        food.setFk(fk);
+        food.setCategory(category);
         foodService.save(food);
         
         return "new-food-result";

@@ -48,7 +48,6 @@ show columns from lodge;
 drop table if exists experience;
 create table experience (
 	id bigint auto_increment,
-	landlord_id  bigint,
 	
 	name varchar(100),
 	description varchar(500),
@@ -65,6 +64,7 @@ create table experience (
 	latitude decimal(10, 8),
 	longitude decimal(11, 8),
 	
+	fk  bigint,
 	primary key (id)
 ) Engine=InnoDB CHARACTER SET='utf8' COLLATE 'utf8_unicode_ci';
 
@@ -101,6 +101,27 @@ create table location (
 	longitude varchar(20),
 	primary key(id)
 ) Engine=InnoDB CHARACTER SET='utf8' COLLATE 'utf8_unicode_ci';
+
+drop table if exists cart;
+create table cart (
+	id bigint auto_increment,
+	
+	fk bigint,
+	category varchar(50),
+	foodfk bigint,
+	checkin date,
+	checkout date,
+	
+	adult int,
+	teenager int,
+	infant int, 
+	
+	payment numeric(15,2),
+	
+	created timestamp,
+	primary key(id)
+) Engine=InnoDB CHARACTER SET='utf8' COLLATE 'utf8_unicode_ci';
+
 
 SHOW VARIABLES LIKE 'char%';
 ALTER DATABASE lodge_search CHARACTER SET utf8 COLLATE utf8_unicode_ci;

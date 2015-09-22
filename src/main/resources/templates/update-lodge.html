@@ -42,6 +42,23 @@
 	        $(form).submit();
 		}
 	}
+	
+	function updateFood(foodId) {
+	    var form = $("#foodPriceForm-" + foodId);
+	    var action = $("#action-" + foodId);
+	    $(action).val("update");
+	    $(form).submit();
+	}
+	
+	function deleteFood(foodId) {
+		if ( confirm('Are you sure you want to delete this food price?')) {
+			var form = $("#foodPriceForm-" + foodId);
+	        var action = $("#action-" + foodId);
+	        $(action).val("delete");
+	        $(form).submit();
+		}
+	}
+	
 	</script>
 	<style>
 		img {
@@ -313,6 +330,65 @@
 					    </div>
 		
 					</div> <!-- col-lg-12 -->
+				</div> <!-- row -->
+		
+		  	</div><!-- /example -->
+          </div>
+        </div>
+      </div>
+      
+      
+       <!-- Food prices
+      ================================================== -->
+      <div class="bs-docs-section">
+
+        <div class="row">
+          <div class="col-lg-12">
+            <div class="page-header">
+              <h3 id="galleries">Food price</h3>
+              <div class="row">
+              	<div class="col-lg-12">
+              	<h4><a th:href="@{../food/new/(fk=${fk}, category=lodge)}" class="pull-right">Add food price</a></h4>
+              	</div>
+              </div>
+              
+            </div>
+
+            <div class="bs-component">     
+		        <div class="row">
+		        	<div class="col-lg-12">
+		        	
+					<table class="table table-striped table-hover ">
+						<thead>
+							<tr>
+								<td>Title</td>
+								<td>Adult</td>
+								<td>Teenager</td>
+								<td>Action</td>
+							</tr>
+						</thead>
+						<tbody>
+							<tr th:each="food : ${foods}">
+								<form th:id="'foodPriceForm-' + ${food.id}" action="../food/update">
+					                    <input type="hidden" name="id" th:value="${food.id}"/>
+					                    <input type="hidden" th:id="'action-' + ${food.id}" name="action" value="update"/>
+					                    		
+								<td th:text="${food.title}"></td>
+								<td th:text="${food.adult}"></td>
+								<td th:text="${food.teenager}"></td>
+								<td>
+									<a href="#" th:onclick="'deleteFood(\'' + ${food.id} + '\');'">Delete</a>
+									<!-- <a 
+									th:href="@{./delete/(id=${food.id})}"
+										>Delete food</a> -->
+								
+				                    <a href="#" th:onclick="'updateFood(\'' + ${food.id} + '\');'">Update</a>
+				                </td>
+								</form>
+							</tr>
+						</tbody>
+					</table>
+					</div>
 				</div> <!-- row -->
 		
 		  	</div><!-- /example -->

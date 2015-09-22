@@ -9,8 +9,12 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.PropertySource;
+import org.springframework.core.Ordered;
+import org.springframework.core.annotation.Order;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
+import org.springframework.session.data.redis.config.annotation.web.http.EnableRedisHttpSession;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
+import org.springframework.web.filter.CharacterEncodingFilter;
 import org.springframework.web.servlet.LocaleResolver;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
@@ -36,7 +40,6 @@ import java.util.*;
 @EnableJpaRepositories
 @EnableTransactionManagement
 @PropertySource("classpath:application.properties")
-
 public class Application extends WebMvcConfigurerAdapter implements CommandLineRunner{
 
 	@Autowired
@@ -50,5 +53,14 @@ public class Application extends WebMvcConfigurerAdapter implements CommandLineR
     @Override
     public void run(String... strings) throws Exception {
 
+    }
+    
+    @Order(Ordered.HIGHEST_PRECEDENCE)
+    @Bean
+    CharacterEncodingFilter characterEncodingFilter() {
+        CharacterEncodingFilter filter = new CharacterEncodingFilter();
+        filter.setEncoding("UTF-8");
+        filter.setForceEncoding(true);
+        return filter;
     }
 }
