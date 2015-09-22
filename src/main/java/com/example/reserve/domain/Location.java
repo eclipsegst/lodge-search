@@ -6,6 +6,8 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
+import java.math.BigDecimal;;
+
 @Entity
 public class Location {
 	@Id
@@ -16,14 +18,14 @@ public class Location {
 	private String name;
 	
 	@Column(nullable = false)
-	private String latitude;
+	private BigDecimal latitude;
 
 	@Column(nullable = false)
-	private String longitude;
+	private BigDecimal longitude;
 	
 	public Location() {}
 
-    public Location(String name, String latitude, String longitude) {
+    public Location(String name, BigDecimal latitude, BigDecimal longitude) {
     	this.name = name;
         this.latitude = latitude;
         this.longitude = longitude;
@@ -45,19 +47,19 @@ public class Location {
 		this.name = name;
 	}
 
-	public String getLatitude() {
+	public BigDecimal getLatitude() {
 		return latitude;
 	}
 
-	public void setLatitude(String latitude) {
+	public void setLatitude(BigDecimal latitude) {
 		this.latitude = latitude;
 	}
 
-	public String getLongitude() {
+	public BigDecimal getLongitude() {
 		return longitude;
 	}
 
-	public void setLongitude(String longitude) {
+	public void setLongitude(BigDecimal longitude) {
 		this.longitude = longitude;
 	}
 	

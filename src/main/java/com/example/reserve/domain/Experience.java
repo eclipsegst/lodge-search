@@ -1,6 +1,9 @@
 package com.example.reserve.domain;
 
 import javax.persistence.Entity;
+
+import java.math.BigDecimal;
+
 import javax.persistence.Column;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -42,9 +45,15 @@ public class Experience {
 	@Column(nullable = false)
 	private Integer infant;
     
+	@Column(nullable = false)
+	private BigDecimal latitude;
+
+	@Column(nullable = false)
+	private BigDecimal longitude;
+	
     public Experience() {}
 
-    public Experience(String name, String description, String location, String course, String pickup, String category, Integer adult, Integer teenager, Integer infant) {
+    public Experience(String name, String description, String location, String course, String pickup, String category, Integer adult, Integer teenager, Integer infant, BigDecimal latitude, BigDecimal longitude) {
         this.name = name;
         this.description = description;
         this.location = location;
@@ -54,6 +63,8 @@ public class Experience {
         this.adult = adult;
         this.teenager = teenager;
         this.infant = infant;
+        this.latitude = latitude;
+        this.longitude = longitude;
     }
 
 	public long getId() {
@@ -134,5 +145,21 @@ public class Experience {
 
 	public void setInfant(Integer infant) {
 		this.infant = infant;
+	}
+	
+	public BigDecimal getLatitude() {
+		return latitude;
+	}
+
+	public void setLatitude(BigDecimal latitude) {
+		this.latitude = latitude;
+	}
+
+	public BigDecimal getLongitude() {
+		return longitude;
+	}
+
+	public void setLongitude(BigDecimal longitude) {
+		this.longitude = longitude;
 	}
 }

@@ -29,12 +29,16 @@ create table lodge (
 	food varchar(500),
 	capacity varchar(500),
 	equipment varchar(500),
+	amenity varchar(500),
 	traffic varchar(500),
 	pickup varchar (500),
 	
 	adult int,
 	teenager int,
 	infant int,
+	
+	latitude decimal(10, 8),
+	longitude decimal(11, 8),
 	
 	primary key (id)
 ) Engine=InnoDB CHARACTER SET='utf8' COLLATE 'utf8_unicode_ci';
@@ -57,6 +61,10 @@ create table experience (
 	adult int,
 	teenager int,
 	infant int, 
+	
+	latitude decimal(10, 8),
+	longitude decimal(11, 8),
+	
 	primary key (id)
 ) Engine=InnoDB CHARACTER SET='utf8' COLLATE 'utf8_unicode_ci';
 

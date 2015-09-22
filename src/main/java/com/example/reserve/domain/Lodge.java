@@ -1,6 +1,9 @@
 package com.example.reserve.domain;
 
 import javax.persistence.Entity;
+
+import java.math.BigDecimal;
+
 import javax.persistence.Column;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -36,6 +39,9 @@ public class Lodge {
     private String equipment;
 	
 	@Column(nullable = false)
+    private String amenity;
+	
+	@Column(nullable = false)
     private String traffic;
 	
 	@Column(nullable = false)
@@ -49,10 +55,16 @@ public class Lodge {
 	
 	@Column(nullable = false)
     private Integer infant;
+	
+	@Column(nullable = false)
+	private BigDecimal latitude;
+
+	@Column(nullable = false)
+	private BigDecimal longitude;
     
     public Lodge() {}
 
-    public Lodge(String name, String description, String location, String price, String food, String capacity, String equipment, String traffic, String pickup, Integer adult, Integer teenager, Integer infant) {
+    public Lodge(String name, String description, String location, String price, String food, String capacity, String equipment, String amenity, String traffic, String pickup, Integer adult, Integer teenager, Integer infant, BigDecimal latitude, BigDecimal longitude) {
         this.name = name;
         this.description = description;
         this.location = location;
@@ -60,11 +72,14 @@ public class Lodge {
         this.food = food;
         this.capacity = capacity;
         this.equipment = equipment;
+        this.amenity = amenity;
         this.traffic = traffic;
         this.pickup = pickup;
         this.adult = adult;
         this.teenager = teenager;
         this.infant = infant;
+        this.latitude = latitude;
+        this.longitude = longitude;
     }
 
     @Override
@@ -131,6 +146,14 @@ public class Lodge {
 		this.equipment = equipment;
 	}
 
+	public String getAmenity() {
+		return amenity;
+	}
+
+	public void setAmenity(String amenity) {
+		this.amenity = amenity;
+	}
+
 	public String getTraffic() {
 		return traffic;
 	}
@@ -169,5 +192,21 @@ public class Lodge {
 
 	public void setInfant(Integer infant) {
 		this.infant = infant;
+	}
+	
+	public BigDecimal getLatitude() {
+		return latitude;
+	}
+
+	public void setLatitude(BigDecimal latitude) {
+		this.latitude = latitude;
+	}
+
+	public BigDecimal getLongitude() {
+		return longitude;
+	}
+
+	public void setLongitude(BigDecimal longitude) {
+		this.longitude = longitude;
 	}
 }
