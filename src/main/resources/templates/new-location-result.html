@@ -1,0 +1,15 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>New Landlord Result</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+</head>
+<body>
+	<h1>Result</h1>
+    <p th:text="'id: ' + ${location.id}" />
+    <p th:text="'location: ' + ${location.name}" />
+    <p th:text="'latitude: ' + ${location.latitude}" />
+    <p th:text="'longitude: ' + ${location.longitude}" />
+    <a href="/location/new/">Create another new location</a>
+</body>
+</html>

@@ -41,11 +41,11 @@
     <div id="show-houses">
       <div class="container">
         <div class="page-header">
-          <h1>New Landlord</h1>
+          <h1>New Food</h1>
         </div>   
         <div class="row">
         
-<!-- 	<form class="form-horizontal" action="#" th:action="@{/landlord/new}" th:object="${landlord}" method="post">
+<!-- 	<form class="form-horizontal" action="#" th:action="@{/food/new}" th:object="${food}" method="post">
 
     	<p>Id: <input type="text" th:field="*{id}" /></p>
         <p>Name: <input type="text" th:field="*{name}" /></p>
@@ -54,7 +54,7 @@
         <p><input type="submit" value="Submit" /> <input type="reset" value="Reset" /></p>
     </form> -->
 		
-			<form class="form-horizontal" action="#" th:action="@{/landlord/new}" th:object="${landlord}" method="post">
+			<form class="form-horizontal" action="#" th:action="@{/food/new}" th:object="${food}" method="post">
 			  <fieldset>
 			    <div class="form-group">
 			      <!-- <label for="inputId" class="col-lg-2 control-label">ID</label> -->
@@ -62,51 +62,32 @@
 			        <input type="hidden" class="form-control" id="inputId" placeholder="id"  th:field="*{id}"/>
 			      </div>
 			    </div>
+			    
 			    <div class="form-group">
-			      <label for="inputName" class="col-lg-2 control-label">Name</label>
+			      <label for="inputTitle" class="col-lg-2 control-label">Title</label>
 			      <div class="col-lg-10">
-			        <input type="text" class="form-control" id="inputName" placeholder="Landlord Name" th:field="*{name}"/>
-			      </div>
-			    </div>			    <div class="form-group">
-			      <label for="textArea" class="col-lg-2 control-label">Description</label>
-			      <div class="col-lg-10">
-			        <textarea class="form-control" rows="3" id="textArea" th:field="*{description}"></textarea>
-			      </div>
-			    </div>
-
-			
-			    <div class="form-group">
-			      <label for="inputLocation" class="col-lg-2 control-label">Location</label>
-			      <div class="col-lg-10">
-			        <input type="text" class="form-control" id="inputLocation" placeholder="Landlord Location" th:field="*{location}"/>
+			        <input type="text" class="form-control" id="inputTitle" placeholder="Food Title" th:field="*{title}"/>
 			      </div>
 			    </div>
 			    
 			    <div class="form-group">
-			      <label for="inputEmail" class="col-lg-2 control-label">Email</label>
+			      <label for="inputAdult" class="col-lg-2 control-label">Adult</label>
 			      <div class="col-lg-10">
-			        <input type="text" class="form-control" id="inputEmail" placeholder="Landlord Email" th:field="*{email}"/>
+			        <input type="text" class="form-control" id="inputAdult" placeholder="Food Adult" th:field="*{adult}"/>
 			      </div>
 			    </div>
 			    
 			    <div class="form-group">
-			      <label for="inputLocation" class="col-lg-2 control-label">Lodge Number</label>
+			      <label for="inputTeenager" class="col-lg-2 control-label">Teenager</label>
 			      <div class="col-lg-10">
-			        <input type="text" class="form-control" id="inputLodge" placeholder="Lodge Number" th:field="*{lodgeNumber}"/>
-			      </div>
-			    </div>
-			    
-			    <div class="form-group">
-			      <label for="inputExperience" class="col-lg-2 control-label">Experience Number</label>
-			      <div class="col-lg-10">
-			        <input type="text" class="form-control" id="inputExperience" placeholder="Experience Number" th:field="*{experienceNumber}"/>
+			        <input type="text" class="form-control" id="inputTeenager" placeholder="Food Teenager" th:field="*{teenager}"/>
 			      </div>
 			    </div>
 			
 			    
 			    <div class="form-group">
 			      <div class="col-lg-10 col-lg-offset-2">
-			        <button type="reset" class="btn btn-default"><a href="/landlord/">Cancel</a></button>
+			        <button type="reset" class="btn btn-default"><a href="/food/">Cancel</a></button>
 			        <button type="submit" class="btn btn-primary" value="Submit">Submit</button>
 			      </div>
 			    </div>

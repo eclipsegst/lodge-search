@@ -1,6 +1,6 @@
 --login in mysql
 ./mysql -u USERNAME -pPASSWORD -h HOSTNAMEORIP DATABASENAME 
-
+create database lodge_search CHARACTER SET utf8 COLLATE utf8_general_ci;
 create database lodge_search;
 
 drop table if exists landlord;
@@ -13,7 +13,7 @@ create table landlord (
 	lodge_number int,
 	experience_number int,
 	primary key (id)
-) Engine=InnoDB;
+) Engine=InnoDB CHARACTER SET='utf8' COLLATE 'utf8_unicode_ci';
 show columns from landlord;
 
 drop table if exists lodge;
@@ -37,7 +37,7 @@ create table lodge (
 	infant int,
 	
 	primary key (id)
-) Engine=InnoDB;
+) Engine=InnoDB CHARACTER SET='utf8' COLLATE 'utf8_unicode_ci';
 
 show columns from lodge;
 
@@ -58,7 +58,7 @@ create table experience (
 	teenager int,
 	infant int, 
 	primary key (id)
-) Engine=InnoDB;
+) Engine=InnoDB CHARACTER SET='utf8' COLLATE 'utf8_unicode_ci';
 
 show columns from experience;
 
@@ -71,10 +71,28 @@ create table gallery (
 	active boolean not null default 0,
 	image longblob not null,
 	primary key (id)
-) Engine=InnoDB;
+) Engine=InnoDB CHARACTER SET='utf8' COLLATE 'utf8_unicode_ci';
 show columns from gallery;
 
+drop table if exists food;
+create table food (
+	id bigint auto_increment,
+	fk bigint,
+	category varchar(50),
+	title varchar(100),
+	adult int,
+	teenager int,
+	primary key (id)
+) Engine=InnoDB CHARACTER SET='utf8' COLLATE 'utf8_unicode_ci';
 
+drop table if exists location;
+create table location (
+	id bigint auto_increment,
+	name varchar(100),
+	latitude varchar(20),
+	longitude varchar(20),
+	primary key(id)
+) Engine=InnoDB CHARACTER SET='utf8' COLLATE 'utf8_unicode_ci';
 
 SHOW VARIABLES LIKE 'char%';
 ALTER DATABASE lodge_search CHARACTER SET utf8 COLLATE utf8_unicode_ci;

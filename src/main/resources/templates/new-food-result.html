@@ -1,0 +1,15 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>New Food Result</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+</head>
+<body>
+	<h1>Result</h1>
+    <p th:text="'id: ' + ${food.id}" />
+    <p th:text="'title: ' + ${food.title}" />
+    <p th:text="'adult: ' + ${food.adult}" />
+    <p th:text="'teenager: ' + ${food.teenager}" />
+    <a href="/food/new/">Create another new food</a>
+</body>
+</html>
