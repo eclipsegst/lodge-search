@@ -1,5 +1,7 @@
 package com.example.reserve.web;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
@@ -18,7 +20,9 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import com.example.reserve.domain.Gallery;
 import com.example.reserve.domain.Landlord;
+import com.example.reserve.domain.Lodge;
 import com.example.reserve.domain.Calendar;
+import com.example.reserve.domain.CheckInOut;
 import com.example.reserve.domain.Experience;
 import com.example.reserve.domain.Food;
 import com.example.reserve.service.GalleryService;
@@ -197,6 +201,8 @@ public class ExperienceController{
 	public String searchExperience(
 			Model model) {
 		model.addAttribute("experience", new Experience());
+		model.addAttribute("checkinout", new CheckInOut());
+        
 		List<Experience> experiences = experienceService.findAll();
 		model.addAttribute("experiences", experiences);
 		model.addAttribute("locations", locations);
@@ -219,8 +225,9 @@ public class ExperienceController{
 	
 	@RequestMapping(value="/experience/search", method=RequestMethod.POST)
 	@Transactional(readOnly = true)
-	public String searchExperienceResult(@ModelAttribute Experience experience, Model model) {
+	public String searchExperienceResult(@ModelAttribute Experience experience, @ModelAttribute CheckInOut checkinout, Model model) {
         model.addAttribute("experience", experience);
+        model.addAttribute("checkinout", new CheckInOut());
         
         String location = experience.getLocation();
         String category = experience.getCategory();
@@ -234,8 +241,38 @@ public class ExperienceController{
         if (category.isEmpty() || category == "") {
         	category = null;
 		}
-         
+        
+        java.sql.Date checkin = null;
+		try {
+			checkin = convertStringToSqlDate(checkinout.getCheckin());
+		} catch (ParseException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+       
 		List<Experience> experiences = experienceService.findExperienceByCriteria(location, category, adult, teenager, infant);
+		
+		if (checkin == null) return "experience-search";
+		
+		
+		// remove closed lodges
+		for (int i = 0; i < experiences.size(); i++) {
+			Experience checkExperience = experiences.get(i);
+			System.out.println("find " + experiences.size() + " experiences!" );
+			List<Calendar> closedDates = calendarService.findByFkByCategory(checkExperience.getId(), "experience");
+			
+			if (closedDates.isEmpty() || closedDates == null) {
+				System.out.println("There is no closed date for this lodge: " + checkExperience.getName());
+				continue;
+			}
+			for (int j = 0; j < closedDates.size(); j++) {
+				java.sql.Date closedDateSql = closedDates.get(j).getCloseddate();
+				System.out.println("closedDateSql:" + closedDateSql);
+				if (closedDateSql.equals(checkin)) {
+					experiences.remove(checkExperience);
+				}
+			}
+		}
 		
 		model.addAttribute("experiences", experiences);
 		model.addAttribute("locations", locations);
@@ -253,5 +290,12 @@ public class ExperienceController{
 		model.addAttribute("experiences", experiences);
 		model.addAttribute("experienceGallery", experienceGallery);
 		return "experience-search";
+	}
+	
+	private static java.sql.Date convertStringToSqlDate(String date) throws ParseException {
+		SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+        java.util.Date parsed = format.parse(date);
+        java.sql.Date sqlDate = new java.sql.Date(parsed.getTime());
+        return sqlDate;
 	}
 }
