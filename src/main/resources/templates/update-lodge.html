@@ -59,6 +59,22 @@
 		}
 	}
 	
+	function updateCalendar(calendarId) {
+	    var form = $("#calendarForm-" + calendarId);
+	    var action = $("#action-" + calendarId);
+	    $(action).val("update");
+	    $(form).submit();
+	}
+	
+	function deleteCalendar(calendarId) {
+		if ( confirm('Are you sure you want to delete this calendar entry?')) {
+			var form = $("#calendarForm-" + calendarId);
+	        var action = $("#action-" + calendarId);
+	        $(action).val("delete");
+	        $(form).submit();
+		}
+	}
+	
 	</script>
 	<style>
 		img {
@@ -272,6 +288,19 @@
 						    </div>
 						    
 						    <div class="form-group">
+						      <label for="inputFk" class="col-lg-2 control-label">Landlord</label>
+						      <div class="col-lg-10">
+						        <!-- <input type="text" class="form-control" id="inputFk" placeholder="Landlord" th:field="*{category}"/> -->
+						      
+						      	<select th:field="*{fk}">
+								  <option th:each="landlord : ${landlords}" 
+								          th:value="${landlord.id}" 
+								          th:text="${landlord.name}"></option>
+								</select>
+						      </div>
+						    </div>
+						    
+						    <div class="form-group">
 						      <div class="col-lg-10 col-lg-offset-2">
 						        <button type="reset" class="btn btn-default"><a href="/lodge/">Cancel</a></button>
 						        <button type="submit" class="btn btn-primary" value="Submit">Submit</button>
@@ -395,6 +424,58 @@
           </div>
         </div>
       </div>
+      
+       <!-- Calendar closed date
+      ================================================== -->
+      <div class="bs-docs-section">
+
+        <div class="row">
+          <div class="col-lg-12">
+            <div class="page-header">
+              <h3 id="galleries">Calendar closed date</h3>
+              <div class="row">
+              	<div class="col-lg-12">
+              	<h4><a th:href="@{../calendar/new/(fk=${fk}, category=lodge)}" class="pull-right">Add closed date</a></h4>
+              	</div>
+              </div>
+              
+            </div>
+
+            <div class="bs-component">     
+		        <div class="row">
+		        	<div class="col-lg-12">
+		        	
+					<table class="table table-striped table-hover ">
+						<thead>
+							<tr>
+								<td>Closed</td>
+								<td>Action</td>
+							</tr>
+						</thead>
+						<tbody>
+							<tr th:each="calendar : ${calendars}">
+								<form th:id="'calendarForm-' + ${calendar.id}" action="../calendar/update">
+					                    <input type="hidden" name="id" th:value="${calendar.id}"/>
+					                    <input type="hidden" th:id="'action-' + ${calendar.id}" name="action" value="update"/>
+					                    		
+								<td th:text="${calendar.closeddate}"></td>
+								<td>
+									<a href="#" th:onclick="'deleteCalendar(\'' + ${calendar.id} + '\');'">Delete</a>
+								
+				                    <a href="#" th:onclick="'updateCalendar(\'' + ${calendar.id} + '\');'">Update</a>
+				                </td>
+								</form>
+							</tr>
+						</tbody>
+					</table>
+					</div>
+				</div> <!-- row -->
+		
+		  	</div><!-- /example -->
+          </div>
+        </div>
+      </div>
+      
 
 
 	<div id="source-modal" class="modal fade">

@@ -32,12 +32,16 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.example.reserve.domain.Calendar;
 import com.example.reserve.domain.Experience;
 import com.example.reserve.domain.Food;
 import com.example.reserve.domain.Gallery;
+import com.example.reserve.domain.Landlord;
 import com.example.reserve.domain.Lodge;
+import com.example.reserve.service.CalendarService;
 import com.example.reserve.service.FoodService;
 import com.example.reserve.service.GalleryService;
+import com.example.reserve.service.LandlordService;
 import com.example.reserve.service.LodgeRepository;
 import com.example.reserve.service.LodgeService;
 
@@ -52,17 +56,27 @@ public class LodgeController{
 	@Autowired
 	private final FoodService foodService;
 	
+	@Autowired
+	private final LandlordService landlordService;
+	
+	@Autowired
+	private final CalendarService calendarService;
+	
 	protected long fk = -1L
 			;
 	@Autowired
 	public LodgeController(
 			@Nonnull final LodgeService lodgeService,
 			@Nonnull final GalleryService galleryService,
-			@Nonnull final FoodService foodService
+			@Nonnull final FoodService foodService,
+			@Nonnull final LandlordService landlordService,
+			@Nonnull final CalendarService calendarService
 			) {
 		this.lodgeService = lodgeService;
 		this.galleryService = galleryService;
 		this.foodService = foodService;
+		this.landlordService = landlordService;
+		this.calendarService = calendarService;
 	}
 	
 	public List<String> locations = Arrays.asList("厳原港近辺", "比田勝港近辺", "対馬空港近辺");
@@ -116,9 +130,14 @@ public class LodgeController{
 		
 		List<Gallery> gallerys = galleryService.findByFkByCategory(lodgeId, "lodge");
 		List<Food> foods = foodService.findByFkByCategory(lodgeId, "lodge");
+		List<Calendar> calendars = calendarService.findByFkByCategory(lodgeId, "lodge");
+		List<Landlord> landlords = landlordService.findAll();
+		
+		model.addAttribute("landlords", landlords);
         model.addAttribute("lodge", lodge);
         model.addAttribute("gallerys", gallerys);
         model.addAttribute("foods", foods);
+        model.addAttribute("calendars", calendars);
         return "update-lodge";
     }
 	

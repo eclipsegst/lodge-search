@@ -54,13 +54,4 @@ public class Application extends WebMvcConfigurerAdapter implements CommandLineR
     public void run(String... strings) throws Exception {
 
     }
-    
-    @Order(Ordered.HIGHEST_PRECEDENCE)
-    @Bean
-    CharacterEncodingFilter characterEncodingFilter() {
-        CharacterEncodingFilter filter = new CharacterEncodingFilter();
-        filter.setEncoding("UTF-8");
-        filter.setForceEncoding(true);
-        return filter;
-    }
 }

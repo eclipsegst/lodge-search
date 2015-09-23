@@ -102,6 +102,16 @@ create table location (
 	primary key(id)
 ) Engine=InnoDB CHARACTER SET='utf8' COLLATE 'utf8_unicode_ci';
 
+drop table if exists calendar;
+create table calendar (
+	id bigint auto_increment,
+    fk bigint,
+    category varchar(50),
+	closeddate date,
+	primary key(id)
+) Engine=InnoDB CHARACTER SET='utf8' COLLATE 'utf8_unicode_ci';
+
+
 drop table if exists cart;
 create table cart (
 	id bigint auto_increment,

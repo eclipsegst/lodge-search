@@ -1,0 +1,13 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>New Calendar Result</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+</head>
+<body>
+	<h1>Result</h1>
+    <p th:text="'id: ' + ${calendar.id}" />
+    <p th:text="'closed date: ' + ${calendar.closeddate}" />
+    <a href="/calendar/new/">Add another closed date</a>
+</body>
+</html>

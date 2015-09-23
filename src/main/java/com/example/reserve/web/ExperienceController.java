@@ -18,10 +18,12 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import com.example.reserve.domain.Gallery;
 import com.example.reserve.domain.Landlord;
+import com.example.reserve.domain.Calendar;
 import com.example.reserve.domain.Experience;
 import com.example.reserve.domain.Food;
 import com.example.reserve.service.GalleryService;
 import com.example.reserve.service.LandlordService;
+import com.example.reserve.service.CalendarService;
 import com.example.reserve.service.ExperienceService;
 import com.example.reserve.service.FoodService;
 
@@ -39,6 +41,9 @@ public class ExperienceController{
 	@Autowired
 	private final LandlordService landlordService;
 	
+	@Autowired
+	private final CalendarService calendarService;
+	
 	protected long fk = -1L
 			;
 	@Autowired
@@ -46,12 +51,14 @@ public class ExperienceController{
 			@Nonnull final ExperienceService experienceService,
 			@Nonnull final GalleryService galleryService,
 			@Nonnull final FoodService foodService,
-			@Nonnull final LandlordService landlordService
+			@Nonnull final LandlordService landlordService,
+			@Nonnull final CalendarService calendarService
 			) {
 		this.experienceService = experienceService;
 		this.galleryService = galleryService;
 		this.foodService = foodService;
 		this.landlordService = landlordService;
+		this.calendarService = calendarService;
 	}
 	
 	public List<String> locations = Arrays.asList("厳原港近辺", "比田勝港近辺", "対馬空港近辺");
@@ -104,9 +111,11 @@ public class ExperienceController{
 		model.addAttribute("fk", this.fk);
 		
 		List<Gallery> gallerys = galleryService.findByFkByCategory(experienceId, "experience");
-		List<Food> foods = foodService.findByFkByCategory(experienceId, "lodge");
+		List<Food> foods = foodService.findByFkByCategory(experienceId, "experience");
 		List<Landlord> landlords = landlordService.findAll();
+		List<Calendar> canlendars = calendarService.findByFkByCategory(experienceId, "experience");
 		
+		model.addAttribute("calendars", canlendars);
 		model.addAttribute("landlords", landlords);
 		model.addAttribute("foods", foods);
 		model.addAttribute("categories", categories);
