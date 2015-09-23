@@ -2,17 +2,19 @@
 
 <html lang="en">
 <head>
-<!-- Latest compiled and minified CSS -->
+
 <link rel="stylesheet" href="../css/bootstrap.min.css" />
-
-<!-- Optional theme -->
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap-theme.min.css" />
-
-<!-- Latest compiled and minified JavaScript -->
 <script src="../js/bootstrap.min.js"></script>
-
 <script src="../js/jquery-1.11.0.min.js"></script>
 
+
+	<!-- <link rel="stylesheet" href="http://dreamerboat.com/hitonchi/css/bootstrap.css" media="screen"/>
+    <link rel="stylesheet" href="http://dreamerboat.com/hitonchi/css/bootswatch.min.css"/>
+    <link rel="stylesheet" href="http://dreamerboat.com/hitonchi/css/tsushima.css"/>    
+    <link rel="stylesheet" href="http://dreamerboat.com/hitonchi/css/font-awesome.min.css"/>
+    <link id="stylesheet" href="http://dreamerboat.com/hitonchi/bootstrap-datepicker/css/bootstrap-datepicker.css" rel="stylesheet"/> 
+    <link rel="stylesheet" type="text/css" href="webjars/bootstrap/3.0.3/css/bootstrap.min.css" /> -->
 	<style>
 		img {
 		    max-width: 100%;
@@ -84,70 +86,152 @@
         </div>   
         <div class="row">
 		
-			<form class="form-horizontal" action="#" th:action="@{/lodge/search}" th:object="${lodge}" method="post">
-			  <fieldset>
-			
-			    <div class="form-group col-md-15 col-sm-3">
-			      
-			      <div class="col-lg-10">
-			        <select th:field="*{location}">
-			        	<option th:value="null">select a location</option>
-			        	<option th:each="location : ${locations}" 
-				          th:value="${location}" 
-				          th:text="${location}"></option>
-					</select>
-			      </div>
-			    </div>
-			   
-			    
-			    <div class="form-group col-md-15 col-sm-3">
-			    
-				    <div class="form-group">
-				        <select th:field="*{adult}">
-				        	<option th:value="-1">Adult</option>
-							<option th:each="number : ${numbers}" 
-						        th:value="${number}" 
-						        th:text="${number}"></option>
-						</select>
-						<select th:field="*{teenager}">
-							<option th:value="-1">Teenager</option>
-						  	<option th:each="number : ${numbers}" 
-								th:value="${number}" 
-								th:text="${number}"></option>
-						</select>
-						<select th:field="*{infant}"> 
-							<option th:value="-1">Infant</option>  	  
-						    <option th:each="number : ${numbers}" 
-						        th:value="${number}" 
-						        th:text="${number}"></option>
-						 </select>
-				    </div>
-			    </div>
-			    
-			    <div class="form-group col-md-15 col-sm-3">
-			      <div class="col-lg-10 col-lg-offset-2">
-			        <button type="submit" class="btn btn-primary" value="Submit">Search</button>
-			      </div>
-			    </div>
-			  </fieldset>
-			</form>
 		</div>
 		
-		<div class="row">
-		    <div th:each="lodge : ${lodges}">	
-          	<div class="col-sm-6 col-md-4">
-	            <div class="thumbnail">
-	            	<img th:src="@{/image/view(id=${lodgeGallery.get(lodge.id)})}" />
-		            <div class="caption1">
-		            	<h3 ><strong th:text="${lodge.name}"></strong></h3>           
-		            </div>
-					
-	            </div>
-	      	</div> 		                    					
+		 <div class="show-searchers container0">
+          <div class="row" id="row-searchers">   
+                <div id="house-searcher" class="col-sm-12 col-md-12 col-lg-12">  
+	                <form class="form-horizontal" action="#" th:action="@{/lodge/search}" th:object="${lodge}" method="post">
+				  		<fieldset>
+				  			<div class="container0">
+	                                <div class="row1">
+	
+	                                      <div class="col-sm-6 col-md-2">
+	                                          <div class="form-group">
+	                                                <!-- <select class="form-control" id="select">
+	                                                  <option>Choose the access</option>
+	                                                  <option>A</option>
+	                                                  <option>B</option>
+	                                                  <option>C</option>
+	                                                  <option>D</option>
+	                                                  <option>E</option>
+	                                                </select> -->
+	                                                
+	                                                <select class="form-control" th:field="*{location}">
+									        	<option th:value="null">Select a location</option>
+									        	<option th:each="location : ${locations}" 
+										          th:value="${location}" 
+										          th:text="${location}"></option>
+											  </select>
+	                                          </div>
+	                                      </div>
+	
+	                                      <div class="col-sm-6 col-md-2">
+	                                          <div class="input-group date" id="start_date" data-date-format="yyyy-mm-dd">
+	                                            <input type="text" class="form-control" name="checkin" placeholder="Check in" th:value="${checkinout.checkin}"/>
+	                                            <span class="input-group-addon">
+	                                            <i class="glyphicon glyphicon-th"></i>
+	                                            </span>
+	                                          </div>
+	                                      </div>
+	
+	                                      <div class="col-sm-6 col-md-2">
+	                                          <div class="input-group date" id="end_date" data-date-format="yyyy-mm-dd">
+	                                            <input type="text" class="form-control" name="checkout" placeholder="Check out" th:value="${checkinout.checkin}"/>
+	                                            <span class="input-group-addon"><i class="glyphicon glyphicon-th"></i></span>
+	                                          </div>
+	                                      </div>
+	
+	                                      <div class="col-sm-6 col-md-2">
+	                                          <div class="form-group">
+	                                                <select class="form-control" name="adults" id="select" th:field="*{adult}">
+	                                                  	<option th:value="-1">Adult</option>
+														<option th:each="number : ${numbers}" 
+													        th:value="${number}" 
+													        th:text="${number}"></option>
+	                                                </select>
+	                                          </div>
+	                                      </div>
+	
+	                                      <div class="col-sm-6 col-md-2">
+	                                          <div class="form-group">
+	                                                <select class="form-control" id="select" th:field="*{teenager}">
+	                                                  	<option th:value="-1">Children</option>
+														<option th:each="number : ${numbers}" 
+													        th:value="${number}" 
+													        th:text="${number}"></option>
+	                                                </select>
+	                                          </div>
+	                                      </div>       
+	
+	                                      <div class="col-sm-6 col-md-2">
+	                                          <div class="form-group">
+	                                                <select class="form-control" id="select" th:field="*{infant}">
+	                                                  	<option th:value="-1">Infant</option>
+														<option th:each="number : ${numbers}" 
+													        th:value="${number}" 
+													        th:text="${number}"></option>
+	                                                </select>
+	                                          </div>
+	                                      </div> 
+	
+	  
+	                                      <div class="col-sm-6 col-md-2">
+		                                      <div class="form-group">
+		                                        <button type="submit" class="btn btn-danger btn-block" value="Submit"><strong>Search</strong></button>
+		                                      </div> 
+	                                      </div>
+	                                      
+	                            		</div><!--row-->
+	                      		</div>
+						</fieldset>
+	                </form>
+              </div>
+
+
           </div>
-		</div>
+      </div>
+
+
+	<div class="bs-docs-section">
+
+        <div class="row">
+          <div class="col-lg-12">
+            <div class="page-header">
+              <h1 id="tables">Available lodges</h1>
+            </div>
+
+            <div class="bs-component">
+				
+				<div class="row">
+			    	<div th:each="lodge : ${lodges}">	
+			          	<div class="col-sm-6 col-md-4">
+				            <div class="thumbnail">
+				            	<img th:src="@{/image/view(id=${lodgeGallery.get(lodge.id)})}" />
+					            <div class="caption1">
+					            	<h3 ><strong th:text="${lodge.name}"></strong></h3>           
+					            </div>
+								
+				            </div>
+				      	</div> 		                    					
+		          	</div>
+				</div>
+				
+            </div>
+          </div>
+        </div>
+      </div>
+		
+
+		
 	  </div>
 	</div>
+	
+	<script type="text/javascript"
+		src="webjars/jquery/2.0.3/jquery.min.js"></script>
+    <script src="../duima/jquery-1.10.2.min.js"></script>
+    <script src="../duima/bootstrap.min.js"></script>
+    <script src="../duima/bootswatch.js"></script>
+ 
+    <script src="../duima/myjs.js"></script>  
+
+    <script src="../duima/bootstrap-datepicker.js"></script>    
+    <script src="../duima/bootstrap-datepicker.ja.min.js"></script>    
+
+    <script type="text/javascript">
+
+    </script>
+	
 </body>
 
 </html>

@@ -92,6 +92,16 @@ public class ExperienceController{
 				galleryService.deleteGallery(gallery.getId());
 			}
 			
+			List<Food> foods = foodService.findByFkByCategory(experienceId, "experience");
+			for(Food food : foods) {
+				foodService.deleteFood(food.getId());
+			}
+			
+			List<Calendar> calendars = calendarService.findByFkByCategory(experienceId, "experience");
+			for(Calendar calendar : calendars) {
+				calendarService.deleteCalendar(calendar.getId());
+			}
+			
 			experienceService.deleteExperience(experienceId);
 		}
 		

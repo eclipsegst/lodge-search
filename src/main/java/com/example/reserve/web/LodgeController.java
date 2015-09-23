@@ -1,5 +1,8 @@
 package com.example.reserve.web;
 
+import java.sql.Date;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
@@ -33,6 +36,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.example.reserve.domain.Calendar;
+import com.example.reserve.domain.CheckInOut;
 import com.example.reserve.domain.Experience;
 import com.example.reserve.domain.Food;
 import com.example.reserve.domain.Gallery;
@@ -62,8 +66,8 @@ public class LodgeController{
 	@Autowired
 	private final CalendarService calendarService;
 	
-	protected long fk = -1L
-			;
+	
+	
 	@Autowired
 	public LodgeController(
 			@Nonnull final LodgeService lodgeService,
@@ -79,9 +83,14 @@ public class LodgeController{
 		this.calendarService = calendarService;
 	}
 	
+	protected long fk = -1L;
+	
 	public List<String> locations = Arrays.asList("厳原港近辺", "比田勝港近辺", "対馬空港近辺");
 	public List<String> categories = Arrays.asList("boating", "climbing", "cooking", "fishing");
 	public List<Integer> numbers = Arrays.asList(0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10);
+	
+//	private Date checkin;
+//	private Date checkout;
 	
 	@RequestMapping(value="/lodge")
 	@Transactional(readOnly = true)
@@ -108,6 +117,16 @@ public class LodgeController{
 			List<Gallery> gallerys = galleryService.findByFkByCategory(lodgeId, "lodge");
 			for(Gallery gallery : gallerys) {
 				galleryService.deleteGallery(gallery.getId());
+			}
+			
+			List<Food> foods = foodService.findByFkByCategory(lodgeId, "lodge");
+			for(Food food : foods) {
+				foodService.deleteFood(food.getId());
+			}
+			
+			List<Calendar> calendars = calendarService.findByFkByCategory(lodgeId, "lodge");
+			for(Calendar calendar : calendars) {
+				calendarService.deleteCalendar(calendar.getId());
 			}
 			
 			lodgeService.deleteLodge(lodgeId);
@@ -202,6 +221,7 @@ public class LodgeController{
 	public String searchLodge(
 			Model model) {
 		model.addAttribute("lodge", new Lodge());
+		model.addAttribute("checkinout", new CheckInOut());
 		List<Lodge> lodges = lodgeService.findAll();
 		model.addAttribute("lodges", lodges);
 		model.addAttribute("locations", locations);
@@ -215,7 +235,7 @@ public class LodgeController{
 				lodgeGallery.put(lodges.get(i).getId(), galleries.get(0).getId());
 			}
 		}
-		
+
 		model.addAttribute("lodges", lodges);
 		model.addAttribute("lodgeGallery", lodgeGallery);
 		
@@ -224,8 +244,9 @@ public class LodgeController{
 	
 	@RequestMapping(value="/lodge/search", method=RequestMethod.POST)
 	@Transactional(readOnly = true)
-	public String searchLodgeResult(@ModelAttribute Lodge lodge, Model model) {
+	public String searchLodgeResult(@ModelAttribute Lodge lodge, @ModelAttribute CheckInOut checkinout,  Model model) {
         model.addAttribute("lodge", lodge);
+        model.addAttribute("checkinout", new CheckInOut());
         
         String location = lodge.getLocation();
         
@@ -235,9 +256,48 @@ public class LodgeController{
         if (location.isEmpty() || location == "") {
 			location = null;
 		}
-         
+        
+        java.sql.Date checkin = null;
+		try {
+			checkin = convertStringToSqlDate(checkinout.getCheckin());
+		} catch (ParseException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+        java.sql.Date checkout = null;
+		try {
+			checkout = convertStringToSqlDate(checkinout.getCheckout());
+		} catch (ParseException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+        
 		List<Lodge> lodges = lodgeService.findLodgeByCriteria(location, adult, teenager, infant);
-		System.out.println("lodge search criteria:" + location + adult + teenager + infant);
+		
+		if (checkin == null || checkout == null) return "lodge-search";
+		
+		
+		// remove closed lodges
+		for (int i = 0; i < lodges.size(); i++) {
+			Lodge checkLodge = lodges.get(i);
+			System.out.println("find " + lodges.size() + " lodges!" );
+			List<Calendar> closedDates = calendarService.findByFkByCategory(checkLodge.getId(), "lodge");
+			
+			if (closedDates.isEmpty() || closedDates == null) {
+				System.out.println("There is no closed date for this lodge: " + checkLodge.getName());
+				continue;
+			}
+			for (int j = 0; j < closedDates.size(); j++) {
+				java.sql.Date closedDateSql = closedDates.get(j).getCloseddate();
+				System.out.println("closedDateSql:" + closedDateSql);
+				if ((closedDateSql.after(checkin) || closedDateSql.equals(checkin)) &&
+						(closedDateSql.before(checkout) || closedDateSql.equals(checkout))) {
+					lodges.remove(checkLodge);
+				}
+			}
+		}
+		
+		System.out.println("lodge search criteria:" + location + checkin + checkout + adult + teenager + infant);
 		model.addAttribute("lodges", lodges);
 		model.addAttribute("locations", locations);
 		model.addAttribute("numbers", numbers);
@@ -253,6 +313,18 @@ public class LodgeController{
 		model.addAttribute("lodges", lodges);
 		model.addAttribute("lodgeGallery", lodgeGallery);
 		return "lodge-search";
+	}
+	
+	private static java.sql.Date convertUtilToSql(java.util.Date uDate) {
+		java.sql.Date sDate = new java.sql.Date(uDate.getTime());
+		return sDate;
+	}
+	
+	private static java.sql.Date convertStringToSqlDate(String date) throws ParseException {
+		SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+        java.util.Date parsed = format.parse(date);
+        java.sql.Date sqlDate = new java.sql.Date(parsed.getTime());
+        return sqlDate;
 	}
 
 }
