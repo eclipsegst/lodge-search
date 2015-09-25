@@ -1,6 +1,6 @@
 package com.example.reserve.domain;
 
-import java.math.BigInteger;
+import java.math.BigDecimal;
 import java.sql.Timestamp;
 import java.util.Date;
 
@@ -13,10 +13,13 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name = "cart")
-public class Good {
+public class Cart {
 	@Id
     @GeneratedValue(strategy=GenerationType.AUTO)
 	private long id;
+	
+	@Column(nullable = false)
+	private long shoppingid;
 	
 	@Column(nullable = false)
 	private long fk;
@@ -43,15 +46,16 @@ public class Good {
     private Integer infant;
 
 	@Column(nullable = false)
-    private BigInteger payment;
+    private BigDecimal payment;
 	
 	@Column(nullable = false)
     private Timestamp created;
 	
-	public Good() {}
+	public Cart() {}
 
-    public Good(long fk, String category, long foodfk, Date checkin, Date checkout, int adult, int teenager, int infant, BigInteger payment, Timestamp created) {
-        this.fk = fk;
+    public Cart(long shoppingid, long fk, String category, long foodfk, Date checkin, Date checkout, int adult, int teenager, int infant, BigDecimal payment, Timestamp created) {
+        this.shoppingid = shoppingid;
+    	this.fk = fk;
         this.category = category;
         this.foodfk = foodfk;
         this.checkin = checkin;
@@ -70,11 +74,19 @@ public class Good {
 	public void setId(long id) {
 		this.id = id;
 	}
-	
+
+	public long getShoppingid() {
+		return shoppingid;
+	}
+
+	public void setShoppingid(long shoppingid) {
+		this.shoppingid = shoppingid;
+	}
+
 	public long getFk() {
 		return fk;
 	}
-	
+
 	public void setFk(long fk) {
 		this.fk = fk;
 	}
@@ -135,11 +147,11 @@ public class Good {
 		this.infant = infant;
 	}
 
-	public BigInteger getPayment() {
+	public BigDecimal getPayment() {
 		return payment;
 	}
 
-	public void setPayment(BigInteger payment) {
+	public void setPayment(BigDecimal payment) {
 		this.payment = payment;
 	}
 
@@ -150,4 +162,5 @@ public class Good {
 	public void setCreated(Timestamp created) {
 		this.created = created;
 	}
+    
 }

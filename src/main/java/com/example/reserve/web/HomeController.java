@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.example.reserve.domain.Experience;
 import com.example.reserve.domain.Gallery;
-import com.example.reserve.domain.Good;
+import com.example.reserve.domain.Cart;
 import com.example.reserve.domain.Lodge;
 import com.example.reserve.domain.ShoppingCart;
 import com.example.reserve.service.ExperienceService;
@@ -53,16 +53,16 @@ public class HomeController {
 	@Transactional(readOnly = true)
 	public String home(Model model) {
 		
-		Good good1 = new Good();
+		Cart good1 = new Cart();
 		good1.setFk(26);
 		good1.setCategory("lodge");
 		
-		Good good2 = new Good();
+		Cart good2 = new Cart();
 		good2.setFk(25);
 		good2.setCategory("experience");
 		
 		
-		List list  = new ArrayList<Good>();
+		List list  = new ArrayList<Cart>();
 		list.add(good1);
 		list.add(good2);
 		shoppingCart.setGoods(list);

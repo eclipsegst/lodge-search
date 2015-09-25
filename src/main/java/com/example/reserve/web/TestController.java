@@ -5,7 +5,7 @@ import org.springframework.session.web.http.HttpSessionManager;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import com.example.reserve.domain.Good;
+import com.example.reserve.domain.Cart;
 import com.example.reserve.domain.ShoppingCart;
 
 import java.util.Arrays;
@@ -25,13 +25,13 @@ public class TestController {
 		if (!list.isEmpty() && list != null) {
 			System.out.println(list.size());
 			for(int i = 0; i < list.size(); i++) {
-				Good good = (Good) list.get(i);
+				Cart good = (Cart) list.get(i);
 				System.out.println(good.getFk() + ":" + good.getCategory());
 				
 			}
 			Iterator iterater = list.iterator();
 			if (iterater.hasNext()) {
-				Good good = (Good) iterater.next();
+				Cart good = (Cart) iterater.next();
 				System.out.println(good.getFk() + ":" + good.getCategory());
 			}
 		}

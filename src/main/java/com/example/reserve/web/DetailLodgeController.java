@@ -46,6 +46,9 @@ public class DetailLodgeController {
 	private final CalendarService calendarService;
 	
 	@Autowired
+	private ShoppingCart shoppingCart;
+	
+	@Autowired
 	public DetailLodgeController(
 			@Nonnull final LodgeService lodgeService,
 			@Nonnull final GalleryService galleryService,

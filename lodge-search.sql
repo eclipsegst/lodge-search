@@ -115,7 +115,7 @@ create table calendar (
 drop table if exists cart;
 create table cart (
 	id bigint auto_increment,
-	
+	shoppingid bigint,
 	fk bigint,
 	category varchar(50),
 	foodfk bigint,
@@ -128,10 +128,19 @@ create table cart (
 	
 	payment numeric(15,2),
 	
-	created timestamp,
+	created datetime,
 	primary key(id)
 ) Engine=InnoDB CHARACTER SET='utf8' COLLATE 'utf8_unicode_ci';
 
+drop table if exists shopping;
+create table shopping (
+	id bigint auto_increment,
+	userid bigint,
+	payment numeric(15,2),
+	valid boolean,
+	created datetime,
+	primary key(id)
+) Engine=InnoDB CHARACTER SET='utf8' COLLATE 'utf8_unicode_ci';
 
 SHOW VARIABLES LIKE 'char%';
 ALTER DATABASE lodge_search CHARACTER SET utf8 COLLATE utf8_unicode_ci;
