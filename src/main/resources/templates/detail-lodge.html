@@ -1,0 +1,570 @@
+<!doctype html>
+<html lang="en">
+<head>
+  	<meta charset="utf-8" />
+    <title>Lodge Details</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  	
+  	<link rel="stylesheet" href="../css/bootstrap.min.css" />
+  	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap-theme.min.css" />
+	<script src="../js/bootstrap.min.js"></script>
+  	<script src="../js/jquery-1.11.0.min.js"></script>
+  
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+  <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+	
+	<!-- datepicker -->
+	<link rel="stylesheet" href="http://code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css" />
+	<script src="http://code.jquery.com/jquery-1.10.2.js"></script>
+	<script src="http://code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
+	
+	<!-- <link rel="stylesheet" href="../css/calendar/jquery-ui.css" />
+	<script src="../js/calendar/jquery-1.10.2.js"></script>
+	<script src="../js/calendar/jquery-ui.js"></script> -->
+	
+
+  	<!-- carousel -->
+	<style>
+		.carousel-inner > .item > img,
+		.carousel-inner > .item > a > img {
+		    width: 70%;
+		    margin: auto;
+		}
+	</style>
+	  
+	<!-- google map -->
+	<style type="text/css">
+		div#map_container{
+			width:100%;
+			height:350px;
+		}
+	</style>
+	<script type="text/javascript" src="http://maps.googleapis.com/maps/api/js?sensor=false" ></script>
+	<script type="text/javascript" th:inline="javascript">
+	  function loadMap(latitude, longitude) {
+		/* var latlng = new google.maps.LatLng(38.93316170, -92.33202460); */
+		var latlng = new google.maps.LatLng(latitude, longitude);
+	    var myOptions = {
+	      zoom: 8,
+	      center: latlng,
+	      mapTypeId: google.maps.MapTypeId.ROADMAP
+	    };
+	    var map = new google.maps.Map(document.getElementById("map_container"),myOptions);
+		
+	    var marker = new google.maps.Marker({
+	      position: latlng, 
+	      map: map, 
+	      title:"You find it!"
+	    }); 
+	  
+	  }
+	</script>
+
+	<!-- load google map -->
+	<script type="text/javascript" th:inline="javascript">
+	$(document).ready(function() {
+		<!-- pass the parameter from controller to html -->
+		<!-- http://www.thymeleaf.org/doc/tutorials/2.1/usingthymeleaf.html#script-inlining-javascript-and-dart -->
+	    var latitude = [[${lodge.latitude}]];
+	    var longitude = [[${lodge.longitude}]];
+	    var unavailableDates2 = [[${closedDate}]];
+	    loadMap(latitude, longitude);
+	 });
+	</script>  
+
+
+	<!--  datepicker -->
+	<script th:inline="javascript">
+		
+		var unavailableDates = [[${closedDate}]];
+		/* var unavailableDates = ["29-9-2015", "14-10-2015", "15-10-2015"]; */
+		/* var unavailableDates = ["2015-9-29", "2015-10-14", "2015-10-16"]; */
+		function unavailable(date) {
+			
+			
+		    dmy = date.getFullYear() + "-" + ("0" + (date.getMonth() + 1)).slice(-2) + "-" + ("0" + (date.getDate())).slice(-2);
+		    if ($.inArray(dmy, unavailableDates) == -1) {
+		        return [true, ""];
+		    } else {
+		        return [false, "", "Unavailable"];
+		    }
+		}
+		
+		$(function() {
+		    $("#datepicker").datepicker({
+		    	/* defaultDate: new Date("9-1-2015"), */
+		    	minDate: -0, 
+		    	maxDate: "+1Y +0M +0D",
+		        dateFormat: 'yy-mm-dd',
+		        /* dateFormat: 'dd MM yy', */
+		        beforeShowDay: unavailable
+		    });
+		
+		});
+	</script>
+	
+	<script>
+		$(function() {
+		  	$( "#datepickercheckin" ).datepicker({
+		  		dateFormat: 'yy-mm-dd'
+			});
+		  	$( "#datepickercheckout" ).datepicker({
+		  		dateFormat: 'yy-mm-dd'
+			});
+		});
+	</script>
+
+</head>
+<body>
+
+<div class="navbar navbar-default navbar-fixed-top">
+      <div class="container">
+        <div class="navbar-header">
+          <a href="../" class="navbar-brand">Hitonchi Tsushima</a>
+          <button class="navbar-toggle" type="button" data-toggle="collapse" data-target="#navbar-main">
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+        </div>
+        <div class="navbar-collapse collapse" id="navbar-main">
+          <ul class="nav navbar-nav">
+            <!-- <li class="dropdown">
+              <a class="dropdown-toggle" data-toggle="dropdown" href="#" id="themes">Themes <span class="caret"></span></a>
+              <ul class="dropdown-menu" aria-labelledby="themes">
+                <li><a href="../default/">Default</a></li>
+                <li class="divider"></li>
+                <li><a href="../cerulean/">Cerulean</a></li>
+                <li><a href="../cosmo/">Cosmo</a></li>
+                <li><a href="../yeti/">Yeti</a></li>
+              </ul>
+            </li> -->
+            <li>
+              <a href="../help/">Help</a>
+            </li>
+            <li>
+              <a href="http://news.bootswatch.com">Blog</a>
+            </li>
+            
+            
+          </ul>
+
+          <ul class="nav navbar-nav navbar-right">
+          	<li><a href="../cart/" target="_blank"><i class="fa fa-shopping-cart"></i>マイカート</a></li>
+            <li><a href="../howto/" target="_blank">ご利用方法</a></li>
+            <li><a href="../question/" target="_blank"><i class="fa fa-envelope-o"></i>Q&amp;A</a></li>
+            <li><a href="../inquiry/" target="_blank"><i class="fa fa-weixin"></i>問合せ</a></li>  
+          </ul>
+
+        </div>
+      </div>
+      </div>
+
+
+    <div class="container">
+
+      <div class="page-header" id="banner">
+        <div class="row">
+          <div class="col-lg-8 col-md-7 col-sm-6">
+            <h1 th:text="${lodge.name}"></h1>
+          </div>
+          <div class="col-lg-4 col-md-5 col-sm-6">
+            
+          </div>
+        </div>
+      </div> 
+      
+		<!-- carousel
+      ================================================== -->
+      <div class="bs-docs-section">
+
+        <div class="row">
+          <div class="col-lg-12">
+            <!-- <div class="page-header">
+              <h2 id="tables" th:text="${lodge.name}">Lodge Detail</h2>
+            </div> -->
+
+            <div class="bs-component">
+              
+              
+              
+              
+              
+              
+              <div id="myCarousel" class="carousel slide" data-ride="carousel">
+  <!-- Indicators -->
+  <ol class="carousel-indicators">
+    <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
+    <li data-target="#myCarousel" data-slide-to="1"></li>
+    <li data-target="#myCarousel" data-slide-to="2"></li>
+    <li data-target="#myCarousel" data-slide-to="3"></li>
+  </ol>
+
+  <!-- Wrapper for slides -->
+  <div class="carousel-inner" role="listbox">
+  
+  	 <div  class="item active">
+      <img th:src="@{/image/view(id=${defaultImage.id})}" />
+     </div> 
+  	<div class="item " th:each="gallery : ${gallerys}">
+      <img th:src="@{/image/view(id=${gallery.id})}" />
+    </div>
+    
+<!-- 	<div class="item">
+      <img src="../duima/1.jpg" alt="Chania" />
+    </div> -->
+     	
+<!--   	<div  class="item active" th:each="image : ${image1}">
+      <img th:src="${image.value}" />
+     </div>  -->
+<!--      <div  class="item" th:each="image : ${image2}">
+      <img th:src="${image.value}" />
+     </div>  -->
+	    
+  </div>
+
+  <!-- Left and right controls -->
+  <a class="left carousel-control" href="#myCarousel" role="button" data-slide="prev">
+    <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
+    <span class="sr-only">Previous</span>
+  </a>
+  <a class="right carousel-control" href="#myCarousel" role="button" data-slide="next">
+    <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
+    <span class="sr-only">Next</span>
+  </a>
+</div>
+              
+         
+              
+           
+            </div>
+            <div class="bs-component">
+              
+              
+            </div>
+
+          </div>
+        </div>
+      </div>
+
+<div class="bs-docs-section">
+
+	<div class="row">
+	  <div class="col-lg-12">
+	    <div class="page-header">
+	      <h2>Landlord</h2>
+	    </div>
+	
+	    <div class="bs-component">
+	    
+	    <div class="row">
+          		<div class="col-lg-12">
+          			
+          			<div class="col-lg-3">
+          				<div class="row">
+	          				<div class="col-lg-12">
+	          				
+						            <div class="thumbnail">
+						            	<img th:src="@{/image/view(id=${defaultLandlordPhoto.id})}" />
+							            <div class="caption1">
+							            	     <h3>民泊: <strong th:text="${landlord.lodgeNumber}"></strong></h3>
+							            	     <h3>体験 : <strong th:text="${landlord.experienceNumber}"></strong> </h3>  
+							            </div>					
+						            </div>
+						   
+	          				</div>
+          				</div>
+          			</div>
+          			<div class="col-lg-6">
+          			<h3 ><strong th:text="${landlord.name}"></strong> - <strong th:text="${lodge.name}"></strong></h3>  
+          			<p th:text="${landlord.description}"></p>
+          			</div>
+          			<div class="col-lg-3">
+          			<div id="map_container"></div>
+          			</div>
+          			
+          		</div>
+          	  </div>
+	    
+	    
+	    </div>
+	  </div>
+	</div>
+    
+</div>
+
+
+      
+<div class="bs-docs-section">
+
+    <div class="row">
+      <div class="col-lg-12">
+        <div class="page-header">
+          <h2>Detail</h2>
+        </div>
+
+        <div class="bs-component">
+        	<div class="row">
+              	<div class="col-lg-12" th:object="${lodge}">
+              	
+              	
+              		
+
+						    <div class="row">
+						    	<div class="col-lg-12">
+							    	<div class="col-lg-2">
+							    		<label>
+							    			<h3>宿泊料金</h3>
+							    		</label>
+							    		</div>
+							      	<div class="col-lg-10">
+							        	<h3 th:text="*{price}"></h3>
+							      	</div>
+						      	</div>
+						    </div>
+						    
+						    <div class="row">
+						    	<div class="col-lg-12">
+							    	<div class="col-lg-2">
+							    		<label>
+							    			<h3>食事</h3>
+							    		</label>
+							    		</div>
+							      	<div class="col-lg-10">
+							      		<h3 th:text="*{food}"></h3>
+							      	</div>
+						      	</div>
+						    </div>
+					
+						    <div class="row">
+						    	<div class="col-lg-12">
+							    	<div class="col-lg-2">
+							    		<label>
+							    			<h3>客室</h3>
+							    		</label>
+							    		</div>
+							      	<div class="col-lg-10">
+							      		<h3 th:text="*{capacity}"></h3>
+							      	</div>
+						      	</div>
+						    </div>
+						    
+						    <div class="row">
+						    	<div class="col-lg-12">
+							    	<div class="col-lg-2">
+							    		<label>
+							    			<h3>客室内設備</h3>
+							    		</label>
+							    		</div>
+							      	<div class="col-lg-10">
+							      		<h3 th:text="*{equipment}"></h3>
+							      	</div>
+						      	</div>
+						    </div>
+						    
+						    <div class="row">
+						    	<div class="col-lg-12">
+							    	<div class="col-lg-2">
+							    		<label>
+							    			<h3>アメニティ</h3>
+							    		</label>
+							    		</div>
+							      	<div class="col-lg-10">
+							      		<h3 th:text="*{amenity}"></h3>
+							      	</div>
+						      	</div>
+						    </div>
+						    
+						    <div class="row">
+						    	<div class="col-lg-12">
+							    	<div class="col-lg-2">
+							    		<label>
+							    			<h3>アクセス</h3>
+							    		</label>
+							    		</div>
+							      	<div class="col-lg-10">
+							      		<h3 th:text="*{traffic}"></h3>
+							      	</div>
+						      	</div>
+						    </div>
+						    
+						    <div class="row">
+						    	<div class="col-lg-12">
+							    	<div class="col-lg-2">
+							    		<label>
+							    			<h3>送迎</h3>
+							    		</label>
+							    		</div>
+							      	<div class="col-lg-10">
+							      		<h3 th:text="*{pickup}"></h3>
+							      	</div>
+						      	</div>
+						    </div>
+			
+
+<!-- <fieldset>    
+	<div class="field">
+        <div class="label">labl 1:</div>
+        <div class="value">Some text</div>
+    </div>
+    <div class="field">
+        <div class="label"><h1>this is a really really long label:</h1></div>
+        <div class="value">right after":" from previous label</div>
+    </div>
+</fieldset> -->
+              	</div>
+              </div>
+            </div>
+        
+      </div>
+    </div>
+    
+</div>
+
+<div class="bs-docs-section">
+
+	<div class="row">
+	  <div class="col-lg-12">
+	    <div class="page-header">
+	      <h2>Add to cart</h2>
+	    </div>
+	
+	    <div class="bs-component">
+	    
+	    <div class="row">
+	    <div class="col-lg-8">
+	    
+	   	<div class="show-searchers container0">
+          <div class="row" id="row-searchers">   
+                <div id="house-searcher" class="col-sm-12 col-md-12 col-lg-12">  
+	                <form class="form-horizontal" action="#" th:action="@{/lodge/search}" th:object="${lodge}" method="post">
+				  		<fieldset>
+				  			<div class="container0">
+	                                <div class="row">
+	
+	                                      <!-- <div class="col-sm-6 col-md-3">
+	                                          <div class="input-group date" id="start_date" data-date-format="yyyy-mm-dd">
+	                                            <input type="text" class="form-control" name="checkin" placeholder="Check in" th:value="${checkinout.checkin}"/>
+	                                            <span class="input-group-addon">
+	                                            <i class="glyphicon glyphicon-th"></i>
+	                                            </span>
+	                                          </div>
+	                                      </div>
+	
+	                                      <div class="col-sm-6 col-md-3">
+	                                          <div class="input-group date" id="datepickercheck" data-date-format="yyyy-mm-dd">
+	                                            <input type="text" class="form-control" name="checkout" placeholder="Check out" th:value="${checkinout.checkin}"/>
+	                                            <span class="input-group-addon"><i class="glyphicon glyphicon-th"></i></span>
+	                                          </div>
+	                                      </div> -->
+	                                      <div class="col-sm-6 col-md-2">
+	                                        <div class="form-group">
+	                                      		<input type="text" id="datepickercheckin" size="30" placeholder="Check in" th:value="${checkinout.checkin}" />
+	                                      	</div>
+	                                      </div>
+	                                      
+	                                      <div class="col-sm-6 col-md-2">
+	                                        <div class="form-group">
+	                                      		<input type="text" id="datepickercheckout" size="30" placeholder="Check out" th:value="${checkinout.checkout}" />
+	                                      	</div>
+	                                      </div>
+	
+	                                      <div class="col-sm-6 col-md-2">
+	                                          <div class="form-group">
+	                                                <select class="form-control" name="adults" id="select" th:field="*{adult}">
+	                                                  	<option th:value="-1">Adult</option>
+														<option th:each="number : ${numbers}" 
+													        th:value="${number}" 
+													        th:text="${number}"></option>
+	                                                </select>
+	                                          </div>
+	                                      </div>
+	
+	                                      <div class="col-sm-6 col-md-2">
+	                                          <div class="form-group">
+	                                                <select class="form-control" id="select" th:field="*{teenager}">
+	                                                  	<option th:value="-1">Children</option>
+														<option th:each="number : ${numbers}" 
+													        th:value="${number}" 
+													        th:text="${number}"></option>
+	                                                </select>
+	                                          </div>
+	                                      </div>       
+	
+	                                      <div class="col-sm-6 col-md-2">
+	                                          <div class="form-group">
+	                                                <select class="form-control" id="select" th:field="*{infant}">
+	                                                  	<option th:value="-1">Infant</option>
+														<option th:each="number : ${numbers}" 
+													        th:value="${number}" 
+													        th:text="${number}"></option>
+	                                                </select>
+	                                          </div>
+	                                      </div> 
+									</div>
+									
+									<div class="row">
+	  
+	                                      <div class="col-sm-6 col-md-2">
+		                                      <div class="form-group">
+		                                        	<select class="form-control" id="select">
+	                                                  	<option th:value="-1">choose 套餐</option>
+														<option th:each="food : ${foods}" 
+													        th:value="${food.id}" 
+													        th:text="${food.title} + ' 大人 ' + ${food.adult} + '円(中学生以上)' + ' お子様' + ${food.teenager} + '円(3才~小学生)'"></option>
+	                                                </select>
+		                                      </div> 
+	                                      </div>
+	                                      
+	                            	</div><!--row-->
+	                            	
+									<div class="row">
+	  
+	                                      <div class="col-sm-6 col-md-2">
+		                                      <div class="form-group">
+		                                        <button type="submit" class="btn btn-danger btn-block" value="Submit"><strong>カートへ</strong></button>
+		                                      </div> 
+	                                      </div>
+	                                      
+	                            	</div><!--row-->
+	                      		</div>
+						</fieldset>
+	                </form>
+              </div>
+
+
+          </div>
+      </div>
+
+	    
+	    
+	    </div>
+	    <div class="col-lg-4">
+	     
+	     <div id="datepicker"></div>
+
+	    </div>
+	    </div>
+	    
+	    
+	   
+	    
+
+	    
+	    
+	    
+	    </div>
+	  </div>
+	</div>
+    
+</div>
+
+
+
+    </div>
+
+ 
+ 
+</body>
+</html>

@@ -89,9 +89,6 @@ public class LodgeController{
 	public List<String> categories = Arrays.asList("boating", "climbing", "cooking", "fishing");
 	public List<Integer> numbers = Arrays.asList(0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10);
 	
-//	private Date checkin;
-//	private Date checkout;
-	
 	@RequestMapping(value="/lodge")
 	@Transactional(readOnly = true)
 	public String lodge(Model model) {

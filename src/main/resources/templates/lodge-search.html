@@ -8,13 +8,6 @@
 <script src="../js/bootstrap.min.js"></script>
 <script src="../js/jquery-1.11.0.min.js"></script>
 
-
-	<!-- <link rel="stylesheet" href="http://dreamerboat.com/hitonchi/css/bootstrap.css" media="screen"/>
-    <link rel="stylesheet" href="http://dreamerboat.com/hitonchi/css/bootswatch.min.css"/>
-    <link rel="stylesheet" href="http://dreamerboat.com/hitonchi/css/tsushima.css"/>    
-    <link rel="stylesheet" href="http://dreamerboat.com/hitonchi/css/font-awesome.min.css"/>
-    <link id="stylesheet" href="http://dreamerboat.com/hitonchi/bootstrap-datepicker/css/bootstrap-datepicker.css" rel="stylesheet"/> 
-    <link rel="stylesheet" type="text/css" href="webjars/bootstrap/3.0.3/css/bootstrap.min.css" /> -->
 	<style>
 		img {
 		    max-width: 100%;
@@ -196,13 +189,15 @@
 				<div class="row">
 			    	<div th:each="lodge : ${lodges}">	
 			          	<div class="col-sm-6 col-md-4">
-				            <div class="thumbnail">
-				            	<img th:src="@{/image/view(id=${lodgeGallery.get(lodge.id)})}" />
-					            <div class="caption1">
-					            	<h3 ><strong th:text="${lodge.name}"></strong></h3>           
+			          	
+			          		<a th:href="@{./detail(id=${lodge.id})}" class="pull-right">
+					            <div class="thumbnail">
+					            	<img th:src="@{/image/view(id=${lodgeGallery.get(lodge.id)})}" />
+						            <div class="caption1">
+						            	<h3 ><strong th:text="${lodge.name}"></strong></h3>           
+						            </div>
 					            </div>
-								
-				            </div>
+				            </a>
 				      	</div> 		                    					
 		          	</div>
 				</div>
