@@ -46,7 +46,7 @@
 		/* var latlng = new google.maps.LatLng(38.93316170, -92.33202460); */
 		var latlng = new google.maps.LatLng(latitude, longitude);
 	    var myOptions = {
-	      zoom: 8,
+	      zoom: 16,
 	      center: latlng,
 	      mapTypeId: google.maps.MapTypeId.ROADMAP
 	    };
@@ -438,38 +438,23 @@
 	   	<div class="show-searchers container0">
           <div class="row" id="row-searchers">   
                 <div id="house-searcher" class="col-sm-12 col-md-12 col-lg-12">  
-	                <form class="form-horizontal" action="#" th:action="@{/lodge/search}" th:object="${lodge}" method="post">
+	                <form class="form-horizontal" action="#" th:action="@{/lodge/addtocart}" th:object="${cart}"  method="post">
 				  		<fieldset>
 				  			<div class="container0">
 	                                <div class="row">
 	
-	                                      <!-- <div class="col-sm-6 col-md-3">
-	                                          <div class="input-group date" id="start_date" data-date-format="yyyy-mm-dd">
-	                                            <input type="text" class="form-control" name="checkin" placeholder="Check in" th:value="${checkinout.checkin}"/>
-	                                            <span class="input-group-addon">
-	                                            <i class="glyphicon glyphicon-th"></i>
-	                                            </span>
-	                                          </div>
-	                                      </div>
-	
-	                                      <div class="col-sm-6 col-md-3">
-	                                          <div class="input-group date" id="datepickercheck" data-date-format="yyyy-mm-dd">
-	                                            <input type="text" class="form-control" name="checkout" placeholder="Check out" th:value="${checkinout.checkin}"/>
-	                                            <span class="input-group-addon"><i class="glyphicon glyphicon-th"></i></span>
-	                                          </div>
-	                                      </div> -->
 	                                      <div class="col-sm-6 col-md-2">
-	                                        <div class="form-group">
-	                                      		<input type="text" id="datepickercheckin" size="30" placeholder="Check in" th:value="${checkinout.checkin}" />
+	                                        <div class="input-group date" data-date-format="yyyy-mm-dd">
+	                                      		<input type="text" class="form-control" id="datepickercheckin" name="checkin" size="30" placeholder="Check in" th:value="${checkinout.checkin}" />
 	                                      	</div>
 	                                      </div>
 	                                      
 	                                      <div class="col-sm-6 col-md-2">
-	                                        <div class="form-group">
-	                                      		<input type="text" id="datepickercheckout" size="30" placeholder="Check out" th:value="${checkinout.checkout}" />
+	                                        <div class="input-group date"  data-date-format="yyyy-mm-dd">
+	                                        	<input type="text" class="form-control" id="datepickercheckout" name="checkout" placeholder="Check out" th:value="${checkinout.checkout}"/>
 	                                      	</div>
 	                                      </div>
-	
+	                                      
 	                                      <div class="col-sm-6 col-md-2">
 	                                          <div class="form-group">
 	                                                <select class="form-control" name="adults" id="select" th:field="*{adult}">
@@ -502,13 +487,14 @@
 	                                                </select>
 	                                          </div>
 	                                      </div> 
+               
 									</div>
 									
 									<div class="row">
 	  
 	                                      <div class="col-sm-6 col-md-2">
 		                                      <div class="form-group">
-		                                        	<select class="form-control" id="select">
+		                                        	<select class="form-control" id="select" th:field="*{foodfk}">
 	                                                  	<option th:value="-1">choose 套餐</option>
 														<option th:each="food : ${foods}" 
 													        th:value="${food.id}" 
@@ -518,7 +504,7 @@
 	                                      </div>
 	                                      
 	                            	</div><!--row-->
-	                            	
+									
 									<div class="row">
 	  
 	                                      <div class="col-sm-6 col-md-2">

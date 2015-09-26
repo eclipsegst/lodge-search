@@ -1,7 +1,6 @@
---login in mysql
-./mysql -u USERNAME -pPASSWORD -h HOSTNAMEORIP DATABASENAME 
+drop database if exists lodge_search;
 create database lodge_search CHARACTER SET utf8 COLLATE utf8_general_ci;
-create database lodge_search;
+use lodge_search;
 
 drop table if exists landlord;
 create table landlord (
@@ -19,7 +18,6 @@ show columns from landlord;
 drop table if exists lodge;
 create table lodge (
 	id bigint auto_increment,
-	landlord_id  bigint,
 	
 	name varchar(100),
 	description varchar(500),
@@ -39,7 +37,7 @@ create table lodge (
 	
 	latitude decimal(10, 8),
 	longitude decimal(11, 8),
-	
+	fk bigint,
 	primary key (id)
 ) Engine=InnoDB CHARACTER SET='utf8' COLLATE 'utf8_unicode_ci';
 
@@ -97,8 +95,8 @@ drop table if exists location;
 create table location (
 	id bigint auto_increment,
 	name varchar(100),
-	latitude varchar(20),
-	longitude varchar(20),
+	latitude decimal(10, 8),
+	longitude decimal(11, 8),
 	primary key(id)
 ) Engine=InnoDB CHARACTER SET='utf8' COLLATE 'utf8_unicode_ci';
 

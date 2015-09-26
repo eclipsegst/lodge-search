@@ -9,17 +9,18 @@ import org.springframework.context.annotation.ScopedProxyMode;
 @Component
 @Scope(value="session", proxyMode=ScopedProxyMode.TARGET_CLASS)
 public class ShoppingCart {
-	private List<Cart> goods;
+	private List<Cart> cards;
 
-	public void Good(List<Cart> goods) {
-		this.goods = goods;
+	public void Good(List<Cart> cards) {
+		this.cards = cards;
+	}
+
+	public List<Cart> getCards() {
+		return cards;
+	}
+
+	public void setCards(List<Cart> cards) {
+		this.cards = cards;
 	}
 	
-	public List<Cart> getGoods() {
-		return goods;
-	}
-
-	public void setGoods(List<Cart> goods) {
-		this.goods = goods;
-	}
 }

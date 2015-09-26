@@ -33,5 +33,5 @@ public interface ExperienceRepository extends CrudRepository<Experience, Long> {
             @Param("teenager") int teenager,
             @Param("infant") int infant
             
-    );
+    );    
 }

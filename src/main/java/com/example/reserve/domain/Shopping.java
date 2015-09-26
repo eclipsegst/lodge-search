@@ -1,7 +1,7 @@
 package com.example.reserve.domain;
 
 import java.math.BigDecimal;
-import java.sql.Timestamp;
+import java.util.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -25,15 +25,15 @@ public class Shopping {
 	private boolean valid;
 	
 	@Column(nullable = false)
-	private Timestamp datetime;
+	private Date created;
 
 	public Shopping() {}
 
-    public Shopping(long userid, BigDecimal payment, boolean valid, Timestamp datetime) {
+    public Shopping(long userid, BigDecimal payment, boolean valid, Date created) {
     	this.userid = userid;
     	this.payment = payment;
     	this.valid = valid;
-    	this.datetime = datetime;
+    	this.created = created;
     }
 
 	public long getId() {
@@ -68,12 +68,12 @@ public class Shopping {
 		this.valid = valid;
 	}
 
-	public Timestamp getDatetime() {
-		return datetime;
+	public Date getCreated() {
+		return created;
 	}
 
-	public void setDatetime(Timestamp datetime) {
-		this.datetime = datetime;
+	public void setCreated(Date created) {
+		this.created = created;
 	}
     
 }

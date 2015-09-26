@@ -14,7 +14,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.example.reserve.domain.Calendar;
-import com.example.reserve.domain.Gallery;
 import com.example.reserve.service.CalendarService;
 
 @Controller

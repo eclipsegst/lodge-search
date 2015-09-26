@@ -1,8 +1,8 @@
 <!DOCTYPE html>
-<html lang="en">
-  <head>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head lang="en">
     <meta charset="utf-8" />
-    <title>Cart Management</title>
+    <title>Shopping Management</title>
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <link rel="stylesheet" href="../css/bootstrap.css" media="screen" />
@@ -20,22 +20,36 @@
 	<script src="//code.jquery.com/jquery-1.11.0.min.js"></script>
 	<script type="text/javascript">
 		
-	function updateCart(cartId) {
-	    var form = $("#foodEatenForm-" + cartId);
-	    var action = $("#action-" + cartId);
+	function updateImageDefault(imageId) {
+	    var form = $("#foodEatenForm-" + imageId);
+	    var action = $("#action-" + imageId);
 	    $(action).val("update");
 	    $(form).submit();
 	}
 	
-	function deleteCart(cartId) {
-		if ( confirm('Are you sure you want to delete this cart entry?')) {
-			var form = $("#foodEatenForm-" + cartId);
-	        var action = $("#action-" + cartId);
+	function removeImageDefault(imageId) {
+	    var form = $("#foodEatenForm-" + imageId);
+	    var action = $("#action-" + imageId);
+	    $(action).val("false");
+	    $(form).submit();
+	}
+	
+	function deleteImage(imageId) {
+		if ( confirm('Are you sure you want to delete this image?')) {
+			var form = $("#foodEatenForm-" + imageId);
+	        var action = $("#action-" + imageId);
 	        $(action).val("delete");
 	        $(form).submit();
 		}
 	}
 	</script>
+	<style>
+		img {
+		    max-width: 100%;
+		    max-height: 100%;
+		}
+	</style>
+
   </head>
   <body>
     <div class="navbar navbar-default navbar-fixed-top">
@@ -107,10 +121,10 @@
         <div class="row">
           <div class="col-lg-12">
             <div class="page-header">
-              <h1 id="tables">Cart</h1>
+              <h1 id="tables">Edit Shopping</h1>
               <div class="row">
               	<div class="col-lg-12">
-              	<h4><a href="/cart/new/" class="pull-right">Create new cart</a></h4>
+              	<h4><a href="/shopping/" class="pull-right">Back</a></h4>
               	</div>
               </div>
             </div>
@@ -118,53 +132,64 @@
             <div class="bs-component">     
 		        <div class="row">
 		        	<div class="col-lg-12">
-					<table class="table table-striped table-hover ">
-						<thead>
-							<tr>
-								<td>Shopping Id</td>
-								<td>Lodge/experience id</td>
-								<td>Category</td>
-								<td>Food</td>
-								<td>Check In</td>
-								<td>Check Out</td>
-								<td>Adult</td>
-								<td>Children</td>
-								<td>Infant</td>
-								<td>Price</td>
-							</tr>
-						</thead>
-						<tbody>
-							<tr th:each="cart : ${carts}">
-								<form th:id="'foodEatenForm-' + ${cart.id}" action="./update">
-					                    <input type="hidden" name="id" th:value="${cart.id}"/>
-					                    <input type="hidden" th:id="'action-' + ${cart.id}" name="action" value="update"/>
-					                    		
-								<td th:text="${cart.shoppingid}"></td>
-								<td th:text="${cart.fk}"></td>
-								<td th:text="${cart.category}"></td>
-								<td th:text="${cart.foodfk}"></td>
-								<td th:text="${cart.checkin}"></td>
-								<td th:text="${cart.checkout}"></td>
-								<td th:text="${cart.adult}"></td>
-								<td th:text="${cart.teenager}"></td>
-								<td th:text="${cart.infant}"></td>
-								<td th:text="${cart.payment}"></td>
-								<td>
-									<a href="#" th:onclick="'deleteCart(\'' + ${cart.id} + '\');'">Delete</a>
-									<!-- <a 
-									th:href="@{./delete/(id=${cart.id})}"
-										>Delete cart</a> -->
-								
-				                    <a href="#" th:onclick="'updateCart(\'' + ${cart.id} + '\');'">Update</a>
-				                </td>
-								</form>
-							</tr>
-						</tbody>
-					</table>
-					</div>
+        
+	
+<!-- 						<form class="form-horizontal" action="#" th:action="@{/shopping/updated}" th:object="${shopping}" method="post">
+					    	<input type="hidden" th:field="*{id}"/>
+					        <p>Name: <input type="text" th:field="*{name}" /></p>
+					        <p>Description: <input type="text" th:field="*{description}" /></p>
+					        <p>Shopping: <input type="text" th:field="*{shopping}" /></p>
+					        <p><input type="submit" value="Submit" /> <input type="reset" value="Reset" /></p>
+					    </form> -->
+		
+						<form class="form-horizontal" action="#" th:action="@{/shopping/updated}" th:object="${shopping}" method="post" accept-charset="UTF-8">
+						  <fieldset>
+						    <div class="form-group">
+						      <!-- <label for="inputId" class="col-lg-2 control-label">ID</label> -->
+						      <div class="col-lg-10">
+						        <input type="hidden" class="form-control" id="inputId" placeholder="id"  th:field="*{id}"/>
+						      </div>
+						    </div>
+						    <div class="form-group">
+						      <label for="inputShopping" class="col-lg-2 control-label">User</label>
+						      <div class="col-lg-10">
+						        <input type="text" class="form-control" id="inputShopping" placeholder="shopping" th:field="*{userid}"/>
+						      </div>
+						    </div>
+						    
+						    <div class="form-group">
+						      <label for="inputLatitude" class="col-lg-2 control-label">Payment</label>
+						      <div class="col-lg-10">
+						        <input type="text" class="form-control" id="inputLatitude" placeholder="Payment" th:field="*{payment}"/>
+						      </div>
+						    </div>
+						    
+						    <div class="form-group">
+						      <label for="inputLongitude" class="col-lg-2 control-label">Valid</label>
+						      <div class="col-lg-10">
+						        <input type="text" class="form-control" id="inputLongitude" placeholder="Valid" th:field="*{valid}"/>
+						      </div>
+						    </div>
+						    
+						    <!-- <div class="form-group">
+						      <label for="inputId" class="col-lg-2 control-label">ID</label>
+						      <div class="col-lg-10">
+						        <input type="datetime" class="form-control" id="inputCreated" placeholder="created"  th:field="*{created}"/>
+						      </div>
+						    </div> -->
+						    
+						    <div class="form-group">
+						      <div class="col-lg-10 col-lg-offset-2">
+						        <button type="reset" class="btn btn-default"><a href="/shopping/">Cancel</a></button>
+						        <button type="submit" class="btn btn-primary" value="Submit">Submit</button>
+						      </div>
+						    </div>
+						  </fieldset>
+						</form>
+					</div> <!-- col-lg-12 -->
 				</div> <!-- row -->
 		
-		            </div><!-- /example -->
+		  	</div><!-- /example -->
           </div>
         </div>
       </div>
@@ -190,10 +215,10 @@
 
             <ul class="list-unstyled">
               <li class="pull-right"><a href="#top">Back to top</a></li>
-              <li><a href="https://github.com/eclipsegst/cart">GitHub</a></li>
+              <li><a href="https://github.com/eclipsegst/shopping">GitHub</a></li>
               <li><a href="../help/#support">Support</a></li>
             </ul>
-            <p>Made by <a href="" rel="nofollow">Zhaolong Zhong</a>. Contact him at <a href="https://github.com/eclipsegst/">Github</a></p>
+            <p>Made by <a href="" rel="nofollow">Zhaolong Zhong</a>. Contact him at <a href="mailto:zztg2@missouri.edu?Subject=Hello%20hello">zztg2@missouri.edu</a></p>
             <p>Based on <a href="http://getbootstrap.com" rel="nofollow">Bootstrap</a>. Icons from <a href="http://fortawesome.github.io/Font-Awesome/" rel="nofollow">Font Awesome</a>. Web fonts from <a href="http://www.google.com/webfonts" rel="nofollow">Google</a>.</p>
 
           </div>
@@ -215,3 +240,5 @@
 </script>
 </body>
 </html>
+
+		

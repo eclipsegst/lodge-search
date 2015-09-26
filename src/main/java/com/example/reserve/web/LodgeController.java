@@ -241,7 +241,10 @@ public class LodgeController{
 	
 	@RequestMapping(value="/lodge/search", method=RequestMethod.POST)
 	@Transactional(readOnly = true)
-	public String searchLodgeResult(@ModelAttribute Lodge lodge, @ModelAttribute CheckInOut checkinout,  Model model) {
+	public String searchLodgeResult(
+			@ModelAttribute Lodge lodge, 
+			@ModelAttribute CheckInOut checkinout,  
+			Model model) {
         model.addAttribute("lodge", lodge);
         model.addAttribute("checkinout", new CheckInOut());
         
@@ -265,7 +268,7 @@ public class LodgeController{
 		try {
 			checkout = convertStringToSqlDate(checkinout.getCheckout());
 		} catch (ParseException e) {
-			// TODO Auto-generated catch block
+			// TODO Auto-generated catch block 
 			e.printStackTrace();
 		}
         

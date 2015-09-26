@@ -1,6 +1,5 @@
 package com.example.reserve.web;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -15,18 +14,13 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.example.reserve.domain.Experience;
 import com.example.reserve.domain.Gallery;
-import com.example.reserve.domain.Cart;
 import com.example.reserve.domain.Lodge;
-import com.example.reserve.domain.ShoppingCart;
 import com.example.reserve.service.ExperienceService;
 import com.example.reserve.service.GalleryService;
 import com.example.reserve.service.LodgeService;
 
 @Controller
 public class HomeController {
-
-	@Autowired
-	private ShoppingCart shoppingCart;
 	
 	@Autowired
 	private final LodgeService lodgeService;
@@ -52,20 +46,6 @@ public class HomeController {
 	@RequestMapping(value="/")
 	@Transactional(readOnly = true)
 	public String home(Model model) {
-		
-		Cart good1 = new Cart();
-		good1.setFk(26);
-		good1.setCategory("lodge");
-		
-		Cart good2 = new Cart();
-		good2.setFk(25);
-		good2.setCategory("experience");
-		
-		
-		List list  = new ArrayList<Cart>();
-		list.add(good1);
-		list.add(good2);
-		shoppingCart.setGoods(list);
 		
 		List<Lodge> lodges = lodgeService.findAll();
 		
