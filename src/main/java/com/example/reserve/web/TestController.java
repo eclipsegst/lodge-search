@@ -20,7 +20,7 @@ public class TestController {
 	@RequestMapping
 	public String test() {
 		
-		List list = shoppingCart.getCards();
+		List list = shoppingCart.getCarts();
 		
 		if (!list.isEmpty() && list != null) {
 			System.out.println(list.size());

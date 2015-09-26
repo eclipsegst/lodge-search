@@ -40,7 +40,7 @@ public class CartController{
 	@RequestMapping(value="/cart")
 	public String test2() {
 		
-		List list = shoppingCart.getCards();
+		List list = shoppingCart.getCarts();
 		
 		if (!list.isEmpty() && list != null) {
 			System.out.println(list.size());

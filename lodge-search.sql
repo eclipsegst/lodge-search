@@ -140,6 +140,20 @@ create table shopping (
 	primary key(id)
 ) Engine=InnoDB CHARACTER SET='utf8' COLLATE 'utf8_unicode_ci';
 
+drop table if exists user;
+create table user (
+	id bigint auto_increment,
+	email varchar(200),
+	password_hash varchar(500),
+	role varchar(10),
+	primary key(id)
+) Engine=InnoDB CHARACTER SET='utf8' COLLATE 'utf8_unicode_ci';
+insert into user (email, password_hash, role)
+values ('demo@localhost', '$2a$10$ebyC4Z5WtCXXc.HGDc1Yoe6CLFzcntFmfse6/pTj7CeDY5I05w16C', 'ADMIN');
+
+
+
+
 SHOW VARIABLES LIKE 'char%';
 ALTER DATABASE lodge_search CHARACTER SET utf8 COLLATE utf8_unicode_ci;
 ALTER TABLE lodge CONVERT TO CHARACTER SET utf8 COLLATE utf8_unicode_ci;

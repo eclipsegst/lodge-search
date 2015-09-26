@@ -193,7 +193,7 @@ public class DetailLodgeController {
 		cart.setPayment(new BigDecimal(payment));
 	
 		List<Cart> cards = new ArrayList<Cart>();
-		cards = shoppingCart.getCards();
+		cards = shoppingCart.getCarts();
 		
 		if (cards == null || cards.isEmpty() ) {
 			// create shopping cart
@@ -215,9 +215,9 @@ public class DetailLodgeController {
 			cards.add(cart);
 		}
 
-		shoppingCart.setCards(cards);
+		shoppingCart.setCarts(cards);
 		
-		cards = shoppingCart.getCards();
+		cards = shoppingCart.getCarts();
 		System.out.println("shopping card size:" + cards.size());
 		System.out.println("shopping id:" + cards.get(0).getShoppingid() + 
 				", fk:" + cards.get(0).getFk() + 
