@@ -184,7 +184,13 @@ public class DetailLodgeController {
 		cart.setCheckout(checkout);
 
 //		// calculate the payment by food id and the number of customer
-		cart.setPayment(new BigDecimal("4000"));
+		System.out.println("foodId:" + cart.getFoodfk());
+		long foodId = cart.getFoodfk();
+		Food food = foodService.findOne(foodId);
+		int adultPayment= food.getAdult() * cart.getAdult();
+		int childrenPayment = food.getTeenager() * (cart.getTeenager() + cart.getInfant());
+		int payment = adultPayment + childrenPayment;
+		cart.setPayment(new BigDecimal(payment));
 	
 		List<Cart> cards = new ArrayList<Cart>();
 		cards = shoppingCart.getCards();
@@ -196,13 +202,9 @@ public class DetailLodgeController {
 			cards = new ArrayList<Cart>(); // assign a new array since it's null
 			// add item to cart
 			System.out.println("new shopping id:" + shoppingid);
-			if (cart != null) {
-				cart.setShoppingid(shoppingid);
-				System.out.println("cart shopping id:" + cart.getShoppingid());
-				cards.add(cart);
-			} else {
-				System.out.println("cart is null");
-			}
+			cart.setShoppingid(shoppingid);
+			System.out.println("cart shopping id:" + cart.getShoppingid());
+			cards.add(cart);
 			
 			
 			
