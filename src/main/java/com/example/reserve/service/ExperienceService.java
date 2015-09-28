@@ -5,6 +5,7 @@ import javax.annotation.Nonnull;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import com.example.reserve.domain.Experience;
+import com.example.reserve.repository.ExperienceRepository;
 
 @Service
 public final class ExperienceService {

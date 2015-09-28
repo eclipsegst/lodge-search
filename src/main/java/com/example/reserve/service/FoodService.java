@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.example.reserve.domain.Food;
+import com.example.reserve.repository.FoodRepository;
 
 @Service
 public class FoodService {

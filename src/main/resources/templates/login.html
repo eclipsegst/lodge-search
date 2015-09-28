@@ -1,15 +1,112 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="utf-8" />
-    <title>Log in</title>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <meta charset="utf-8"/>
+    <title>lodge</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <link rel="stylesheet" href="../css/bootstrap.css" media="screen" />
+    <link rel="stylesheet" href="../css/custom.min.css" />
+    <title>Home</title>
 </head>
 <body>
-<nav role="navigation">
+
+<div class="navbar navbar-default navbar-fixed-top">
+      <div class="container">
+        <div class="navbar-header">
+          <h5><a href="/" class="navbar-brand"> Hitonchi Tsushima</a></h5>
+          <h2><a href="/" class="navbar-brand"> ひとんち対馬</a></h2>
+          <button class="navbar-toggle" type="button" data-toggle="collapse" data-target="#navbar-main">
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+        </div>
+        <div class="navbar-collapse collapse" id="navbar-main">
+          <ul class="nav navbar-nav">
+            <li>
+              <a href="/"></a>
+            </li>
+            <li>
+              <!-- <a href="http://news.bootswatch.com/">Blog</a> -->
+            </li>
+            
+          </ul>
+
+          <ul class="nav navbar-nav navbar-right">
+          	
+          	<li th:if="${currentUser == null}"><a href="/login">Login</a></li>
+          	
+          	<li th:if="${currentUser != null}">
+	            <!-- <form action="/logout" method="post">
+	                <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" />
+	                <button type="submit">Log out</button>
+	            </form> -->
+	            <!-- <button type="submit">Log out</button> -->
+	            <a href="/logout">Logout</a>
+        	</li>
+        	
+        	<li th:if="${currentUser != null}"><a th:href="@{/user/} + ${currentUser.id}">My Account</a></li>
+        	
+          	<li><a href="" target="_blank">Shopping Cart</a></li>
+          	<li><a href="" target="_blank">ご利用方法</a></li>
+          	<li><a href="" target="_blank">Q &amp; A</a></li>
+          	<li><a href="" target="_blank">問合せ</a></li>
+          </ul>
+
+        </div>
+      </div>
+    </div>
+
+
+
+<!-- <nav role="navigation">
     <ul>
-        <li><a href="/">Home</a></li>
+        <li th:if="${currentUser != null}"><a href="/user/create" th:if="${#strings.replace(#strings.escapeXml(#strings.replace(currentUser.role,' ','')),'&amp;','%26')} == 'ADMIN'">Create a new user</a></li>
+        <li th:if="${currentUser != null}"><a href="/users" th:if="${#strings.replace(#strings.escapeXml(#strings.replace(currentUser.role,' ','')),'&amp;','%26')} == 'ADMIN'">View all users</a></li>
+
     </ul>
-</nav>
+    
+    <p th:if="${currentUser != null}" th:text="${#strings.toLowerCase(currentUser.role)}"></p>
+    <p th:text="${currentUser != null} ? ${currentUser.role}"></p>
+    <div th:object="${currrentUser}">
+    <p th:text="'User role is ' + ( ( == 'ADMIN') ? 'ADMIN' : 'NOT ADMIN')"></p>
+   	</div>
+</nav> -->
+
+		<div class="container">
+		
+		
+		
+		
+		
+		<!-- start here -->
+		
+		
+		<div class="page-header" id="banner">
+	        <div class="row">
+	          <div class="col-lg-8 col-md-7 col-sm-6">
+	            <h1>Hitonchi Tsushima</h1>
+	            <p class="lead">ひとんち対馬</p>
+	          </div>
+	          <div class="col-lg-4 col-md-5 col-sm-6">
+	            
+	          </div>
+	        </div>
+	    </div>
+	    
+	    <div class="row">
+	    	<p th:text="${currentUser != null} ? ${currentUser.role}"></p>
+	    </div>
+	    
+	    <div class="row">
+	    	<form action="/logout" method="post">
+               <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" />
+               <button type="submit">Log out</button>
+           </form>
+	    </div>
+		
 
 <h1>Log in</h1>
 
@@ -34,7 +131,7 @@
     <button type="submit">Sign in</button>
 </form>
 
-<p>The email or password you have entered is invalid, try again.</p>
-
+<!-- <p>The email or password you have entered is invalid, try again.</p> -->
+</div>
 </body>
 </html>

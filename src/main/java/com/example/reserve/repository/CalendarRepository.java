@@ -1,4 +1,4 @@
-package com.example.reserve.service;
+package com.example.reserve.repository;
 
 import java.sql.Date;
 import java.util.List;

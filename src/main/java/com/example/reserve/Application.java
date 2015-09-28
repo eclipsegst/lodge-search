@@ -25,8 +25,7 @@ import org.springframework.web.servlet.i18n.LocaleChangeInterceptor;
 import org.springframework.web.servlet.i18n.SessionLocaleResolver;
 
 import com.example.reserve.domain.Lodge;
-import com.example.reserve.service.LodgeRepository;
-
+import com.example.reserve.repository.LodgeRepository;
 
 import org.springframework.boot.CommandLineRunner;
 import java.util.*;

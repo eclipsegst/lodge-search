@@ -42,11 +42,11 @@ import com.example.reserve.domain.Food;
 import com.example.reserve.domain.Gallery;
 import com.example.reserve.domain.Landlord;
 import com.example.reserve.domain.Lodge;
+import com.example.reserve.repository.LodgeRepository;
 import com.example.reserve.service.CalendarService;
 import com.example.reserve.service.FoodService;
 import com.example.reserve.service.GalleryService;
 import com.example.reserve.service.LandlordService;
-import com.example.reserve.service.LodgeRepository;
 import com.example.reserve.service.LodgeService;
 
 @Controller

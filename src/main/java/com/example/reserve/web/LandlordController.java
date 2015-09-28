@@ -32,8 +32,8 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.example.reserve.domain.Gallery;
 import com.example.reserve.domain.Landlord;
+import com.example.reserve.repository.LandlordRepository;
 import com.example.reserve.service.GalleryService;
-import com.example.reserve.service.LandlordRepository;
 import com.example.reserve.service.LandlordService;
 
 @Controller

@@ -11,6 +11,7 @@ import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.example.reserve.domain.security.Role;
 import com.example.reserve.domain.security.UserCreateForm;
 import com.example.reserve.domain.security.validator.UserCreateFormValidator;
 import com.example.reserve.service.UserService;
@@ -71,6 +72,34 @@ public class UserController {
         // ok, redirect
         return "redirect:/users";
     }
-
+    
+    @RequestMapping(value = "/register", method = RequestMethod.GET)
+    public ModelAndView getUserRegister() {
+        LOGGER.debug("Getting user register form");
+        return new ModelAndView("register", "form", new UserCreateForm());
+    }
+    
+    @RequestMapping(value = "/register", method = RequestMethod.POST)
+    public String handleUserRegisterForm(@Valid @ModelAttribute("form") UserCreateForm form, BindingResult bindingResult) {
+        LOGGER.debug("Processing user create form={}, bindingResult={}", form, bindingResult);
+        if (bindingResult.hasErrors()) {
+            // failed validation
+            return "register";
+        }
+        try {
+        	form.setRole(Role.USER);
+            userService.create(form);
+            
+        } catch (DataIntegrityViolationException e) {
+            // probably email already exists - very rare case when multiple admins are adding same user
+            // at the same time and form validation has passed for more than one of them.
+            LOGGER.warn("Exception occurred when trying to save the user, assuming duplicate email", e);
+            bindingResult.reject("email.exists", "Email already exists");
+            return "register";
+        }
+        // ok, redirect
+        long userid = userService.getUserByEmail(form.getEmail()).get().getId();
+        return "redirect:/user/" + userid;
+    }
 }
 

@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.example.reserve.domain.Calendar;
+import com.example.reserve.repository.CalendarRepository;
 
 @Service
 public class CalendarService {

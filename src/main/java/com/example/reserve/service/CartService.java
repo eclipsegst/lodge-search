@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.example.reserve.domain.Cart;
+import com.example.reserve.repository.CartRepository;
 
 @Service
 public class CartService {

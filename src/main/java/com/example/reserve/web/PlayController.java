@@ -23,7 +23,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.example.reserve.domain.Gallery;
-import com.example.reserve.service.GalleryRepository;
+import com.example.reserve.repository.GalleryRepository;
 
 @Controller
 

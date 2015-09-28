@@ -43,7 +43,7 @@ public class HomeController {
 		this.galleryService = galleryService;
 	}
 	
-	@RequestMapping(value="/")
+	@RequestMapping(value="/home")
 	@Transactional(readOnly = true)
 	public String home(Model model) {
 		

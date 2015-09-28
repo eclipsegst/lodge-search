@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <title>Register a new user</title>
+</head>
+<body>
+<nav role="navigation">
+    <ul>
+        <li><a href="/">Home</a></li>
+    </ul>
+</nav>
+
+<h1>Register</h1>
+
+<form role="form" name="form" action="" method="post">
+	<input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" />
+    <div>
+        <label for="email">Email address</label>
+        <input type="email" name="email" id="email" th:value="${form.email}"/>
+    </div>
+    <div>
+        <label for="password">Password</label>
+        <input type="password" name="password" id="password"/>
+    </div>
+    <div>
+        <label for="passwordRepeated">Repeat</label>
+        <input type="password" name="passwordRepeated" id="passwordRepeated"/>
+    </div>
+
+    <button type="submit">Register</button>
+</form>
+
+</body>
+</html>

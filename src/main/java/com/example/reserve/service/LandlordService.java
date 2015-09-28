@@ -5,6 +5,7 @@ import javax.annotation.Nonnull;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import com.example.reserve.domain.Landlord;
+import com.example.reserve.repository.LandlordRepository;
 
 @Service
 public final class LandlordService {

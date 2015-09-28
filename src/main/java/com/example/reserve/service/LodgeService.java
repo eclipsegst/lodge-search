@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.example.reserve.domain.Lodge;
+import com.example.reserve.repository.LodgeRepository;
 
 @Service
 public final class LodgeService {
