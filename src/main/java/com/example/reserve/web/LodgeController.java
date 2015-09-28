@@ -272,31 +272,33 @@ public class LodgeController{
 			e.printStackTrace();
 		}
         
-		List<Lodge> lodges = lodgeService.findLodgeByCriteria(location, adult, teenager, infant);
+		List<Lodge> lodges = lodgeService.findAll();
 		
-		if (checkin == null || checkout == null) return "lodge-search";
-		
-		
-		// remove closed lodges
-		for (int i = 0; i < lodges.size(); i++) {
-			Lodge checkLodge = lodges.get(i);
-			System.out.println("find " + lodges.size() + " lodges!" );
-			List<Calendar> closedDates = calendarService.findByFkByCategory(checkLodge.getId(), "lodge");
+		if (checkin != null && checkout != null) {
+			lodges = lodgeService.findLodgeByCriteria(location, adult, teenager, infant);
 			
-			if (closedDates.isEmpty() || closedDates == null) {
-				System.out.println("There is no closed date for this lodge: " + checkLodge.getName());
-				continue;
-			}
-			for (int j = 0; j < closedDates.size(); j++) {
-				java.sql.Date closedDateSql = closedDates.get(j).getCloseddate();
-				System.out.println("closedDateSql:" + closedDateSql);
-				if ((closedDateSql.after(checkin) || closedDateSql.equals(checkin)) &&
-						(closedDateSql.before(checkout) || closedDateSql.equals(checkout))) {
-					lodges.remove(checkLodge);
+			// remove closed lodges
+			for (int i = 0; i < lodges.size(); i++) {
+				Lodge checkLodge = lodges.get(i);
+				System.out.println("find " + lodges.size() + " lodges!" );
+				List<Calendar> closedDates = calendarService.findByFkByCategory(checkLodge.getId(), "lodge");
+				
+				if (closedDates.isEmpty() || closedDates == null) {
+					System.out.println("There is no closed date for this lodge: " + checkLodge.getName());
+					continue;
+				}
+				for (int j = 0; j < closedDates.size(); j++) {
+					java.sql.Date closedDateSql = closedDates.get(j).getCloseddate();
+					System.out.println("closedDateSql:" + closedDateSql);
+					if ((closedDateSql.after(checkin) || closedDateSql.equals(checkin)) &&
+							(closedDateSql.before(checkout) || closedDateSql.equals(checkout))) {
+						lodges.remove(checkLodge);
+					}
 				}
 			}
 		}
 		
+
 		System.out.println("lodge search criteria:" + location + checkin + checkout + adult + teenager + infant);
 		model.addAttribute("lodges", lodges);
 		model.addAttribute("locations", locations);

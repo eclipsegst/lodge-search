@@ -5,23 +5,28 @@
     <title>Lodge Details</title>
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  	
+  	<!-- 
   	<link rel="stylesheet" href="../css/bootstrap.min.css" />
   	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap-theme.min.css" />
 	<script src="../js/bootstrap.min.js"></script>
   	<script src="../js/jquery-1.11.0.min.js"></script>
   
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
-  <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+  <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script> -->
+	
+	<link rel="stylesheet" href="../css/bootstrap.css" media="screen" />
+    <link rel="stylesheet" href="../css/custom.min.css" />
+    
+    <link rel="stylesheet" href="../css/tsushima.css"/>    
+    <link rel="stylesheet" href="../css/font-awesome.min.css"/>
+    <link id="stylesheet" href="../css/bootstrap-datepicker.css" rel="stylesheet"/> 
+	
 	
 	<!-- datepicker -->
 	<link rel="stylesheet" href="http://code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css" />
 	<script src="http://code.jquery.com/jquery-1.10.2.js"></script>
 	<script src="http://code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
 	
-	<!-- <link rel="stylesheet" href="../css/calendar/jquery-ui.css" />
-	<script src="../js/calendar/jquery-1.10.2.js"></script>
-	<script src="../js/calendar/jquery-ui.js"></script> -->
 	
 
   	<!-- carousel -->
@@ -118,39 +123,33 @@
 </head>
 <body>
 
-<div class="navbar navbar-default navbar-fixed-top">
+<div class="navbar navbar-default">
       <div class="container">
         <div class="navbar-header">
-          <a href="../" class="navbar-brand">Hitonchi Tsushima</a>
           <button class="navbar-toggle" type="button" data-toggle="collapse" data-target="#navbar-main">
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
           </button>
+          <a href="/" class="navbar-brand">
+            <img src="../img/logo.png" class="non-img-responsive" alt="logo"/>
+          </a>
         </div>
         <div class="navbar-collapse collapse" id="navbar-main">
           <ul class="nav navbar-nav">
-            <!-- <li class="dropdown">
-              <a class="dropdown-toggle" data-toggle="dropdown" href="#" id="themes">Themes <span class="caret"></span></a>
-              <ul class="dropdown-menu" aria-labelledby="themes">
-                <li><a href="../default/">Default</a></li>
-                <li class="divider"></li>
-                <li><a href="../cerulean/">Cerulean</a></li>
-                <li><a href="../cosmo/">Cosmo</a></li>
-                <li><a href="../yeti/">Yeti</a></li>
-              </ul>
-            </li> -->
             <li>
-              <a href="../help/">Help</a>
+              <a href="/"></a>
             </li>
-            <li>
-              <a href="http://news.bootswatch.com">Blog</a>
-            </li>
-            
-            
+
           </ul>
 
           <ul class="nav navbar-nav navbar-right">
+          	
+          	<li th:if="${currentUser == null}"><a href="/login">Login</a></li>
+          	<li th:if="${currentUser != null}"><a href="/logout" th:href="@{/logout}">logout</a></li>
+        	
+        	<li th:if="${currentUser != null}"><a th:href="@{/user/} + ${currentUser.id}">My Account</a></li>
+        	
           	<li><a href="../cart/" target="_blank"><i class="fa fa-shopping-cart"></i>マイカート</a></li>
             <li><a href="../howto/" target="_blank">ご利用方法</a></li>
             <li><a href="../question/" target="_blank"><i class="fa fa-envelope-o"></i>Q&amp;A</a></li>
@@ -159,21 +158,19 @@
 
         </div>
       </div>
-      </div>
+    </div>
+
 
 
     <div class="container">
 
-      <div class="page-header" id="banner">
+     <!-- <div class="page-header">
         <div class="row">
           <div class="col-lg-8 col-md-7 col-sm-6">
             <h1 th:text="${lodge.name}"></h1>
           </div>
-          <div class="col-lg-4 col-md-5 col-sm-6">
-            
-          </div>
         </div>
-      </div> 
+      </div> -->
       
 		<!-- carousel
       ================================================== -->
@@ -181,9 +178,9 @@
 
         <div class="row">
           <div class="col-lg-12">
-            <!-- <div class="page-header">
+          	<div class="page-header">
               <h2 id="tables" th:text="${lodge.name}">Lodge Detail</h2>
-            </div> -->
+            </div>
 
             <div class="bs-component">
               
@@ -199,6 +196,7 @@
     <li data-target="#myCarousel" data-slide-to="1"></li>
     <li data-target="#myCarousel" data-slide-to="2"></li>
     <li data-target="#myCarousel" data-slide-to="3"></li>
+    <li data-target="#myCarousel" data-slide-to="4"></li>
   </ol>
 
   <!-- Wrapper for slides -->
@@ -268,8 +266,15 @@
 						            <div class="thumbnail">
 						            	<img th:src="@{/image/view(id=${defaultLandlordPhoto.id})}" />
 							            <div class="caption1">
-							            	     <h3>民泊: <strong th:text="${landlord.lodgeNumber}"></strong></h3>
-							            	     <h3>体験 : <strong th:text="${landlord.experienceNumber}"></strong> </h3>  
+							            	<div class="row">
+							            		<div class="col-lg-6">
+							            		<h3>民泊: <strong th:text="${landlord.lodgeNumber}"></strong></h3>
+							            		</div>
+							            		<div class="col-lg-6 pull-right">
+							            		<h3>体験 : <strong th:text="${landlord.experienceNumber}"></strong> </h3> 
+							            		</div>
+							            	</div>
+							            	      
 							            </div>					
 						            </div>
 						   
@@ -427,7 +432,7 @@
 	<div class="row">
 	  <div class="col-lg-12">
 	    <div class="page-header">
-	      <h2>Add to cart</h2>
+	      <h2>お見積もり</h2>
 	    </div>
 	
 	    <div class="bs-component">
@@ -445,7 +450,9 @@
 	
 	                                      <div class="col-sm-6 col-md-2">
 	                                        <div class="input-group date" data-date-format="yyyy-mm-dd">
-	                                      		<input type="text" class="form-control" id="datepickercheckin" name="checkin" size="30" placeholder="Check in" th:value="${checkinout.checkin}" />
+	                                        	<div >
+	                                      			<input type="text" class="form-control" id="datepickercheckin" name="checkin" size="30" placeholder="Check in" th:value="${checkinout.checkin}" />
+	                                      		</div>
 	                                      	</div>
 	                                      </div>
 	                                      
@@ -551,6 +558,21 @@
     </div>
 
  
- 
+     <div id="show-footer">
+      <footer class="footer" id="footer">
+            <div class="container">      
+                <div class="col-lg-12">
+                    <p>つしまジャパン株式会社 〒817-0023 長崎県対馬市厳原町田渕860-1 @TSUSHIMA JAPAN.INC</p>
+                    <p>Copyright © 2014 つしまジャパン株式会社 All Rights Reserved.</p>
+                </div>
+            </div>
+      </footer>
+    </div>
+
+    <script src="../js/jquery-1.10.2.min.js"></script>
+    <script src="../js/bootstrap.min.js"></script>
+    <script src="../js/bootswatch.js"></script>
+    <script src="../js/myjs.js"></script>  
+    
 </body>
 </html>
