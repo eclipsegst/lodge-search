@@ -3,62 +3,70 @@
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
     <meta charset="utf-8"/>
-    <title>lodge</title>
+    <title>login</title>
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <link rel="stylesheet" href="../css/bootstrap.css" media="screen" />
+   	<link rel="stylesheet" href="../css/bootstrap.css" media="screen" />
     <link rel="stylesheet" href="../css/custom.min.css" />
-    <title>Home</title>
+    
+    <link rel="stylesheet" href="../css/tsushima.css"/>    
+    <link rel="stylesheet" href="../css/font-awesome.min.css"/>
+    <link id="stylesheet" href="../css/bootstrap-datepicker.css" rel="stylesheet"/> 
+
+<style type="text/css">
+body {
+    color: blue;
+}
+p {
+	color:#000000;
+}
+p.white {
+    color: #ffffff;
+}
+label {
+	color:000000;
+}
+
+</style>
 </head>
 <body>
-
+<!-- <div th:replace="fragments/header :: header">&nbsp;</div> -->
 <div class="navbar navbar-default navbar-fixed-top">
       <div class="container">
         <div class="navbar-header">
-          <h5><a href="/" class="navbar-brand"> Hitonchi Tsushima</a></h5>
-          <h2><a href="/" class="navbar-brand"> ひとんち対馬</a></h2>
           <button class="navbar-toggle" type="button" data-toggle="collapse" data-target="#navbar-main">
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
           </button>
+          <a href="/" class="navbar-brand">
+            <img src="./img/logo.png" class="non-img-responsive" alt="logo"/>
+          </a>
         </div>
         <div class="navbar-collapse collapse" id="navbar-main">
           <ul class="nav navbar-nav">
             <li>
               <a href="/"></a>
             </li>
-            <li>
-              <!-- <a href="http://news.bootswatch.com/">Blog</a> -->
-            </li>
-            
+
           </ul>
 
           <ul class="nav navbar-nav navbar-right">
           	
           	<li th:if="${currentUser == null}"><a href="/login">Login</a></li>
-          	
-          	<li th:if="${currentUser != null}">
-	            <!-- <form action="/logout" method="post">
-	                <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" />
-	                <button type="submit">Log out</button>
-	            </form> -->
-	            <!-- <button type="submit">Log out</button> -->
-	            <a href="/logout">Logout</a>
-        	</li>
+          	<li th:if="${currentUser != null}"><a href="/logout" th:href="@{/logout}">logout</a></li>
         	
         	<li th:if="${currentUser != null}"><a th:href="@{/user/} + ${currentUser.id}">My Account</a></li>
         	
-          	<li><a href="" target="_blank">Shopping Cart</a></li>
-          	<li><a href="" target="_blank">ご利用方法</a></li>
-          	<li><a href="" target="_blank">Q &amp; A</a></li>
-          	<li><a href="" target="_blank">問合せ</a></li>
+          	<li><a href="../cart/" target="_blank"><i class="fa fa-shopping-cart"></i>マイカート</a></li>
+            <li><a href="../howto/" target="_blank">ご利用方法</a></li>
+            <li><a href="../question/" target="_blank"><i class="fa fa-envelope-o"></i>Q&amp;A</a></li>
+            <li><a href="../inquiry/" target="_blank"><i class="fa fa-weixin"></i>問合せ</a></li>  
           </ul>
 
         </div>
       </div>
     </div>
-
 
 
 <!-- <nav role="navigation">
@@ -78,60 +86,75 @@
 		<div class="container">
 		
 		
-		
-		
-		
 		<!-- start here -->
 		
 		
 		<div class="page-header" id="banner">
 	        <div class="row">
 	          <div class="col-lg-8 col-md-7 col-sm-6">
-	            <h1>Hitonchi Tsushima</h1>
+	           	<h2>Hitonchi Tsushima</h2>
 	            <p class="lead">ひとんち対馬</p>
 	          </div>
 	          <div class="col-lg-4 col-md-5 col-sm-6">
 	            
 	          </div>
 	        </div>
+	        <div class="row">
+	        	<div class="col-lg-6">
+					<h2>Log in</h2>
+					
+					<p>You can use: demo@localhost / demo</p>
+					
+					<form role="form" action="/login" method="post">
+					    
+					    <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" />
+					
+					    <div>
+					        <label for="email"><font color="black">Email address</font></label>
+					        <input type="email" name="email" id="email" />
+					    </div>
+					    <div>
+					        <label for="password"><font color="black">Password</font></label>
+					        <input type="password" name="password" id="password"/>
+					    </div>
+					    <div>
+					        <label for="remember-me"><font color="black">Remember me</font></label>
+					        <input type="checkbox" name="remember-me" id="remember-me"/>
+					    </div>
+					    <button type="submit"><font color="black">Sign in</font></button>
+					    
+				<!-- <p>The email or password you have entered is invalid, try again.</p> -->
+					</form>
+				</div>
+		    </div>
 	    </div>
 	    
-	    <div class="row">
-	    	<p th:text="${currentUser != null} ? ${currentUser.role}"></p>
-	    </div>
 	    
-	    <div class="row">
-	    	<form action="/logout" method="post">
-               <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" />
-               <button type="submit">Log out</button>
-           </form>
-	    </div>
+	    
 		
 
-<h1>Log in</h1>
 
-<p>You can use: demo@localhost / demo</p>
 
-<form role="form" action="/login" method="post">
-    
-    <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" />
-
-    <div>
-        <label for="email">Email address</label>
-        <input type="email" name="email" id="email" />
-    </div>
-    <div>
-        <label for="password">Password</label>
-        <input type="password" name="password" id="password"/>
-    </div>
-    <div>
-        <label for="remember-me">Remember me</label>
-        <input type="checkbox" name="remember-me" id="remember-me"/>
-    </div>
-    <button type="submit">Sign in</button>
-</form>
-
-<!-- <p>The email or password you have entered is invalid, try again.</p> -->
 </div>
+
+    <div id="show-footer">
+      <footer class="footer" id="footer">
+            <div class="container">      
+                <div class="col-lg-12">
+                    <p class="white">つしまジャパン株式会社 〒817-0023 長崎県対馬市厳原町田渕860-1 @TSUSHIMA JAPAN.INC</p>
+                    <p><font color="white">Copyright © 2014 つしまジャパン株式会社 All Rights Reserved.</font></p>
+                </div>
+            </div>
+      </footer>
+    </div>
+
+
+
+    <script src="./js/jquery-1.10.2.min.js"></script>
+    <script src="./js/bootstrap.min.js"></script>
+    <script src="./js/bootswatch.js"></script>
+    <script src="./js/myjs.js"></script>  
+    <script src="./duima/bootstrap-datepicker.js"></script>    
+    <script src="./duima/bootstrap-datepicker.ja.min.js"></script>  
 </body>
 </html>

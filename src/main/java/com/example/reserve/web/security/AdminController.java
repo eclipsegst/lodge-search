@@ -10,7 +10,7 @@ public class AdminController {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(AdminController.class);
 
-    @RequestMapping("/")
+    @RequestMapping("/admin")
     public String getHomePage() {
         LOGGER.debug("Getting admin page");
         return "home";

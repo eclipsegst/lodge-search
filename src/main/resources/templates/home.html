@@ -3,63 +3,56 @@
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
     <meta charset="utf-8"/>
-    <title>lodge</title>
+    <title>home</title>
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <link rel="stylesheet" href="../css/bootstrap.css" media="screen" />
+   	<link rel="stylesheet" href="../css/bootstrap.css" media="screen" />
     <link rel="stylesheet" href="../css/custom.min.css" />
-    <title>Home</title>
+    
+    <link rel="stylesheet" href="../css/tsushima.css"/>    
+    <link rel="stylesheet" href="../css/font-awesome.min.css"/>
+    <link id="stylesheet" href="../css/bootstrap-datepicker.css" rel="stylesheet"/> 
+
 </head>
 <body>
-
+<!-- <div th:replace="fragments/header :: header">&nbsp;</div> -->
 <div class="navbar navbar-default navbar-fixed-top">
       <div class="container">
         <div class="navbar-header">
-          <h5><a href="/" class="navbar-brand"> Hitonchi Tsushima</a></h5>
-          <h2><a href="/" class="navbar-brand"> ひとんち対馬</a></h2>
           <button class="navbar-toggle" type="button" data-toggle="collapse" data-target="#navbar-main">
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
           </button>
+          <a href="/" class="navbar-brand">
+            <img src="./img/logo.png" class="non-img-responsive" alt="logo"/>
+          </a>
         </div>
         <div class="navbar-collapse collapse" id="navbar-main">
           <ul class="nav navbar-nav">
             <li>
               <a href="/"></a>
             </li>
-            <li>
-              <!-- <a href="http://news.bootswatch.com/">Blog</a> -->
-            </li>
-            
+
           </ul>
 
           <ul class="nav navbar-nav navbar-right">
           	
           	<li th:if="${currentUser == null}"><a href="/login">Login</a></li>
-          	
-          	<li th:if="${currentUser != null}">
-	            <!-- <form action="/logout" method="post">
-	                <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" />
-	                <button type="submit">Log out</button>
-	            </form> -->
-	            <!-- <button type="submit">Log out</button> -->
-	            <a href="/logout">Logout</a>
-        	</li>
+          	<li th:if="${currentUser != null}"><a href="/logout" th:href="@{/logout}">logout</a></li>
         	
         	<li th:if="${currentUser != null}"><a th:href="@{/user/} + ${currentUser.id}">My Account</a></li>
         	
-          	<li><a href="" target="_blank">Shopping Cart</a></li>
-          	<li><a href="" target="_blank">ご利用方法</a></li>
-          	<li><a href="" target="_blank">Q &amp; A</a></li>
-          	<li><a href="" target="_blank">問合せ</a></li>
+          	<li><a href="../cart/" target="_blank"><i class="fa fa-shopping-cart"></i>マイカート</a></li>
+            <li><a href="../howto/" target="_blank">ご利用方法</a></li>
+            <li><a href="../question/" target="_blank"><i class="fa fa-envelope-o"></i>Q&amp;A</a></li>
+            <li><a href="../inquiry/" target="_blank"><i class="fa fa-weixin"></i>問合せ</a></li>  
           </ul>
 
         </div>
       </div>
     </div>
-
-
+    
 
 <!-- <nav role="navigation">
     <ul>
@@ -75,14 +68,389 @@
    	</div>
 </nav> -->
 
-		<div class="container">
+<!-- 		<div class="container"> -->
 		
+<!-- <div class="navbar navbar-default navbar-static-top">
+      <div class="container0">
+        <div class="navbar-header">
+          <button class="navbar-toggle" type="button" data-toggle="collapse" data-target="#navbar-main">
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a href="/" class="navbar-brand">
+            <img src="./duima/logo.png" class="non-img-responsive" alt="logo"/>
+          </a>
+        </div>
+        
+        <div class="navbar-collapse collapse" id="navbar-main">
+          <ul class="nav navbar-nav navbar-right">
+          	<li><a href="../cart/" target="_blank"><i class="fa fa-shopping-cart"></i>マイカート</a></li>
+            <li><a href="../howto/" target="_blank">ご利用方法</a></li>
+            <li><a href="../question/" target="_blank"><i class="fa fa-envelope-o"></i>Q&amp;A</a></li>
+            <li><a href="../inquiry/" target="_blank"><i class="fa fa-weixin"></i>問合せ</a></li>  
+          </ul>
+        </div>
+      </div>
+    </div>navbar -->
+
+      
+
+      <div class="jumbotron" id="banner" style="background-image:url(./img/green.jpg); background-size:cover; ">
+            <div class="page-header">
+                  <div class="container">
+                        <div class="row">
+                              <div class="col-lg-12 slogon">                           
+                                    <h1>対馬民泊の魅力を感じましょう</h1>  
+                                    <h3>こちらから</h3>
+                              </div>
+
+                        </div>
+                  </div>
+            </div>            
+      </div><!--jumbotron-->
+
+      <div class="show-searchers container0">
+          <div class="row" id="row-searchers">   
+                <div id="house-searcher" class="col-sm-12 col-md-12 col-lg-6">            
+                      <form class="form-search" method="get" action="http://dreamerboat.com/hitonchi/result.php">
+                            <div class="container0">
+                                  <div class="row1">
+
+                                        <div class="col-sm-12 col-md-12">
+                                            <div class="form-group">
+                                                  <select class="form-control" id="select">
+                                                    <option>￼アクセスを選んでください。</option>
+                                                    <option>A</option>
+                                                    <option>B</option>
+                                                    <option>C</option>
+                                                    <option>D</option>
+                                                    <option>E</option>
+                                                  </select>
+                                            </div>
+                                        </div>
+
+                                        <div class="col-sm-6 col-md-3">
+                                            <div class="input-group date" id="start_date">
+                                              <input type="text" class="form-control" name="checkin" placeholder="Check in"/>
+                                              <span class="input-group-addon">
+                                              <i class="glyphicon glyphicon-th"></i>
+                                              </span>
+                                            </div>
+                                        </div>
+
+                                        <div class="col-sm-6 col-md-3">
+                                            <div class="input-group date" id="end_date">
+                                              <input type="text" class="form-control" name="checkout" placeholder="Check out"/>
+                                              <span class="input-group-addon"><i class="glyphicon glyphicon-th"></i></span>
+                                            </div>
+                                        </div>
+
+                                        <div class="col-sm-6 col-md-2">
+                                            <div class="form-group">
+                                                  <select class="form-control" name="adults" id="select">
+                                                    <option>Adults</option>
+                                                    <option>1</option>
+                                                    <option>2</option>
+                                                    <option>3</option>
+                                                    <option>4</option>
+                                                    <option>5</option>
+                                                  </select>
+                                            </div>
+                                        </div>
+
+                                        <div class="col-sm-6 col-md-2">
+                                            <div class="form-group">
+                                                  <select class="form-control" id="select">
+                                                    <option>Children</option>
+                                                    <option>1</option>
+                                                    <option>2</option>
+                                                    <option>3</option>
+                                                    <option>4</option>
+                                                    <option>5</option>
+                                                  </select>
+                                            </div>
+                                        </div>       
+
+                                        <div class="col-sm-6 col-md-2">
+                                            <div class="form-group">
+                                                  <select class="form-control" id="select">
+                                                    <option>Infants</option>
+                                                    <option>1</option>
+                                                    <option>2</option>
+                                                    <option>3</option>
+                                                    <option>4</option>
+                                                    <option>5</option>
+                                                  </select>
+                                            </div>
+                                        </div> 
+
+    
+                                        <div class="col-sm-12 col-md-6 col-lg-4">
+                                          <button type="submit" class="btn btn-danger btn-block"><strong>Search</strong></button>
+                                        </div>  
+                                        <div class="col-sm-12 col-md-6 col-lg-8">
+                                          <h4><strong>Lodging</strong></h4>
+                                          <p>※連泊される際は初日の宿泊日を選択してください。</p>
+                                        </div>   
+
+                              </div><!--row-->
+                        </div>
+
+                  </form>
+              </div>
+
+               <div id="experience-searcher" class="col-sm-12 col-md-12 col-lg-6">            
+                      <form class="form-search">
+                            <div class="container0">
+                                  <div class="row1">
+
+                                        <div class="col-sm-6 col-md-12 col-lg-6">
+                                            <div class="form-group">
+                                                  <select class="form-control" id="select">
+                                                    <option>Choose the area</option>
+                                                    <option>A</option>
+                                                    <option>B</option>
+                                                    <option>C</option>
+                                                    <option>D</option>
+                                                    <option>E</option>
+                                                  </select>
+                                            </div>
+                                        </div>
+
+                                        <div class="col-sm-6 col-md-12 col-lg-6">
+                                            <div class="form-group">
+                                                  <select class="form-control" id="select">
+                                                    <option>Choose the type of experience</option>
+                                                    <option>A</option>
+                                                    <option>B</option>
+                                                    <option>C</option>
+                                                    <option>D</option>
+                                                    <option>E</option>
+                                                  </select>
+                                            </div>
+                                        </div>
+
+
+                                        <div class="col-sm-6 col-md-6 col-lg-6">
+                                            <div class="input-group date" id="start_date">
+                                              <input type="text" class="form-control" placeholder="Date"/>
+                                              <span class="input-group-addon"><i class="glyphicon glyphicon-th"></i></span>
+                                            </div>
+                                        </div>
+
+
+                                        <div class="col-sm-6 col-md-2 col-lg-2">
+                                            <div class="form-group">
+                                                  <select class="form-control" id="select">
+                                                    <option>Adults</option>
+                                                    <option>1</option>
+                                                    <option>2</option>
+                                                    <option>3</option>
+                                                    <option>4</option>
+                                                    <option>5</option>
+                                                  </select>
+                                            </div>
+                                        </div>
+
+                                        <div class="col-sm-6 col-md-2 col-lg-2">
+                                            <div class="form-group">
+                                                  <select class="form-control" id="select">
+                                                    <option>Children</option>
+                                                    <option>1</option>
+                                                    <option>2</option>
+                                                    <option>3</option>
+                                                    <option>4</option>
+                                                    <option>5</option>
+                                                  </select>
+                                            </div>
+                                        </div>       
+
+                                        <div class="col-sm-6 col-md-2 col-lg-2">
+                                            <div class="form-group">
+                                                  <select class="form-control" id="select">
+                                                    <option>Infants</option>
+                                                    <option>1</option>
+                                                    <option>2</option>
+                                                    <option>3</option>
+                                                    <option>4</option>
+                                                    <option>5</option>
+                                                  </select>
+                                            </div>
+                                        </div>             
+
+                                        <div class="col-sm-12 col-md-6 col-lg-8">
+                                          <h4><strong>Experience</strong></h4>
+                                          <p>※連泊される際は初日の宿泊日を選択してください。</p>
+                                        </div>              
+                                        <div class="col-sm-12 col-md-6 col-lg-4">
+                                          <button type="submit" class="btn btn-primary btn-block"><strong>Search</strong></button>
+                                        </div>  
+
+                              </div><!--row-->
+                        </div>
+                  </form>
+              </div>
+
+
+
+          </div>
+      </div>
+
+
+
+    <!-- Section 民泊ってなに? -->
+    <div class="container" id="show-intro">
+      <div class="page-header" id="section-hitonchi">
+        <div class="row">
+          <div class="col-lg-12">
+            <p>この web サイトは、対馬にある民泊を対馬を訪れる旅行者に紹介し、対馬暮らし体験、宿泊の予約を行うサービスです。</p>
+            <p>悠々自適な生活を贈る対馬のひとんち ( 他人の家 )で、この島でしか味わうことができない生活にお邪魔してみてください。</p>
+          </div>
+        </div>
+      </div>       
+    </div><!--container-->
+
+ 
+    <!-- Section 宿泊 -->
+    <div id="show-houses">
+      <div class="container">
+        <div class="page-header">
+          <h1>Lodging</h1>      
+        </div>   
+        <div class="row">
+
+          <div class="col-sm-6 col-md-4">
+            <div class="thumbnail">
+              <img src="../duima/1.jpg" alt="..."/>
+              <div class="caption1">
+                    <h3><strong>Rosethorn Hall</strong></h3>             
+              </div>
+            </div>
+          </div>
+          <div class="col-sm-6 col-md-4">
+            <div class="thumbnail">
+              <img src="../duima/2.jpg" alt="..."/>
+              <div class="caption1">
+                    <h3><strong>Breezehome</strong></h3>         
+              </div>
+            </div>
+          </div>
+          <div class="col-sm-6 col-md-4">
+            <div class="thumbnail">
+              <img src="./duima/3.jpg" alt="..."/>
+              <div class="caption1">
+                    <h3><strong>Lakeview Manor</strong></h3>           
+              </div>
+            </div>
+          </div>  
+          
+          <div class="col-sm-6 col-md-4">
+            <div class="thumbnail">
+              <img src="./duima/3.jpg" alt="..."/>
+              <div class="caption1">
+                    <h3><strong>Lakeview Manor</strong></h3>           
+              </div>
+              
+              
+            </div>
+          </div> 
+          
+          <div th:each="lodge : ${lodges}">	
+          	<div class="col-sm-6 col-md-4">
+	            <div class="thumbnail">
+	            	<img th:src="@{/image/view(id=${lodgeGallery.get(lodge.id)})}" />
+		            <div class="caption1">
+		            	<h3 ><strong th:text="${lodge.name}"></strong></h3>           
+		            </div>
+					
+					
+	            </div>
+	      	</div> 		                    		
+						
+          </div>
+
+        </div>
+      </div>
+    </div><!-- Section 宿泊 -->
+
+
+    <!-- Section 宿泊 -->
+    <div id="show-experiences">
+      <div class="container">
+        <div class="page-header">
+          <h1>Experience</h1>      
+        </div>   
+        <div class="row">
+          <div class="col-sm-6 col-md-4">
+            <div class="thumbnail">
+              <img src="./duima/1(1).jpg" alt="..."/>
+              <div class="caption1">
+                    <h3><strong>Boating</strong></h3>              
+              </div>
+            </div>
+          </div>
+          <div class="col-sm-6 col-md-4">
+            <div class="thumbnail">
+              <img src="./duima/2(1).jpg" alt="..."/>
+              <div class="caption1">
+                    <h3><strong>Cooking</strong></h3>           
+              </div>
+            </div>
+          </div>
+          
+          <div class="col-sm-6 col-md-4">
+            <div class="thumbnail">
+              <img src="./duima/5.jpg" alt="..."/>
+              <div class="caption1">
+                    <h3><strong>Fishing</strong></h3>        
+              </div>
+            </div>
+          </div> 
+          
+          <div th:each="experience : ${experiences}">	
+          	<div class="col-sm-6 col-md-4">
+	            <div class="thumbnail">
+	            	<img th:src="@{/image/view(id=${experienceGallery.get(experience.id)})}" />
+		            <div class="caption1">
+		            	<h3 ><strong th:text="${experience.name}"></strong></h3>           
+		            </div>
+					
+	            </div>
+	      	</div> 		                    					
+          </div>
+           
+        </div>
+      </div>
+    </div><!-- Section 宿泊 -->
+
+    <div id="show-contact">
+
+    </div>
+
+    <div id="show-footer">
+      <footer class="footer" id="footer">
+            <div class="container">      
+                <div class="col-lg-12">
+                    <p>つしまジャパン株式会社 〒817-0023 長崎県対馬市厳原町田渕860-1 @TSUSHIMA JAPAN.INC</p>
+                    <p>Copyright © 2014 つしまジャパン株式会社 All Rights Reserved.</p>
+                </div>
+            </div>
+      </footer>
+    </div>
+
+
+
+    <script src="./js/jquery-1.10.2.min.js"></script>
+    <script src="./js/bootstrap.min.js"></script>
+    <script src="./js/bootswatch.js"></script>
+    <script src="./js/myjs.js"></script>  
+    <script src="./duima/bootstrap-datepicker.js"></script>    
+    <script src="./duima/bootstrap-datepicker.ja.min.js"></script>    
+
 		
-		
-		
-		
-		<!-- start here -->
-		
+<!--
 		
 		<div class="page-header" id="banner">
 	        <div class="row">
@@ -97,27 +465,14 @@
 	    </div>
 	    
 	    <div class="row">
-	    	<p th:text="${currentUser != null} ? ${currentUser.role}"></p>
+	    	
 	    </div>
-	    
-	    <div class="row">
-	    	<form action="/logout" method="post">
-               <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" />
-               <button type="submit">Log out</button>
-           </form>
-	    </div>
+	     -->
+
+        
+
 		
 		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		</div>
+		<!-- </div> -->
 	</body>
 </html>
