@@ -1,5 +1,6 @@
 package com.example.reserve.web;
 
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -43,9 +44,17 @@ public class HomeController {
 		this.galleryService = galleryService;
 	}
 	
+	public List<String> locations = Arrays.asList("厳原港近辺", "比田勝港近辺", "対馬空港近辺");
+	public List<String> categories = Arrays.asList("boating", "climbing", "cooking", "fishing");
+	public List<Integer> numbers = Arrays.asList(0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10);
+	
 	@RequestMapping(value="/")
 	@Transactional(readOnly = true)
 	public String home(Model model) {
+		
+		model.addAttribute("locations", locations);
+		model.addAttribute("categories", categories);
+		model.addAttribute("numbers", numbers);
 		
 		List<Lodge> lodges = lodgeService.findAll();
 		

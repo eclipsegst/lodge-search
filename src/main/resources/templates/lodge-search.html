@@ -3,7 +3,7 @@
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
     <meta charset="utf-8"/>
-    <title>home</title>
+    <title>lodge search</title>
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
    	<link rel="stylesheet" href="../css/bootstrap.css" media="screen" />
@@ -138,7 +138,7 @@
 		 <div class="show-searchers container0">
           <div class="row" id="row-searchers">   
                 <div id="house-searcher" class="col-sm-12 col-md-12 col-lg-12">  
-	                <form class="form-horizontal" action="#" th:action="@{/lodge/search}" th:object="${lodge}" method="post">
+	                <form class="form-horizontal" action="#" th:action="@{/lodge/search}" th:object="${lodge}" method="get">
 				  		<fieldset>
 				  			<div class="container0">
 	                                <div class="row1">
@@ -154,12 +154,12 @@
 	                                                  <option>E</option>
 	                                                </select> -->
 	                                                
-	                                                <select class="form-control" th:field="*{location}">
-									        	<option th:value="null">Select a location</option>
-									        	<option th:each="location : ${locations}" 
-										          th:value="${location}" 
-										          th:text="${location}"></option>
-											  </select>
+		                                          <select class="form-control" th:field="*{location}" name="location" id ="location">
+										        	<option th:value="null">Select a location</option>
+										        	<option th:each="location : ${locations}" 
+											          th:value="${location}" 
+											          th:text="${location}"></option>
+												  </select>
 	                                          </div>
 	                                      </div>
 	
@@ -188,7 +188,7 @@
 	
 	                                      <div class="col-sm-6 col-md-2">
 	                                          <div class="form-group">
-	                                                <select class="form-control" name="adults" id="select" th:field="*{adult}">
+	                                                <select class="form-control" name="adults" id="adult" th:field="*{adult}">
 	                                                  	<option th:value="1">Adult</option>
 														<option th:each="number : ${numbers}" 
 													        th:value="${number}" 
@@ -284,10 +284,10 @@
       </footer>
     </div>
 
-    <script src="./js/jquery-1.10.2.min.js"></script>
-    <script src="./js/bootstrap.min.js"></script>
-    <script src="./js/bootswatch.js"></script>
-    <script src="./js/myjs.js"></script>  
+    <!-- <script src="../js/jquery-1.10.2.min.js"></script>
+    <script src="../js/bootstrap.min.js"></script>
+    <script src="../js/bootswatch.js"></script>
+    <script src="../js/myjs.js"></script>   -->
 	
 </body>
 

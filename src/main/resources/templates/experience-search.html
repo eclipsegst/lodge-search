@@ -3,9 +3,11 @@
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
     <meta charset="utf-8"/>
-    <title>home</title>
+    <title>experience search</title>
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <link rel="shortcut icon" href="../img/logo-icon.png"/>
+    
    	<link rel="stylesheet" href="../css/bootstrap.css" media="screen" />
     <link rel="stylesheet" href="../css/custom.min.css" />
     
@@ -255,13 +257,14 @@
 					<div class="row">
 					    <div th:each="experience : ${experiences}">	
 				          	<div class="col-sm-6 col-md-4">
+				          		<a th:href="@{./detail(id=${experience.id})}" class="pull-right">
 					            <div class="thumbnail">
 					            	<img th:src="@{/image/view(id=${experienceGallery.get(experience.id)})}" />
 						            <div class="caption1">
 						            	<h3 ><strong th:text="${experience.name}"></strong></h3>           
 						            </div>
-									
 					            </div>
+					            </a>
 					      	</div> 		                    					
 			          	</div>
 					</div>

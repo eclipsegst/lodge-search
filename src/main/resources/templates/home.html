@@ -6,6 +6,7 @@
     <title>home</title>
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <link rel="shortcut icon" href="./img/logo-icon.png"/>
    	<link rel="stylesheet" href="../css/bootstrap.css" media="screen" />
     <link rel="stylesheet" href="../css/custom.min.css" />
     
@@ -114,20 +115,27 @@
       <div class="show-searchers container0">
           <div class="row" id="row-searchers">   
                 <div id="house-searcher" class="col-sm-12 col-md-12 col-lg-6">            
-                      <form class="form-search" method="get" action="http://dreamerboat.com/hitonchi/result.php">
+                      <form class="form-search" method="get" action="/lodge/search">
                             <div class="container0">
                                   <div class="row1">
 
                                         <div class="col-sm-12 col-md-12">
                                             <div class="form-group">
-                                                  <select class="form-control" id="select">
+                                                  <!-- <select class="form-control" id="select">
                                                     <option>￼アクセスを選んでください。</option>
                                                     <option>A</option>
                                                     <option>B</option>
                                                     <option>C</option>
                                                     <option>D</option>
                                                     <option>E</option>
-                                                  </select>
+                                                  </select> -->
+                                                  
+                                                  <select class="form-control" name="location" id="location">
+										        	<option th:value="null">Choose a location</option>
+										        	<option th:each="location : ${locations}" 
+											          th:value="${location}" 
+											          th:text="${location}"></option>
+												  </select>
                                             </div>
                                         </div>
 
@@ -149,39 +157,39 @@
 
                                         <div class="col-sm-6 col-md-2">
                                             <div class="form-group">
-                                                  <select class="form-control" name="adults" id="select">
-                                                    <option>Adults</option>
-                                                    <option>1</option>
-                                                    <option>2</option>
-                                                    <option>3</option>
-                                                    <option>4</option>
-                                                    <option>5</option>
+                                                  <select class="form-control" name="adult" id="adult">
+                                                    <option value="1">Adults</option>
+                                                    <option value="1">1</option>
+                                                    <option value="2">2</option>
+                                                    <option value="3">3</option>
+                                                    <option value="4">4</option>
+                                                    <option value="5">5</option>
                                                   </select>
                                             </div>
                                         </div>
 
                                         <div class="col-sm-6 col-md-2">
                                             <div class="form-group">
-                                                  <select class="form-control" id="select">
-                                                    <option>Children</option>
-                                                    <option>1</option>
-                                                    <option>2</option>
-                                                    <option>3</option>
-                                                    <option>4</option>
-                                                    <option>5</option>
+                                                  <select class="form-control" name="teenager" id="teenager">
+                                                    <option value="0">Children</option>
+                                                    <option value="1">1</option>
+                                                    <option value="2">2</option>
+                                                    <option value="3">3</option>
+                                                    <option value="4">4</option>
+                                                    <option value="5">5</option>
                                                   </select>
                                             </div>
                                         </div>       
 
                                         <div class="col-sm-6 col-md-2">
                                             <div class="form-group">
-                                                  <select class="form-control" id="select">
-                                                    <option>Infants</option>
-                                                    <option>1</option>
-                                                    <option>2</option>
-                                                    <option>3</option>
-                                                    <option>4</option>
-                                                    <option>5</option>
+                                                  <select class="form-control" name="infant" id="infant">
+                                                    <option value="0">Infants</option>
+                                                    <option value="1">1</option>
+                                                    <option value="2">2</option>
+                                                    <option value="3">3</option>
+                                                    <option value="4">4</option>
+                                                    <option value="5">5</option>
                                                   </select>
                                             </div>
                                         </div> 
@@ -202,83 +210,95 @@
               </div>
 
                <div id="experience-searcher" class="col-sm-12 col-md-12 col-lg-6">            
-                      <form class="form-search">
+                      <form class="form-search" method="get" action="/experience/search">
                             <div class="container0">
                                   <div class="row1">
 
                                         <div class="col-sm-6 col-md-12 col-lg-6">
                                             <div class="form-group">
-                                                  <select class="form-control" id="select">
+                                                  <!-- <select class="form-control" id="select">
                                                     <option>Choose the area</option>
                                                     <option>A</option>
                                                     <option>B</option>
                                                     <option>C</option>
                                                     <option>D</option>
                                                     <option>E</option>
-                                                  </select>
+                                                  </select> -->
+                                                  <select class="form-control" name="location" id="location">
+										        	<option th:value="null">Choose a location</option>
+										        	<option th:each="location : ${locations}" 
+											          th:value="${location}" 
+											          th:text="${location}"></option>
+												  </select>
                                             </div>
                                         </div>
 
                                         <div class="col-sm-6 col-md-12 col-lg-6">
                                             <div class="form-group">
-                                                  <select class="form-control" id="select">
+                                                  <!-- <select class="form-control" id="select">
                                                     <option>Choose the type of experience</option>
                                                     <option>A</option>
                                                     <option>B</option>
                                                     <option>C</option>
                                                     <option>D</option>
                                                     <option>E</option>
-                                                  </select>
+                                                  </select> -->
+	                                                <select class="form-control" name="category" id="category" >
+											        	<option th:value="null">select a category</option>
+													  	<option th:each="category : ${categories}" 
+												          th:value="${category}" 
+												          th:text="${category}"></option>
+													</select>
                                             </div>
                                         </div>
 
 
                                         <div class="col-sm-6 col-md-6 col-lg-6">
                                             <div class="input-group date" id="start_date">
-                                              <input type="text" class="form-control" placeholder="Date"/>
+                                              <input type="text" class="form-control" placeholder="Date" name="checkin" id="checkin"/>
                                               <span class="input-group-addon"><i class="glyphicon glyphicon-th"></i></span>
                                             </div>
                                         </div>
 
 
-                                        <div class="col-sm-6 col-md-2 col-lg-2">
+                                        <div class="col-sm-6 col-md-2">
                                             <div class="form-group">
-                                                  <select class="form-control" id="select">
-                                                    <option>Adults</option>
-                                                    <option>1</option>
-                                                    <option>2</option>
-                                                    <option>3</option>
-                                                    <option>4</option>
-                                                    <option>5</option>
+                                                  <select class="form-control" name="adult" id="adult">
+                                                    <option value="1">Adults</option>
+                                                    <option value="1">1</option>
+                                                    <option value="2">2</option>
+                                                    <option value="3">3</option>
+                                                    <option value="4">4</option>
+                                                    <option value="5">5</option>
                                                   </select>
                                             </div>
                                         </div>
 
-                                        <div class="col-sm-6 col-md-2 col-lg-2">
+                                        <div class="col-sm-6 col-md-2">
                                             <div class="form-group">
-                                                  <select class="form-control" id="select">
-                                                    <option>Children</option>
-                                                    <option>1</option>
-                                                    <option>2</option>
-                                                    <option>3</option>
-                                                    <option>4</option>
-                                                    <option>5</option>
+                                                  <select class="form-control" name="teenager" id="teenager">
+                                                    <option value="0">Children</option>
+                                                    <option value="1">1</option>
+                                                    <option value="2">2</option>
+                                                    <option value="3">3</option>
+                                                    <option value="4">4</option>
+                                                    <option value="5">5</option>
                                                   </select>
                                             </div>
                                         </div>       
 
-                                        <div class="col-sm-6 col-md-2 col-lg-2">
+                                        <div class="col-sm-6 col-md-2">
                                             <div class="form-group">
-                                                  <select class="form-control" id="select">
-                                                    <option>Infants</option>
-                                                    <option>1</option>
-                                                    <option>2</option>
-                                                    <option>3</option>
-                                                    <option>4</option>
-                                                    <option>5</option>
+                                                  <select class="form-control" name="infant" id="infant">
+                                                    <option value="0">Infants</option>
+                                                    <option value="1">1</option>
+                                                    <option value="2">2</option>
+                                                    <option value="3">3</option>
+                                                    <option value="4">4</option>
+                                                    <option value="5">5</option>
                                                   </select>
                                             </div>
-                                        </div>             
+                                        </div> 
 
                                         <div class="col-sm-12 col-md-6 col-lg-8">
                                           <h4><strong>Experience</strong></h4>
