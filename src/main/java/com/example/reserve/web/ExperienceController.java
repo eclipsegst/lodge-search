@@ -196,18 +196,79 @@ public class ExperienceController{
 		return "experiences";
 	}
 	
-	@RequestMapping(value="/experience/search", method=RequestMethod.GET)
+	
+	// TODO: NEED BUTTER WAY TO HANDLE ILLEGAL URL
+	// We require parameters for this page.
+	@RequestMapping(
+			value="/experience/search")
+	@Transactional(readOnly = true)
+	public String searchExperienceDefault(
+	Model model) {
+		return "redirect:/";
+	}
+	
+	// experience search
+	@RequestMapping(
+			value="/experience/search", 
+			params = {"location", "category", "checkin", "adult", "teenager", "infant"}, 
+			method=RequestMethod.GET)
 	@Transactional(readOnly = true)
 	public String searchExperience(
+			@RequestParam(value = "location") String location, 
+			@RequestParam(value = "category") String category, 
+			@RequestParam(value = "checkin") String checkinStr, 
+			@RequestParam(value = "adult") int adult, 
+			@RequestParam(value = "teenager") int teenager, 
+			@RequestParam(value = "infant") int infant,
 			Model model) {
+		
 		model.addAttribute("experience", new Experience());
 		model.addAttribute("checkinout", new CheckInOut());
         
 		List<Experience> experiences = experienceService.findAll();
 		model.addAttribute("experiences", experiences);
+		
 		model.addAttribute("locations", locations);
 		model.addAttribute("categories", categories);
 		model.addAttribute("numbers", numbers);
+		
+		if (location.isEmpty() || location == "") {
+			location = null;
+		}
+        if (category.isEmpty() || category == "") {
+        	category = null;
+		}
+        
+        java.sql.Date checkin = null;
+		try {
+			checkin = convertStringToSqlDate(checkinStr);
+		} catch (ParseException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+       
+		experiences = experienceService.findExperienceByCriteria(location, category, adult, teenager, infant);
+		
+		if (checkin != null) {
+			// remove closed lodges
+			for (int i = 0; i < experiences.size(); i++) {
+				Experience checkExperience = experiences.get(i);
+				System.out.println("find " + experiences.size() + " experiences!" );
+				List<Calendar> closedDates = calendarService.findByFkByCategory(checkExperience.getId(), "experience");
+				
+				if (closedDates.isEmpty() || closedDates == null) {
+					System.out.println("There is no closed date for this lodge: " + checkExperience.getName());
+					continue;
+				}
+				for (int j = 0; j < closedDates.size(); j++) {
+					java.sql.Date closedDateSql = closedDates.get(j).getCloseddate();
+					System.out.println("closedDateSql:" + closedDateSql);
+					if (closedDateSql.equals(checkin)) {
+						experiences.remove(checkExperience);
+					}
+				}
+			}
+		}
 		
 		Map<Long, Long> experienceGallery = new HashMap<Long, Long>();
 		for(int i = 0; i < experiences.size(); i++) {
@@ -219,7 +280,6 @@ public class ExperienceController{
 		
 		model.addAttribute("experiences", experiences);
 		model.addAttribute("experienceGallery", experienceGallery);
-		
 		return "experience-search";
 	}
 	
@@ -292,10 +352,29 @@ public class ExperienceController{
 		return "experience-search";
 	}
 	
+	private static java.sql.Date convertUtilToSql(java.util.Date uDate) {
+		java.sql.Date sDate = new java.sql.Date(uDate.getTime());
+		return sDate;
+	}
+	
 	private static java.sql.Date convertStringToSqlDate(String date) throws ParseException {
 		SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+		if (date == null || date.isEmpty() || date == "") return null;
         java.util.Date parsed = format.parse(date);
         java.sql.Date sqlDate = new java.sql.Date(parsed.getTime());
         return sqlDate;
+	}
+	
+	private static String formatDate(String date) throws ParseException {
+		
+		final String OLD_FORMAT = "yyyy/MM/dd";
+		final String NEW_FORMAT = "yyyy-MM-dd";
+
+		SimpleDateFormat sdf = new SimpleDateFormat(OLD_FORMAT);
+		java.util.Date d = sdf.parse(date);
+		sdf.applyPattern(NEW_FORMAT);
+		String newDateString = sdf.format(d);
+		
+		return newDateString;
 	}
 }

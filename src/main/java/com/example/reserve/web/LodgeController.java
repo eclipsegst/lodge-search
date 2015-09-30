@@ -213,6 +213,16 @@ public class LodgeController{
 		return "lodges";
 	}
 	
+	// TODO: NEED BUTTER WAY TO HANDLE ILLEGAL URL
+	@RequestMapping(
+			value="/lodge/search")
+	@Transactional(readOnly = true)
+	public String searchLodgeDefault(
+	Model model) {
+		return "redirect:/";
+	}
+	
+	// lodge search
 	@RequestMapping(
 			value="/lodge/search",
 			params = {"location", "checkin", "checkout", "adult", "teenager", "infant"}, 
@@ -225,16 +235,8 @@ public class LodgeController{
 			@RequestParam(value = "adult") int adult, 
 			@RequestParam(value = "teenager") int teenager, 
 			@RequestParam(value = "infant") int infant, 
-	Model model) throws ParseException {
-			
-//	@RequestMapping(value="/lodge/search", method=RequestMethod.GET)
-//	@Transactional(readOnly = true)
-//	public String String(
-//			Model model) {
-//		System.out.println("lodge search: " + "location=" + location + ", checkinStr=" + checkinStr + 
-//				", checkoutStr=" + formatDate(checkoutStr) + ", adult=" + adult + ", teenager" + teenager + ", infant=" + infant);
-//		
-//		
+			Model model) throws ParseException {
+				
 		model.addAttribute("lodge", new Lodge());
 		model.addAttribute("checkinout", new CheckInOut());
 		List<Lodge> lodges = lodgeService.findAll();
@@ -254,6 +256,64 @@ public class LodgeController{
 		model.addAttribute("lodges", lodges);
 		model.addAttribute("lodgeGallery", lodgeGallery);
 		
+//		return "lodge-search";
+		
+		java.sql.Date checkin = null;
+		try {
+			checkin = convertStringToSqlDate(checkinStr);
+		} catch (ParseException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+        java.sql.Date checkout = null;
+		try {
+			checkout = convertStringToSqlDate(checkoutStr);
+		} catch (ParseException e) {
+			// TODO Auto-generated catch block 
+			e.printStackTrace();
+		}
+        
+//		lodges = lodgeService.findAll();
+		lodges = lodgeService.findLodgeByCriteria(location, adult, teenager, infant);
+		
+		if (checkin != null && checkout != null) {
+			
+			// remove closed lodges
+			for (int i = 0; i < lodges.size(); i++) {
+				Lodge checkLodge = lodges.get(i);
+				System.out.println("find " + lodges.size() + " lodges!" );
+				List<Calendar> closedDates = calendarService.findByFkByCategory(checkLodge.getId(), "lodge");
+				
+				if (closedDates.isEmpty() || closedDates == null) {
+					System.out.println("There is no closed date for this lodge: " + checkLodge.getName());
+					continue;
+				}
+				for (int j = 0; j < closedDates.size(); j++) {
+					java.sql.Date closedDateSql = closedDates.get(j).getCloseddate();
+					System.out.println("closedDateSql:" + closedDateSql);
+					if ((closedDateSql.after(checkin) || closedDateSql.equals(checkin)) &&
+							(closedDateSql.before(checkout) || closedDateSql.equals(checkout))) {
+						lodges.remove(checkLodge);
+					}
+				}
+			}
+		}
+		
+		System.out.println("lodge search criteria:" + location + checkin + checkout + adult + teenager + infant);
+		model.addAttribute("lodges", lodges);
+		model.addAttribute("locations", locations);
+		model.addAttribute("numbers", numbers);
+		
+		lodgeGallery = new HashMap<Long, Long>();
+		for(int i = 0; i < lodges.size(); i++) {
+			List<Gallery> galleries = galleryService.findByFkByCategory(lodges.get(i).getId(), "lodge");
+			if (!galleries.isEmpty()) {
+				lodgeGallery.put(lodges.get(i).getId(), galleries.get(0).getId());
+			}
+		}
+		
+		model.addAttribute("lodges", lodges);
+		model.addAttribute("lodgeGallery", lodgeGallery);
 		return "lodge-search";
 	}
 	

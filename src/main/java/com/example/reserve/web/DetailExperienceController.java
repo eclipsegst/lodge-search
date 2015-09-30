@@ -160,19 +160,12 @@ public class DetailExperienceController {
 		java.sql.Date checkout = null;
 		
 		try {
+			System.out.println("checkin str:" + checkinout.getCheckin());
 			checkin = convertStringToSqlDate(checkinout.getCheckin());
 		} catch (ParseException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-
-		try {
-			checkout = convertStringToSqlDate(checkinout.getCheckout());
-		} catch (ParseException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		
 		
 		System.out.println("checkin:" + checkin);
 		System.out.println("checkout:" + checkout);
@@ -231,7 +224,7 @@ public class DetailExperienceController {
 				", payment:" + cards.get(0).getPayment());
 		
 		model.addAttribute("carts", cards);
-		return "cart";
+		return "redirect:/shoppingcart";
 	}
 	
 	private static java.sql.Date convertToSqlDate(java.util.Date date) {
