@@ -4,19 +4,24 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.session.web.http.HttpSessionManager;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.example.reserve.AppConfig;
 import com.example.reserve.domain.Cart;
+import com.example.reserve.domain.Lodge;
 import com.example.reserve.domain.Shopping;
 import com.example.reserve.domain.ShoppingCart;
+import com.example.reserve.domain.UserInfo;
 import com.example.reserve.service.CalendarService;
 import com.example.reserve.service.FoodService;
 import com.example.reserve.service.GalleryService;
 import com.example.reserve.service.LandlordService;
 import com.example.reserve.service.LodgeService;
 import com.example.reserve.service.ShoppingService;
+import com.example.reserve.service.UserInfoService;
 
 import java.math.BigDecimal;
 import java.math.BigInteger;
@@ -39,17 +44,28 @@ public class ShoppingCartController {
 	private ShoppingService shoppingService;
 	
 	@Autowired
+	private UserInfoService userinfoService;
+	
+	@Autowired
 	private ShoppingCart shoppingCart;
 	
 	@Autowired
 	public ShoppingCartController(
-			@Nonnull final ShoppingService shoppingService
+			@Nonnull final ShoppingService shoppingService,
+			@Nonnull final UserInfoService userinfoService
 			) {
 		this.shoppingService = shoppingService;
+		this.userinfoService = userinfoService;
 	}
 	
 	@RequestMapping(value="/shoppingcart")
 	public String mycart(Model model) {
+		model.addAttribute("userinfo", new UserInfo());
+//		model.addAttribute("name", "name");
+//		model.addAttribute("address", "address");
+//		model.addAttribute("zipcode", "zipcode");
+//		model.addAttribute("phone", "phone");
+//		model.addAttribute("email", "email");
 		
 		List list = shoppingCart.getCarts();
 		
@@ -80,9 +96,17 @@ public class ShoppingCartController {
 		return "cart";
 	}
 	
-	@RequestMapping(value="/shoppingcart/checkout")
-	public String checkout(Model model) throws MessagingException {
+	@RequestMapping(value="/shoppingcart/checkout", method=RequestMethod.POST)
+	public String checkout(@ModelAttribute UserInfo userinfo, Model model) throws MessagingException {
+		model.addAttribute("userinfo", userinfo);
+        
+		System.out.println("user info: name=" + userinfo.getName() + ", phone=" + userinfo.getPhone() + ", address=" + 
+				userinfo.getAddress() + ", zipcode=" + userinfo.getZipcode() + ", email=" + userinfo.getEmail());
 		
+		if (userinfo.getName() != null) {
+			userinfoService.save(userinfo);
+		}
+        
 		List<Cart> carts = new ArrayList<Cart>();
 		carts = shoppingCart.getCarts();
 		
@@ -145,11 +169,5 @@ public class ShoppingCartController {
 		}
 
 		return "checkout-success";
-	}
-	
-	@RequestMapping(value="/shoppingcart/user/new", method=RequestMethod.POST)
-	public String register(Model model) throws MessagingException {
-		
-		return checkout(model);
 	}
 }

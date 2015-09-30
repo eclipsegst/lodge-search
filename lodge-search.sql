@@ -151,6 +151,17 @@ create table user (
 insert into user (email, password_hash, role)
 values ('demo@localhost', '$2a$10$ebyC4Z5WtCXXc.HGDc1Yoe6CLFzcntFmfse6/pTj7CeDY5I05w16C', 'ADMIN');
 
+drop table if exists userinfo;
+create table userinfo (
+	id bigint auto_increment,
+	userid bigint,
+	name varchar(200),
+	phone varchar(200),
+	address varchar(200),
+	zipcode varchar(200),
+	email varchar(200),
+	primary key(id)
+) Engine=InnoDB CHARACTER SET='utf8' COLLATE 'utf8_unicode_ci';
 
 
 
