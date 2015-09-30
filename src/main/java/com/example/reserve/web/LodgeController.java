@@ -213,26 +213,28 @@ public class LodgeController{
 		return "lodges";
 	}
 	
-	@RequestMapping(value="/lodge/search",
-			params = {"location", "checkin", "checkout", "adult", "teenager", "infant"}, method=RequestMethod.GET)
+	@RequestMapping(
+			value="/lodge/search",
+			params = {"location", "checkin", "checkout", "adult", "teenager", "infant"}, 
+			method=RequestMethod.GET)
 	@Transactional(readOnly = true)
 	public String searchLodge(
-	@RequestParam(value = "location") String location, 
-	@RequestParam(value = "checkin") String checkinStr, 
-	@RequestParam(value = "checkout") String checkoutStr, 
-	@RequestParam(value = "adult") int adult, 
-	@RequestParam(value = "teenager") int teenager, 
-	@RequestParam(value = "infant") int infant, 
+			@RequestParam(value = "location") String location, 
+			@RequestParam(value = "checkin") String checkinStr, 
+			@RequestParam(value = "checkout") String checkoutStr, 
+			@RequestParam(value = "adult") int adult, 
+			@RequestParam(value = "teenager") int teenager, 
+			@RequestParam(value = "infant") int infant, 
 	Model model) throws ParseException {
 			
 //	@RequestMapping(value="/lodge/search", method=RequestMethod.GET)
 //	@Transactional(readOnly = true)
 //	public String String(
 //			Model model) {
-		System.out.println("lodge search: " + "location=" + location + ", checkinStr=" + checkinStr + 
-				", checkoutStr=" + formatDate(checkoutStr) + ", adult=" + adult + ", teenager" + teenager + ", infant=" + infant);
-		
-		
+//		System.out.println("lodge search: " + "location=" + location + ", checkinStr=" + checkinStr + 
+//				", checkoutStr=" + formatDate(checkoutStr) + ", adult=" + adult + ", teenager" + teenager + ", infant=" + infant);
+//		
+//		
 		model.addAttribute("lodge", new Lodge());
 		model.addAttribute("checkinout", new CheckInOut());
 		List<Lodge> lodges = lodgeService.findAll();

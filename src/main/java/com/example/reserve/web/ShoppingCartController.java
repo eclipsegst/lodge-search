@@ -16,6 +16,7 @@ import com.example.reserve.domain.Shopping;
 import com.example.reserve.domain.ShoppingCart;
 import com.example.reserve.domain.UserInfo;
 import com.example.reserve.service.CalendarService;
+import com.example.reserve.service.CartService;
 import com.example.reserve.service.FoodService;
 import com.example.reserve.service.GalleryService;
 import com.example.reserve.service.LandlordService;
@@ -41,6 +42,9 @@ import org.springframework.mail.javamail.MimeMessageHelper;
 public class ShoppingCartController {
 	
 	@Autowired
+	private CartService cartService;
+	
+	@Autowired
 	private ShoppingService shoppingService;
 	
 	@Autowired
@@ -52,24 +56,28 @@ public class ShoppingCartController {
 	@Autowired
 	public ShoppingCartController(
 			@Nonnull final ShoppingService shoppingService,
-			@Nonnull final UserInfoService userinfoService
+			@Nonnull final UserInfoService userinfoService,
+			@Nonnull final CartService cartService
 			) {
+		this.cartService = cartService;
 		this.shoppingService = shoppingService;
 		this.userinfoService = userinfoService;
 	}
 	
+	private String error;
+	private long shoppingid;
+	
 	@RequestMapping(value="/shoppingcart")
 	public String mycart(Model model) {
 		model.addAttribute("userinfo", new UserInfo());
-//		model.addAttribute("name", "name");
-//		model.addAttribute("address", "address");
-//		model.addAttribute("zipcode", "zipcode");
-//		model.addAttribute("phone", "phone");
-//		model.addAttribute("email", "email");
 		
 		List list = shoppingCart.getCarts();
 		
 		if (list != null && !list.isEmpty()) {
+			
+			shoppingid = ((Cart)list.get(0)).getShoppingid();
+			System.out.println("shoppingid:" + shoppingid);
+			
 			System.out.println(list.size());
 			for(int i = 0; i < list.size(); i++) {
 				Cart good = (Cart) list.get(i);
@@ -103,8 +111,12 @@ public class ShoppingCartController {
 		System.out.println("user info: name=" + userinfo.getName() + ", phone=" + userinfo.getPhone() + ", address=" + 
 				userinfo.getAddress() + ", zipcode=" + userinfo.getZipcode() + ", email=" + userinfo.getEmail());
 		
-		if (userinfo.getName() != null) {
-			userinfoService.save(userinfo);
+		String email = userinfo.getEmail();
+		// TODO: when user login
+		// String email = shoppingCart.getEmail();
+		if (email == null || email.isEmpty() || email == "") {
+			error = "Please input valid email.";
+			return mycart(model);
 		}
         
 		List<Cart> carts = new ArrayList<Cart>();
@@ -112,60 +124,62 @@ public class ShoppingCartController {
 		
 		if (carts != null) {
 			
-			String email = shoppingCart.getEmail();
-			if (email != null && !email.isEmpty()) {
-			
-				BigDecimal total = new BigDecimal("0");
-				for (int i = 0; i < carts.size(); i++) {
-					total = total.add(carts.get(i).getPayment());
-				}
-				
-				System.out.println("total:" + total);
-				
-				Shopping shopping = new Shopping();
-				shopping.setPayment(total);
-				
-			} else {
-				// insert email and name to user table
-				// get the user id to set shopping userid
-				
-				return "register-simple";
+			BigDecimal total = new BigDecimal("0");
+			for (int i = 0; i < carts.size(); i++) {
+				total = total.add(carts.get(i).getPayment());
 			}
 			
-			System.out.println("cart size:" + carts.size());
-			// get the total amount
+			System.out.println("total:" + total);
 			
+			// insert user info
+			userinfoService.save(userinfo);
 			
+			System.out.println("carts size:" + carts.size());
 			
+			// insert detail to cart
+			for(int i = 0; i < carts.size(); i++) {
+				System.out.println("saving item #:" + i);
+				cartService.save(carts.get(i));
+			}
 			
+			// insert shopping session id to shopping
+			Shopping shopping = new Shopping();
+			shopping.setId(shoppingid);
+			shopping.setPayment(total);
+			shopping.setValid(true);
+			shoppingService.save(shopping);
 			
-//			AnnotationConfigApplicationContext ctx = new AnnotationConfigApplicationContext();
-//			ctx.register(AppConfig.class);
-//			ctx.refresh();
-//			JavaMailSenderImpl mailSender = ctx.getBean(JavaMailSenderImpl.class);
-//			MimeMessage mimeMessage = mailSender.createMimeMessage();
-//			MimeMessageHelper mailMsg = new MimeMessageHelper(mimeMessage);
-//			mailMsg.setFrom("atrappedlife@gmail.com");
-//			mailMsg.setTo("zztg2@mail.missouri.edu");
-//			mailMsg.setSubject("Check out");
-//			mailMsg.setText("Your order has been placed. Thanks!");
-//			mailSender.send(mimeMessage);
-//			
-//			System.out.println("---Done---");
-//			
-//			JavaMailSenderImpl mailToAdminSender = ctx.getBean(JavaMailSenderImpl.class);
-//			MimeMessage mimeMessageToAdmin = mailToAdminSender.createMimeMessage();
-//			MimeMessageHelper mailMsgToAdmin = new MimeMessageHelper(mimeMessageToAdmin);
-//			mailMsgToAdmin.setFrom("atrappedlife@gmail.com");
-//			mailMsgToAdmin.setTo("zztg2@missouri.edu");
-//			mailMsgToAdmin.setSubject("New Order");
-//			mailMsgToAdmin.setText("We have a new order.");
-//			mailSender.send(mimeMessageToAdmin);
-//			
-//			System.out.println("---Done---");
+			AnnotationConfigApplicationContext ctx = new AnnotationConfigApplicationContext();
+			ctx.register(AppConfig.class);
+			ctx.refresh();
+			
+			// send email to user
+			JavaMailSenderImpl mailSender = ctx.getBean(JavaMailSenderImpl.class);
+			MimeMessage mimeMessage = mailSender.createMimeMessage();
+			MimeMessageHelper mailMsg = new MimeMessageHelper(mimeMessage);
+			mailMsg.setFrom("atrappedlife@gmail.com");
+			mailMsg.setTo("zztg2@mail.missouri.edu");
+			mailMsg.setSubject("Check out");
+			mailMsg.setText("Your order has been placed. Thanks!");
+			mailSender.send(mimeMessage);
+			
+			System.out.println("---send email to user success---");
+			
+			// send email to admin
+			JavaMailSenderImpl mailToAdminSender = ctx.getBean(JavaMailSenderImpl.class);
+			MimeMessage mimeMessageToAdmin = mailToAdminSender.createMimeMessage();
+			MimeMessageHelper mailMsgToAdmin = new MimeMessageHelper(mimeMessageToAdmin);
+			mailMsgToAdmin.setFrom("atrappedlife@gmail.com");
+			mailMsgToAdmin.setTo("zztg2@missouri.edu");
+			mailMsgToAdmin.setSubject("New Order");
+			mailMsgToAdmin.setText("We have a new order.");
+			mailSender.send(mimeMessageToAdmin);
+			
+			System.out.println("---send email to admin success---");
 		
 		} else {
-			//to do
+			error = "Sorry. You cannot check out with an empty cart.";
+			return mycart(model);
 		}
 
 		return "checkout-success";

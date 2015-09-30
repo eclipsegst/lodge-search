@@ -37,10 +37,7 @@
 		});
 	});
   </script>
-  
-  
-  
-
+ 
 	<style>
 		img {
 		    max-width: 100%;
@@ -92,7 +89,7 @@
 
           <ul class="nav navbar-nav navbar-right">
           	
-          	<li th:if="${currentUser == null}"><a href="/login">Login</a></li>
+          	<!-- <li th:if="${currentUser == null}"><a href="/login">Login</a></li> -->
           	<li th:if="${currentUser != null}"><a href="/logout" th:href="@{/logout}">logout</a></li>
         	
         	<li th:if="${currentUser != null}"><a th:href="@{/user/} + ${currentUser.id}">My Account</a></li>
@@ -111,21 +108,12 @@
 
     <div class="container">
 
-      <!-- <div class="page-header" id="banner">
-        <div class="row">
-          <div class="col-lg-8 col-md-7 col-sm-6">
-            <h1>Yeti</h1>
-            <p class="lead">A friendly foundation</p>
-          </div>
-          <div class="col-lg-4 col-md-5 col-sm-6">
-            <div class="sponsor">
-              <a href="http://www.shopify.com/?ref=bootswatch" target="_blank" onclick="_gaq.push(['_trackEvent', 'banner', 'click', 'shopify']);">
-                <img src="../assets/img/shopify.png" alt="Shopify" width="180" height="150" onload="_gaq.push(['_trackEvent', 'banner', 'impression', 'shopify']);" />
-              </a>
-            </div>
-          </div>
-        </div>
-      </div> -->
+      <div class="row" th:if="${error != null}">
+      	<div clas="col-lg-6">
+      		<p th:text="${error}"></p>
+      	</div>
+      
+      </div>
       
 		<!-- Tables
       ================================================== -->

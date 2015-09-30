@@ -112,7 +112,7 @@
 
           <ul class="nav navbar-nav navbar-right">
           	
-          	<li th:if="${currentUser == null}"><a href="/login">Login</a></li>
+          	<!-- <li th:if="${currentUser == null}"><a href="/login">Login</a></li> -->
           	<li th:if="${currentUser != null}"><a href="/logout" th:href="@{/logout}">logout</a></li>
         	
         	<li th:if="${currentUser != null}"><a th:href="@{/user/} + ${currentUser.id}">My Account</a></li>
@@ -196,7 +196,7 @@
 	                                      <div class="col-sm-6 col-md-2">
 	                                          <div class="form-group">
 	                                                <select class="form-control" name="adults" id="select" th:field="*{adult}">
-	                                                  	<option th:value="-1">Adult</option>
+	                                                  	<option th:value="0">Adult</option>
 														<option th:each="number : ${numbers}" 
 													        th:value="${number}" 
 													        th:text="${number}"></option>
@@ -207,7 +207,7 @@
 	                                      <div class="col-sm-6 col-md-2">
 	                                          <div class="form-group">
 	                                                <select class="form-control" id="select" th:field="*{teenager}">
-	                                                  	<option th:value="-1">Children</option>
+	                                                  	<option th:value="0">Children</option>
 														<option th:each="number : ${numbers}" 
 													        th:value="${number}" 
 													        th:text="${number}"></option>
@@ -218,7 +218,7 @@
 	                                      <div class="col-sm-6 col-md-2">
 	                                          <div class="form-group">
 	                                                <select class="form-control" id="select" th:field="*{infant}">
-	                                                  	<option th:value="-1">Infant</option>
+	                                                  	<option th:value="0">Infant</option>
 														<option th:each="number : ${numbers}" 
 													        th:value="${number}" 
 													        th:text="${number}"></option>

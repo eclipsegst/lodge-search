@@ -39,7 +39,7 @@
 
           <ul class="nav navbar-nav navbar-right">
           	
-          	<li th:if="${currentUser == null}"><a href="/login">Login</a></li>
+          	<!-- <li th:if="${currentUser == null}"><a href="/login">Login</a></li> -->
           	<li th:if="${currentUser != null}"><a href="/logout" th:href="@{/logout}">logout</a></li>
         	
         	<li th:if="${currentUser != null}"><a th:href="@{/user/} + ${currentUser.id}">My Account</a></li>

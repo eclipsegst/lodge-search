@@ -231,7 +231,7 @@ public class DetailLodgeController {
 				", payment:" + cards.get(0).getPayment());
 		
 		model.addAttribute("carts", cards);
-		return "cart";
+		return "redirect:/shoppingcart";
 	}
 	
 	private static java.sql.Date convertToSqlDate(java.util.Date date) {

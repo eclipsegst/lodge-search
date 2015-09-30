@@ -445,7 +445,7 @@
 	                                      <div class="col-sm-6 col-md-2">
 	                                          <div class="form-group">
 	                                                <select class="form-control" name="adults" id="select" th:field="*{adult}">
-	                                                  	<option th:value="-1">Adult</option>
+	                                                  	<option th:value="1">Adult</option>
 														<option th:each="number : ${numbers}" 
 													        th:value="${number}" 
 													        th:text="${number}"></option>
@@ -456,7 +456,7 @@
 	                                      <div class="col-sm-6 col-md-2">
 	                                          <div class="form-group">
 	                                                <select class="form-control" id="select" th:field="*{teenager}">
-	                                                  	<option th:value="-1">Children</option>
+	                                                  	<option th:value="0">Children</option>
 														<option th:each="number : ${numbers}" 
 													        th:value="${number}" 
 													        th:text="${number}"></option>
@@ -467,7 +467,7 @@
 	                                      <div class="col-sm-6 col-md-2">
 	                                          <div class="form-group">
 	                                                <select class="form-control" id="select" th:field="*{infant}">
-	                                                  	<option th:value="-1">Infant</option>
+	                                                  	<option th:value="0">Infant</option>
 														<option th:each="number : ${numbers}" 
 													        th:value="${number}" 
 													        th:text="${number}"></option>
@@ -482,7 +482,7 @@
 	                                      <div class="col-sm-6 col-md-8">
 		                                      <div class="form-group">
 		                                        	<select class="form-control" id="select" th:field="*{foodfk}">
-	                                                  	<option th:value="-1">choose 套餐</option>
+	                                                  	<option th:value="0">choose 套餐</option>
 														<option th:each="food : ${foods}" 
 													        th:value="${food.id}" 
 													        th:text="${food.title} + ' 大人 ' + ${food.adult} + '円(中学生以上)' + ' お子様' + ${food.teenager} + '円(3才~小学生)'"></option>
