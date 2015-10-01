@@ -219,7 +219,27 @@ public class LodgeController{
 	@Transactional(readOnly = true)
 	public String searchLodgeDefault(
 	Model model) {
-		return "redirect:/";
+		
+		model.addAttribute("locations", locations);
+		model.addAttribute("categories", categories);
+		model.addAttribute("numbers", numbers);
+		
+		model.addAttribute("lodge", new Lodge());
+		model.addAttribute("checkinout", new CheckInOut());
+		
+		List<Lodge> lodges = lodgeService.findAll();
+		Map<Long, Long> lodgeGallery = new HashMap<Long, Long>();
+		for(int i = 0; i < lodges.size(); i++) {
+			List<Gallery> galleries = galleryService.findByFkByCategory(lodges.get(i).getId(), "lodge");
+			if (!galleries.isEmpty()) {
+				lodgeGallery.put(lodges.get(i).getId(), galleries.get(0).getId());
+			}
+		}
+
+		model.addAttribute("lodges", lodges);
+		model.addAttribute("lodgeGallery", lodgeGallery);
+		
+		return "lodge-search";
 	}
 	
 	// lodge search
@@ -239,11 +259,13 @@ public class LodgeController{
 				
 		model.addAttribute("lodge", new Lodge());
 		model.addAttribute("checkinout", new CheckInOut());
-		List<Lodge> lodges = lodgeService.findAll();
-		model.addAttribute("lodges", lodges);
+		
 		model.addAttribute("locations", locations);
 		model.addAttribute("categories", categories);
 		model.addAttribute("numbers", numbers);
+		
+		List<Lodge> lodges = lodgeService.findAll();
+		model.addAttribute("lodges", lodges);
 		
 		Map<Long, Long> lodgeGallery = new HashMap<Long, Long>();
 		for(int i = 0; i < lodges.size(); i++) {

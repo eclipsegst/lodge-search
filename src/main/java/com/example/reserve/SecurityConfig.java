@@ -23,7 +23,11 @@ class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http.authorizeRequests()
-                .antMatchers("/", "/public/**", "/lodge/search", "/lodge/detail", "/lodge/addtocart", "/experience/search", "/experience/detail", "/experience/addtocart", "/shoppingcart/**", "/image/view", "/duima/**", "/register", "/img/*", "/js/*", "/fonts/*", "/css/*").permitAll()
+                .antMatchers("/", "/public/**", "/lodge/search", "/lodge/detail", "/lodge/addtocart", 
+                		"/experience/search", "/experience/detail", "/experience/addtocart", 
+                		"/shoppingcart/**", "/image/view", "/duima/**", "/register", 
+                		"/inquiry", "/howto", "/question", "/shoppingcart	",
+                		"/img/*", "/js/*", "/fonts/*", "/css/*").permitAll()
                 .antMatchers("/users/**").hasAuthority("ADMIN")
                 .anyRequest().fullyAuthenticated()
                 .and()

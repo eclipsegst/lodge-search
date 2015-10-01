@@ -93,27 +93,33 @@ public class HomeController {
 		return "home";
 	}
 	
-	@RequestMapping(value="/cart/")
-	@Transactional(readOnly = true)
-	public String cart(Model model) {
-		return "cart";
-	}
+//	@RequestMapping(value="/shoppingcart/")
+//	@Transactional(readOnly = true)
+//	public String cart(Model model) {
+//		return "cart";
+//	}
 	
-	@RequestMapping(value="/howto/")
+	@RequestMapping(value="/howto")
 	@Transactional(readOnly = true)
 	public String howto(Model model) {
 		return "howto";
 	}
 	
-	@RequestMapping(value="/question/")
+	@RequestMapping(value="/question")
 	@Transactional(readOnly = true)
 	public String question(Model model) {
 		return "question";
 	}
 	
-	@RequestMapping(value="/inquiry/")
+	@RequestMapping(value="/inquiry")
 	@Transactional(readOnly = true)
 	public String inquiry(Model model) {
 		return "inquiry";
+	}
+	
+	@RequestMapping(value="/pagenotfound")
+	@Transactional(readOnly = true)
+	public String pagenotfound(Model model) {
+		return "pagenotfound";
 	}
 }

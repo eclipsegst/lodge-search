@@ -204,7 +204,27 @@ public class ExperienceController{
 	@Transactional(readOnly = true)
 	public String searchExperienceDefault(
 	Model model) {
-		return "redirect:/";
+		
+		model.addAttribute("locations", locations);
+		model.addAttribute("categories", categories);
+		model.addAttribute("numbers", numbers);
+		
+		model.addAttribute("experience", new Experience());
+		model.addAttribute("checkinout", new CheckInOut());
+		
+		List<Experience> experiences = experienceService.findAll();
+		
+		Map<Long, Long> experienceGallery = new HashMap<Long, Long>();
+		for(int i = 0; i < experiences.size(); i++) {
+			List<Gallery> galleries = galleryService.findByFkByCategory(experiences.get(i).getId(), "experience");
+			if (!galleries.isEmpty()) {
+				experienceGallery.put(experiences.get(i).getId(), galleries.get(0).getId());
+			}
+		}
+		
+		model.addAttribute("experiences", experiences);
+		model.addAttribute("experienceGallery", experienceGallery);
+		return "experience-search";
 	}
 	
 	// experience search

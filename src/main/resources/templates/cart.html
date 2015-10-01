@@ -6,6 +6,7 @@
     <title>lodge search</title>
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <link rel="shortcut icon" href="../img/logo-icon.png"/>
    	<link rel="stylesheet" href="../css/bootstrap.css" media="screen" />
     <link rel="stylesheet" href="../css/custom.min.css" />
     
@@ -94,10 +95,10 @@
         	
         	<li th:if="${currentUser != null}"><a th:href="@{/user/} + ${currentUser.id}">My Account</a></li>
         	
-          	<li><a href="../cart/" target="_blank"><i class="fa fa-shopping-cart"></i>マイカート</a></li>
-            <li><a href="../howto/" target="_blank">ご利用方法</a></li>
-            <li><a href="../question/" target="_blank"><i class="fa fa-envelope-o"></i>Q&amp;A</a></li>
-            <li><a href="../inquiry/" target="_blank"><i class="fa fa-weixin"></i>問合せ</a></li>  
+          	<li><a href="../shoppingcart" target="_blank"><i class="fa fa-shopping-cart"></i>マイカート</a></li>
+            <li><a href="../howto" target="_blank">ご利用方法</a></li>
+            <li><a href="../question" target="_blank"><i class="fa fa-envelope-o"></i>Q&amp;A</a></li>
+            <li><a href="../inquiry" target="_blank"><i class="fa fa-weixin"></i>問合せ</a></li>  
           </ul>
 
         </div>

@@ -68,7 +68,7 @@ public class ShoppingCartController {
 	private long shoppingid;
 	
 	@RequestMapping(value="/shoppingcart")
-	public String mycart(Model model) {
+	public String mycart(@ModelAttribute UserInfo userinfo, Model model) {
 		model.addAttribute("userinfo", new UserInfo());
 		
 		List list = shoppingCart.getCarts();
@@ -111,12 +111,12 @@ public class ShoppingCartController {
 		System.out.println("user info: name=" + userinfo.getName() + ", phone=" + userinfo.getPhone() + ", address=" + 
 				userinfo.getAddress() + ", zipcode=" + userinfo.getZipcode() + ", email=" + userinfo.getEmail());
 		
-		String email = userinfo.getEmail();
+		String emailUser = userinfo.getEmail();
 		// TODO: when user login
 		// String email = shoppingCart.getEmail();
-		if (email == null || email.isEmpty() || email == "") {
+		if (emailUser == null || emailUser.isEmpty() || emailUser == "") {
 			error = "Please input valid email.";
-			return mycart(model);
+			return mycart(userinfo, model);
 		}
         
 		List<Cart> carts = new ArrayList<Cart>();
@@ -158,7 +158,7 @@ public class ShoppingCartController {
 			MimeMessage mimeMessage = mailSender.createMimeMessage();
 			MimeMessageHelper mailMsg = new MimeMessageHelper(mimeMessage);
 			mailMsg.setFrom("atrappedlife@gmail.com");
-			mailMsg.setTo("zztg2@mail.missouri.edu");
+			mailMsg.setTo(emailUser);
 			mailMsg.setSubject("Check out");
 			mailMsg.setText("Your order has been placed. Thanks!");
 			mailSender.send(mimeMessage);
@@ -170,7 +170,7 @@ public class ShoppingCartController {
 			MimeMessage mimeMessageToAdmin = mailToAdminSender.createMimeMessage();
 			MimeMessageHelper mailMsgToAdmin = new MimeMessageHelper(mimeMessageToAdmin);
 			mailMsgToAdmin.setFrom("atrappedlife@gmail.com");
-			mailMsgToAdmin.setTo("zztg2@missouri.edu");
+			mailMsgToAdmin.setTo("atrappedlife@gmail.com");
 			mailMsgToAdmin.setSubject("New Order");
 			mailMsgToAdmin.setText("We have a new order.");
 			mailSender.send(mimeMessageToAdmin);
@@ -179,7 +179,7 @@ public class ShoppingCartController {
 		
 		} else {
 			error = "Sorry. You cannot check out with an empty cart.";
-			return mycart(model);
+			return mycart(userinfo, model);
 		}
 
 		return "checkout-success";
