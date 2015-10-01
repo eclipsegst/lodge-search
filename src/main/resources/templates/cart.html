@@ -137,9 +137,10 @@
 					<table class="table table-striped table-hover ">
 						<thead>
 							<tr>
-								<td>Shopping Id</td>
-								<td>Lodge/experience id</td>
+								<!-- <td>Shopping Id</td>
+								<td>Lodge/experience id</td> -->
 								<td>Category</td>
+								<td>Name</td>
 								<td>Food</td>
 								<td>Check In</td>
 								<td>Check Out</td>
@@ -155,24 +156,21 @@
 					                    <input type="hidden" name="id" th:value="${cart.id}"/>
 					                    <input type="hidden" th:id="'action-' + ${cart.id}" name="action" value="update"/>
 					                    		
-								<td th:text="${cart.shoppingid}"></td>
-								<td th:text="${cart.fk}"></td>
+								<!-- <td th:text="${cart.shoppingid}"></td>
+								<td th:text="${cart.fk}"></td> -->
 								<td th:text="${cart.category}"></td>
-								<td th:text="${cart.foodfk}"></td>
+								<td th:text="${cartname.get(cart.id)}"></td>
+								<td th:text="${foodname.get(cart.id)}"></td>
 								<td th:text="${cart.checkin}"></td>
 								<td th:text="${cart.checkout}"></td>
 								<td th:text="${cart.adult}"></td>
 								<td th:text="${cart.teenager}"></td>
 								<td th:text="${cart.infant}"></td>
 								<td th:text="${cart.payment}"></td>
-								<td>
+								<!-- <td>
 									<a href="#" th:onclick="'deleteCart(\'' + ${cart.id} + '\');'">Delete</a>
-									<!-- <a 
-									th:href="@{./delete/(id=${cart.id})}"
-										>Delete cart</a> -->
-								
 				                    <a href="#" th:onclick="'updateCart(\'' + ${cart.id} + '\');'">Update</a>
-				                </td>
+				                </td> -->
 								</form>
 							</tr>
 						</tbody>

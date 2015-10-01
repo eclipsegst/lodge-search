@@ -11,12 +11,14 @@ import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.example.reserve.AppConfig;
 import com.example.reserve.domain.Cart;
+import com.example.reserve.domain.Gallery;
 import com.example.reserve.domain.Lodge;
 import com.example.reserve.domain.Shopping;
 import com.example.reserve.domain.ShoppingCart;
 import com.example.reserve.domain.UserInfo;
 import com.example.reserve.service.CalendarService;
 import com.example.reserve.service.CartService;
+import com.example.reserve.service.ExperienceService;
 import com.example.reserve.service.FoodService;
 import com.example.reserve.service.GalleryService;
 import com.example.reserve.service.LandlordService;
@@ -28,8 +30,10 @@ import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
 
 import javax.annotation.Nonnull;
 import javax.mail.MessagingException;
@@ -43,6 +47,15 @@ public class ShoppingCartController {
 	
 	@Autowired
 	private CartService cartService;
+
+	@Autowired
+	private ExperienceService experienceService;
+	
+	@Autowired
+	private FoodService foodService;
+	
+	@Autowired
+	private LodgeService lodgeService;
 	
 	@Autowired
 	private ShoppingService shoppingService;
@@ -55,11 +68,17 @@ public class ShoppingCartController {
 	
 	@Autowired
 	public ShoppingCartController(
+			@Nonnull final CartService cartService,
+			@Nonnull final ExperienceService experienceService,
+			@Nonnull final FoodService foodService,
+			@Nonnull final LodgeService lodgeService,
 			@Nonnull final ShoppingService shoppingService,
-			@Nonnull final UserInfoService userinfoService,
-			@Nonnull final CartService cartService
+			@Nonnull final UserInfoService userinfoService
 			) {
 		this.cartService = cartService;
+		this.experienceService = experienceService;
+		this.foodService = foodService;
+		this.lodgeService = lodgeService;
 		this.shoppingService = shoppingService;
 		this.userinfoService = userinfoService;
 	}
@@ -100,6 +119,38 @@ public class ShoppingCartController {
 			System.out.println("cart empty");
 		}
 		
+		Map<Long, String> cartName = new HashMap<Long, String>();
+		Map<Long, String> cartFoodName = new HashMap<Long, String>();
+		if (carts != null) {
+			for(int i = 0; i < carts.size(); i++) {
+				Cart cart = carts.get(i);
+				
+				String name = "";
+				String foodName ="";
+				
+				// get lodge or experience name
+				if (cart.getCategory().equals("lodge")) {
+					long lodgeId = cart.getFk();
+					name = lodgeService.findOne(lodgeId).getName();
+					
+				} else if (cart.getCategory().equals("experience")) {
+					long experienceId = cart.getFk();
+					name = experienceService.findOne(experienceId).getName();
+				}
+				
+				cartName.put(cart.getId(), name);
+				
+				// get food name
+				long foodId = cart.getFoodfk();
+				foodName = foodService.findOne(foodId).getTitle();
+				
+				cartFoodName.put(cart.getId(), foodName);
+				
+			}
+		}
+		
+		model.addAttribute("cartname", cartName);
+		model.addAttribute("foodname", cartFoodName);
 		model.addAttribute("carts", carts);
 		return "cart";
 	}
@@ -157,9 +208,9 @@ public class ShoppingCartController {
 			JavaMailSenderImpl mailSender = ctx.getBean(JavaMailSenderImpl.class);
 			MimeMessage mimeMessage = mailSender.createMimeMessage();
 			MimeMessageHelper mailMsg = new MimeMessageHelper(mimeMessage);
-			mailMsg.setFrom("atrappedlife@gmail.com");
+			mailMsg.setFrom("tsushimarevive@gmail.com");
 			mailMsg.setTo(emailUser);
-			mailMsg.setSubject("Check out");
+			mailMsg.setSubject("Thanks!");
 			mailMsg.setText("Your order has been placed. Thanks!");
 			mailSender.send(mimeMessage);
 			
@@ -169,8 +220,8 @@ public class ShoppingCartController {
 			JavaMailSenderImpl mailToAdminSender = ctx.getBean(JavaMailSenderImpl.class);
 			MimeMessage mimeMessageToAdmin = mailToAdminSender.createMimeMessage();
 			MimeMessageHelper mailMsgToAdmin = new MimeMessageHelper(mimeMessageToAdmin);
-			mailMsgToAdmin.setFrom("atrappedlife@gmail.com");
-			mailMsgToAdmin.setTo("atrappedlife@gmail.com");
+			mailMsg.setFrom("tsushimarevive@gmail.com");
+			mailMsgToAdmin.setTo("tsushimarevive@gmail.com");
 			mailMsgToAdmin.setSubject("New Order");
 			mailMsgToAdmin.setText("We have a new order.");
 			mailSender.send(mimeMessageToAdmin);

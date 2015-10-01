@@ -6,6 +6,7 @@
     <title>lodge search</title>
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <link rel="shortcut icon" href="../img/logo-icon.png"/>
    	<link rel="stylesheet" href="../css/bootstrap.css" media="screen" />
     <link rel="stylesheet" href="../css/custom.min.css" />
     
@@ -14,17 +15,17 @@
     <link id="stylesheet" href="../css/bootstrap-datepicker.css" rel="stylesheet"/> 
 
 
-  <link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css"/>
+<!--   <link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css"/>
   <script src="//code.jquery.com/jquery-1.10.2.js"></script>
-  <script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
+  <script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script> -->
   <script>
-	  $(function() {
+/* 	  $(function() {
 	    $( "#datepicker" ).datepicker({
 	  		dateFormat: 'yy-mm-dd'
 		});
-	  });
+	  }); */
   
-	$(function() {
+/* 	$(function() {
 	  	$( "#datepickercheckin" ).datepicker({
 	  		minDate: -0, 
 	    	maxDate: "+1Y +0M +0D",
@@ -35,7 +36,7 @@
 	    	maxDate: "+1Y +0M +0D",
 	        dateFormat: 'yy-mm-dd',
 		});
-	});
+	}); */
   </script>
   
   
@@ -164,26 +165,25 @@
 	                                      </div>
 	
 	                                      <div class="col-sm-6 col-md-2">
-	                                          <!-- <div class="input-group date" id="start_date" data-date-format="yyyy-mm-dd">
-	                                            <input type="text" class="form-control" name="checkin" placeholder="Check in" th:value="${checkinout.checkin}"/>
-	                                            <span class="input-group-addon">
-	                                            <i class="glyphicon glyphicon-th"></i>
-	                                            </span>
-	                                          </div> -->
-	                                          <div class="input-group">
+                                            <div class="input-group date" id="start_date">
+                                              <input type="text" class="form-control" name="checkin" placeholder="Check in"/>
+                                              <span class="input-group-addon"><i class="glyphicon glyphicon-th"></i></span>
+                                            </div>
+
+	                                          <!-- <div class="input-group">
 	                                          	<input type="text" class="form-control" placeholder="Check in" name="checkin" id="datepickercheckin" th:value="${checkinout.checkin}"/>
-	                                          </div>
+	                                          </div> -->
 	                                      </div>
 	
 	                                      <div class="col-sm-6 col-md-2">
-	                                          <!-- <div class="input-group date" id="end_date" data-date-format="yyyy-mm-dd">
+	                                          <div class="input-group date" id="end_date" data-date-format="yyyy-mm-dd">
 	                                            <input type="text" class="form-control" name="checkout" placeholder="Check out" th:value="${checkinout.checkout}"/>
 	                                            <span class="input-group-addon"><i class="glyphicon glyphicon-th"></i></span>
-	                                          </div> -->
-	                                          
-	                                          <div class="input-group" >
-	                                            <input type="text" class="form-control" placeholder="Check out" name="checkout" id="datepickercheckout" th:value="${checkinout.checkout}"/>
 	                                          </div>
+	                                          
+	                                          <!-- <div class="input-group" >
+	                                            <input type="text" class="form-control" placeholder="Check out" name="checkout" id="datepickercheckout" th:value="${checkinout.checkout}"/>
+	                                          </div> -->
 	                                      </div>
 	
 	                                      <div class="col-sm-6 col-md-2">
@@ -245,7 +245,6 @@
               <h1 id="tables">Available lodges</h1>
             </div>
 
-            <div class="bs-component">
 				
 				<div class="row">
 			    	<div th:each="lodge : ${lodges}">	
@@ -263,7 +262,6 @@
 		          	</div>
 				</div>
 				
-            </div>
           </div>
         </div>
       </div>
@@ -288,6 +286,13 @@
     <script src="../js/bootstrap.min.js"></script>
     <script src="../js/bootswatch.js"></script>
     <script src="../js/myjs.js"></script>   -->
+    
+    <script src="../js/jquery-1.10.2.min.js"></script>
+    <script src="../js/bootstrap.min.js"></script>
+    <script src="../js/bootswatch.js"></script>
+    <script src="../js/myjs.js"></script>  
+    <script src="../duima/bootstrap-datepicker.js"></script>    
+    <script src="../duima/bootstrap-datepicker.ja.min.js"></script>   
 	
 </body>
 

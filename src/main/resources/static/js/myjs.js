@@ -17,7 +17,7 @@ $( document ).ready(function() {
       var n = d.getDate();
       $('.input-group.date').datepicker({
           todayHighlight: true,
-          language: 'ja'
+          language: 'ja',
+          autoclose: true,
       });
-
 });

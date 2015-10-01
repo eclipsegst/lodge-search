@@ -16,10 +16,10 @@
     <link id="stylesheet" href="../css/bootstrap-datepicker.css" rel="stylesheet"/> 
 
 
-  <link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css"/>
+<!--   <link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css"/>
   <script src="//code.jquery.com/jquery-1.10.2.js"></script>
-  <script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
-  <script>
+  <script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script> -->
+<!--   <script>
 	  $(function() {
 	    $( "#datepicker" ).datepicker({
 	  		dateFormat: 'yy-mm-dd'
@@ -38,7 +38,7 @@
 	        dateFormat: 'yy-mm-dd',
 		});
 	});
-  </script>
+  </script> -->
   
   
   
@@ -167,16 +167,14 @@
 	                                      </div>
 	
 	                                      <div class="col-sm-6 col-md-2">
-	                                          <!-- <div class="input-group date" id="start_date" data-date-format="yyyy-mm-dd">
-	                                            <input type="text" class="form-control" name="checkin" placeholder="Check in" th:value="${checkinout.checkin}"/>
-	                                            <span class="input-group-addon">
-	                                            <i class="glyphicon glyphicon-th"></i>
-	                                            </span>
-	                                          </div> -->
+	                                          <div class="input-group date" id="start_date">
+	                                              <input type="text" class="form-control" name="checkin" placeholder="Check in"/>
+	                                              <span class="input-group-addon"><i class="glyphicon glyphicon-th"></i></span>
+	                                            </div>
 
-	                                          <div class="input-group">
+	                                          <!-- <div class="input-group">
 	                                          	<input type="text" class="form-control" placeholder="Check in" name="checkin" id="datepickercheckin" th:value="${checkinout.checkin}"/>
-	                                          </div>
+	                                          </div> -->
 	                                      </div>
 	
 	                                      <div class="col-sm-6 col-md-2">
@@ -289,10 +287,17 @@
       </footer>
     </div>
 
-    <script src="./js/jquery-1.10.2.min.js"></script>
+    <!-- <script src="./js/jquery-1.10.2.min.js"></script>
     <script src="./js/bootstrap.min.js"></script>
     <script src="./js/bootswatch.js"></script>
-    <script src="./js/myjs.js"></script> 
+    <script src="./js/myjs.js"></script>  -->
+    
+    <script src="../js/jquery-1.10.2.min.js"></script>
+    <script src="../js/bootstrap.min.js"></script>
+    <script src="../js/bootswatch.js"></script>
+    <script src="../js/myjs.js"></script>  
+    <script src="../duima/bootstrap-datepicker.js"></script>    
+    <script src="../duima/bootstrap-datepicker.ja.min.js"></script>  
 	
 </body>
 

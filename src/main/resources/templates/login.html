@@ -6,6 +6,7 @@
     <title>login</title>
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <link rel="shortcut icon" href="../img/logo-icon.png"/>
    	<link rel="stylesheet" href="../css/bootstrap.css" media="screen" />
     <link rel="stylesheet" href="../css/custom.min.css" />
     
@@ -53,10 +54,10 @@ label {
 
           <ul class="nav navbar-nav navbar-right">
           	
-          	<li th:if="${currentUser == null}"><a href="/login">Login</a></li>
-          	<li th:if="${currentUser != null}"><a href="/logout" th:href="@{/logout}">logout</a></li>
+          	<!-- <li th:if="${currentUser == null}"><a href="/login">Login</a></li>
+          	<li th:if="${currentUser != null}"><a href="/logout" th:href="@{/logout}">logout</a></li> -->
         	
-        	<li th:if="${currentUser != null}"><a th:href="@{/user/} + ${currentUser.id}">My Account</a></li>
+        	<!-- <li th:if="${currentUser != null}"><a th:href="@{/user/} + ${currentUser.id}">My Account</a></li> -->
         	
           	<li><a href="../cart/" target="_blank"><i class="fa fa-shopping-cart"></i>マイカート</a></li>
             <li><a href="../howto/" target="_blank">ご利用方法</a></li>
@@ -99,11 +100,11 @@ label {
 	            
 	          </div>
 	        </div>
-	        <div class="row">
+	        <!-- <div class="row">
 	        	<div class="col-lg-6">
 					<h2>Log in</h2>
 					
-					<!-- <p>You can use: demo@localhost / demo</p> -->
+					<p>You can use: demo@localhost / demo</p>
 					
 					<form role="form" action="/login" method="post">
 					    
@@ -123,15 +124,56 @@ label {
 					    </div>
 					    <button type="submit"><font color="black">Sign in</font></button>
 					    
-				<!-- <p>The email or password you have entered is invalid, try again.</p> -->
+				<p>The email or password you have entered is invalid, try again.</p>
 					</form>
 				</div>
+		    </div> -->
+		    
+		    
+		    <div class="row row-centered">
+        <div class="col-xs-6 col-centered">
+
+	    
+	    <form class="form-horizontal" action="/login" method="post">
+		  <fieldset>
+		    <legend>Log in</legend>
+		    <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" />
+		    <div class="form-group">
+		      <label for="inputEmail" class="col-lg-2 control-label"><font color="black">Email</font></label>
+		      <div class="col-lg-10">
+		        <input type="text" class="form-control" name="email" id="inputEmail" placeholder="Email" />
+		      </div>
 		    </div>
+		    <div class="form-group">
+		      <label for="inputPassword" class="col-lg-2 control-label"><font color="black">Password</font></label>
+		      <div class="col-lg-10">
+		        <input type="password" class="form-control" name="password" id="inputPassword" placeholder="Password" />
+		        <div class="checkbox">
+		          <label>
+		            <input type="checkbox" name="remember-me" id="remember-me"><font color="black">Remember me</font></input>
+		          </label>
+		        </div>
+		      </div>
+		    </div>
+		   
+		
+		    <div class="form-group">
+		      <div class="col-lg-10 col-lg-offset-2">
+		        <button type="reset" class="btn btn-default">Cancel</button>
+		        <button type="submit" class="btn btn-primary">Submit</button>
+		      </div>
+		    </div>
+		  </fieldset>
+		</form>
+	    
+		</div>
+    </div>
+		    
+		    
+		    
 	    </div>
 	    
-	    
-	    
-		
+	
 
 
 
