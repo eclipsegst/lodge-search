@@ -6,13 +6,20 @@ import java.util.List;
 import java.util.Map;
 
 import javax.annotation.Nonnull;
+import javax.mail.MessagingException;
+import javax.mail.internet.MimeMessage;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.mail.javamail.JavaMailSender;
+import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 
+import com.example.reserve.domain.Email;
 import com.example.reserve.domain.Experience;
 import com.example.reserve.domain.Gallery;
 import com.example.reserve.domain.Lodge;
@@ -32,6 +39,8 @@ public class HomeController {
 	@Autowired
 	private final GalleryService galleryService;
 
+	@Autowired
+    private JavaMailSender mailSender;
 	
 	@Autowired
 	public HomeController(
@@ -51,6 +60,7 @@ public class HomeController {
 	@RequestMapping(value="/")
 	@Transactional(readOnly = true)
 	public String home(Model model) {
+		model.addAttribute("email", new Email());
 		
 		model.addAttribute("locations", locations);
 		model.addAttribute("categories", categories);
@@ -121,5 +131,25 @@ public class HomeController {
 	@Transactional(readOnly = true)
 	public String pagenotfound(Model model) {
 		return "pagenotfound";
+	}
+	
+	@RequestMapping(value="/email/new", method=RequestMethod.POST)
+	@Transactional(readOnly = true)
+	public String sendEmail(@ModelAttribute Email email, Model model ) throws MessagingException {
+		model.addAttribute("email", email);
+		
+		MimeMessage mimeMessage = this.mailSender.createMimeMessage();
+		MimeMessageHelper mailMsg = new MimeMessageHelper(mimeMessage);
+		mailMsg.setFrom("tsushimarevive@gmail.com");
+		mailMsg.setTo("tsushimarevive@gmail.com");
+		mailMsg.setSubject("CONTACT US");
+		
+		String message = email.getName() + "\t\n" + email.getEmail() + "\t\n" + email.getMessage();
+		mailMsg.setText(message);
+		mailSender.send(mimeMessage);
+		
+		System.out.println("---send query email to success---");
+		
+		return "redirect:/";
 	}
 }

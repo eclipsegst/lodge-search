@@ -36,6 +36,11 @@
 			height:350px;
 		}
 	</style>
+	<style>
+		div.ui-datepicker{
+		 	font-size:20px;
+		}
+	</style>
 	<script type="text/javascript" src="http://maps.googleapis.com/maps/api/js?sensor=false" ></script>
 	<script type="text/javascript" th:inline="javascript">
 	  function loadMap(latitude, longitude) {
@@ -177,13 +182,7 @@
               <h2 id="tables" th:text="${lodge.name}">Lodge Detail</h2>
             </div>
 
-            <div class="bs-component">
-              
-              
-              
-              
-              
-              
+
               <div id="myCarousel" class="carousel slide" data-ride="carousel">
   <!-- Indicators -->
   <ol class="carousel-indicators">
@@ -231,11 +230,6 @@
          
               
            
-            </div>
-            <div class="bs-component">
-              
-              
-            </div>
 
           </div>
         </div>
@@ -303,8 +297,6 @@
         <div class="page-header">
           <h2>Detail</h2>
         </div>
-
-        <div class="bs-component">
         	<div class="row">
               	<div class="col-lg-12" th:object="${lodge}">
               	
@@ -402,20 +394,8 @@
 						      	</div>
 						    </div>
 			
-
-<!-- <fieldset>    
-	<div class="field">
-        <div class="label">labl 1:</div>
-        <div class="value">Some text</div>
-    </div>
-    <div class="field">
-        <div class="label"><h1>this is a really really long label:</h1></div>
-        <div class="value">right after":" from previous label</div>
-    </div>
-</fieldset> -->
               	</div>
               </div>
-            </div>
         
       </div>
     </div>
@@ -521,13 +501,36 @@
         </div>
           
 
-	    
-	    
+
 	    </div>
 	    <div class="col-lg-4">
 	     
-	     <div id="datepicker" class="pull-right input-group date inline_date"></div>
-	    </div>
+		     <div class="row" >
+		     	<div id="datepicker" class="input-group date inline_date" style="margin-left:20px"></div>
+		    </div>
+		    <div class="row" style="margin:5px">
+		    	<div class="col-lg-6">
+			    	<div class="col-lg-4">
+			    		<div style="width:20px;height:20px;border:1px solid #000;background:#D7D7D7"></div>
+			    	</div>
+			    	<div class="col-lg-8">
+			    		予約可能
+			    	</div>
+		    	</div>
+		    	<div class="col-lg-6">
+			    	<div class="col-lg-4">
+			    		<div style="width:20px;height:20px;border:1px solid #000;background:#F7F7F7" ></div>
+			    	</div>
+			    	<div class="col-lg-8">
+			    		予約不可能
+			    	</div>
+		    	</div>
+		    	
+		    </div>
+		    
+		 </div>
+		 
+		 
 	    </div>
 	    
 	   

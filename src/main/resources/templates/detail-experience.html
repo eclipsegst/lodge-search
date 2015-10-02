@@ -36,6 +36,11 @@
 			height:350px;
 		}
 	</style>
+	<style>
+		div.ui-datepicker{
+		 	font-size:20px;
+		}
+	</style>
 	<script type="text/javascript" src="http://maps.googleapis.com/maps/api/js?sensor=false" ></script>
 	<script type="text/javascript" th:inline="javascript">
 	  function loadMap(latitude, longitude) {
@@ -225,13 +230,8 @@
   </a>
 </div>
               
-         
-              
-           
-            <div class="bs-component">
-              
-              
-            </div>
+
+      
 
           </div>
         </div>
@@ -414,57 +414,52 @@
 	    <div class="row">
 	    <div class="col-lg-8">
 	    
-	   	<div class="show-searchers container0">
-          <div class="row" id="row-searchers">   
                 <div id="house-searcher" class="col-sm-12 col-md-12 col-lg-12">  
 	                <form class="form-horizontal" action="#" th:action="@{/experience/addtocart}" th:object="${cart}"  method="post">
-				  		<fieldset>
-				  			<div class="container0">
-	                                <div class="row">
-									<div class="col-sm-6 col-md-3">
-	                                      	<div class="input-group">
-								                <input type="text" id="datepicker-my" class="form-control" name="checkin" size="30" placeholder="check in" />	
-								                <span class="input-group-addon" id="btn" style="cursor:pointer;">
-								                    <span class="glyphicon glyphicon-calendar"></span>
-								                </span>
-								            </div>
-	                                      
-	                                      </div>
-	                                      
-	                                      <div class="col-sm-6 col-md-3">
-	                                          <div class="form-group">
-	                                                <select class="form-control" name="adults" id="select" th:field="*{adult}">
-	                                                  	<option th:value="1">Adult</option>
-														<option th:each="number : ${numbers}" 
-													        th:value="${number}" 
-													        th:text="${number}"></option>
-	                                                </select>
-	                                          </div>
-	                                      </div>
-	
-	                                      <div class="col-sm-6 col-md-3">
-	                                          <div class="form-group">
-	                                                <select class="form-control" id="select" th:field="*{teenager}">
-	                                                  	<option th:value="0">Children</option>
-														<option th:each="number : ${numbers}" 
-													        th:value="${number}" 
-													        th:text="${number}"></option>
-	                                                </select>
-	                                          </div>
-	                                      </div>       
-	
-	                                      <div class="col-sm-6 col-md-3">
-	                                          <div class="form-group">
-	                                                <select class="form-control" id="select" th:field="*{infant}">
-	                                                  	<option th:value="0">Infant</option>
-														<option th:each="number : ${numbers}" 
-													        th:value="${number}" 
-													        th:text="${number}"></option>
-	                                                </select>
-	                                          </div>
-	                                      </div> 
-               
-									</div>
+						<div class="row" style="margin-bottom:10px;">
+							<div class="col-sm-6 col-md-3">
+                                 <div class="input-group">
+			                <input type="text" id="datepicker-my" class="form-control" name="checkin" size="30" placeholder="check in" />	
+			                <span class="input-group-addon" id="btn" style="cursor:pointer;">
+			                    <span class="glyphicon glyphicon-calendar"></span>
+			                </span>
+		            	</div>
+                               </div>
+                              
+                               <div class="col-sm-6 col-md-3">
+                                   <div class="form-group">
+                                         <select class="form-control" name="adults" id="select" th:field="*{adult}">
+                                           	<option th:value="1">Adult</option>
+						<option th:each="number : ${numbers}" 
+					        th:value="${number}" 
+					        th:text="${number}"></option>
+                                         </select>
+                                   </div>
+                               </div>
+
+                               <div class="col-sm-6 col-md-3">
+                                   <div class="form-group">
+                                      <select class="form-control" id="select" th:field="*{teenager}">
+                                       	<option th:value="0">Children</option>
+										<option th:each="number : ${numbers}" 
+								        th:value="${number}" 
+								        th:text="${number}"></option>
+                                      </select>
+                                   </div>
+                               </div>       
+
+                              <div class="col-sm-6 col-md-3">
+                                  <div class="form-group">
+                                        <select class="form-control" id="select" th:field="*{infant}">
+                                          	<option th:value="0">Infant</option>
+					<option th:each="number : ${numbers}" 
+				        th:value="${number}" 
+				        th:text="${number}"></option>
+                                        </select>
+                                  </div>
+                              </div> 
+          
+					</div>
 									
 									<div class="row" style="margin-left: 0px;">
 	  
@@ -490,32 +485,40 @@
 	                                      </div>
 	                                      
 	                            	</div><!--row-->
-	                      		</div>
-						</fieldset>
 	                </form>
               </div>
-
-
-          </div>
-      </div>
 
 	    
 	    
 	    </div>
 	    <div class="col-lg-4">
 	     
-	     <div id="datepicker" class="pull-right"></div>
+	     	<div class="row" >
+		     	<div id="datepicker" class="input-group date inline_date" style="margin-left:20px"></div>
+		    </div>
+		    <div class="row" style="margin:5px">
+		    	<div class="col-lg-6">
+			    	<div class="col-lg-4">
+			    		<div style="width:20px;height:20px;border:1px solid #000;background:#D7D7D7"></div>
+			    	</div>
+			    	<div class="col-lg-8">
+			    		予約可能
+			    	</div>
+		    	</div>
+		    	<div class="col-lg-6">
+			    	<div class="col-lg-4">
+			    		<div style="width:20px;height:20px;border:1px solid #000;background:#F7F7F7" ></div>
+			    	</div>
+			    	<div class="col-lg-8">
+			    		予約不可能
+			    	</div>
+		    	</div>
+		    	
+		    </div>
 
 	    </div>
 
 	    </div><!-- row -->
-	    <div class="row">
-
-
-            
-
-
-	    </div>
 	    
 	    
 	   

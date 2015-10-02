@@ -14,6 +14,19 @@
     <link rel="stylesheet" href="../css/font-awesome.min.css"/>
     <link id="stylesheet" href="../css/bootstrap-datepicker.css" rel="stylesheet"/> 
 
+	<style>
+		.white {
+		    background-color: #fff;
+		}
+		.verticalLine {
+			margin-top:50px;
+			margin-bottom:20px;
+			margin-left:10px;
+			margin-right:10px;
+		    border-left: thin solid #fff;
+		}
+	</style>
+	
 </head>
 <body>
 <!-- <div th:replace="fragments/header :: header">&nbsp;</div> -->
@@ -53,50 +66,6 @@
         </div>
       </div>
     </div>
-    
-
-<!-- <nav role="navigation">
-    <ul>
-        <li th:if="${currentUser != null}"><a href="/user/create" th:if="${#strings.replace(#strings.escapeXml(#strings.replace(currentUser.role,' ','')),'&amp;','%26')} == 'ADMIN'">Create a new user</a></li>
-        <li th:if="${currentUser != null}"><a href="/users" th:if="${#strings.replace(#strings.escapeXml(#strings.replace(currentUser.role,' ','')),'&amp;','%26')} == 'ADMIN'">View all users</a></li>
-
-    </ul>
-    
-    <p th:if="${currentUser != null}" th:text="${#strings.toLowerCase(currentUser.role)}"></p>
-    <p th:text="${currentUser != null} ? ${currentUser.role}"></p>
-    <div th:object="${currrentUser}">
-    <p th:text="'User role is ' + ( ( == 'ADMIN') ? 'ADMIN' : 'NOT ADMIN')"></p>
-   	</div>
-</nav> -->
-
-<!-- 		<div class="container"> -->
-		
-<!-- <div class="navbar navbar-default navbar-static-top">
-      <div class="container0">
-        <div class="navbar-header">
-          <button class="navbar-toggle" type="button" data-toggle="collapse" data-target="#navbar-main">
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-          </button>
-          <a href="/" class="navbar-brand">
-            <img src="./duima/logo.png" class="non-img-responsive" alt="logo"/>
-          </a>
-        </div>
-        
-        <div class="navbar-collapse collapse" id="navbar-main">
-          <ul class="nav navbar-nav navbar-right">
-          	<li><a href="../cart/" target="_blank"><i class="fa fa-shopping-cart"></i>マイカート</a></li>
-            <li><a href="../howto/" target="_blank">ご利用方法</a></li>
-            <li><a href="../question/" target="_blank"><i class="fa fa-envelope-o"></i>Q&amp;A</a></li>
-            <li><a href="../inquiry/" target="_blank"><i class="fa fa-weixin"></i>問合せ</a></li>  
-          </ul>
-        </div>
-      </div>
-    </div>navbar -->
-
-      
 
       <div class="jumbotron" id="banner" style="background-image:url(./img/green.jpg); background-size:cover; ">
             <div class="page-header">
@@ -320,24 +289,26 @@
 
 
 
-    <!-- Section 民泊ってなに? -->
-    <div class="container" id="show-intro">
-      <div class="page-header" id="section-hitonchi">
-        <div class="row">
-          <div class="col-lg-12">
-            <p>この web サイトは、対馬にある民泊を対馬を訪れる旅行者に紹介し、対馬暮らし体験、宿泊の予約を行うサービスです。</p>
-            <p>悠々自適な生活を贈る対馬のひとんち ( 他人の家 )で、この島でしか味わうことができない生活にお邪魔してみてください。</p>
-          </div>
-        </div>
-      </div>       
-    </div><!--container-->
+<!-- Section 民泊ってなに? -->
+<div class="white" id="show-intro">
+  <div class="page-header" id="section-hitonchi">
+    <div class="row">
+      <div class="col-lg-12">
+        <p>この web サイトは、対馬にある民泊を対馬を訪れる旅行者に紹介し、対馬暮らし体験、宿泊の予約を行うサービスです。</p>
+        <p>悠々自適な生活を贈る対馬のひとんち ( 他人の家 )で、この島でしか味わうことができない生活にお邪魔してみてください。</p>
+      </div>
+    </div>
+     
+  </div> 
+  <img src="../img/mid-carousel.png" alt="..."/>      
+
 
  
     <!-- Section 宿泊 -->
     <div id="show-houses">
       <div class="container">
         <div class="page-header">
-          <h1>宿泊</h1>      
+          <h2><strong>宿泊</strong></h2><hr/>    
         </div>   
         <div class="row">
 
@@ -379,14 +350,20 @@
           
           <div th:each="lodge : ${lodges}">	
           	<div class="col-sm-6 col-md-4">
-	            <div class="thumbnail">
+	            <!-- <div class="thumbnail">
 	            	<img th:src="@{/image/view(id=${lodgeGallery.get(lodge.id)})}" />
 		            <div class="caption1">
 		            	<h3 ><strong th:text="${lodge.name}"></strong></h3>           
 		            </div>
-					
-					
-	            </div>
+	            </div> -->
+	            <a th:href="@{./lodge/detail(id=${lodge.id})}" class="pull-right">
+		            <div class="thumbnail">
+		            	<img th:src="@{/image/view(id=${lodgeGallery.get(lodge.id)})}" />
+			            <div class="caption1">
+			            	<h3 ><strong th:text="${lodge.name}"></strong></h3>           
+			            </div>
+		            </div>
+	            </a>
 	      	</div> 		                    		
 						
           </div>
@@ -396,7 +373,7 @@
         	<div class="col-lg-12">
         		<p class="text-left">※料金は最安値 ( 素泊まり ) で税込み価格で表示しています。
         		</p>
-        		<p class="text-right"><a href="/lodge/search">他の民泊</a></p>
+        		<p class="text-right"><a href="/lodge/search"><h4 class="pull-right"><font color="blue">他の民泊</font></h4></a></p>
         	</div>
         </div>
       </div>
@@ -407,7 +384,7 @@
     <div id="show-experiences">
       <div class="container">
         <div class="page-header">
-          <h1>体験</h1>      
+          <h2><strong>体験</strong></h2><hr/>
         </div>   
         <div class="row">
           <div class="col-sm-6 col-md-4">
@@ -438,13 +415,20 @@
           
           <div th:each="experience : ${experiences}">	
           	<div class="col-sm-6 col-md-4">
-	            <div class="thumbnail">
+	            <!-- <div class="thumbnail">
 	            	<img th:src="@{/image/view(id=${experienceGallery.get(experience.id)})}" />
 		            <div class="caption1">
 		            	<h3 ><strong th:text="${experience.name}"></strong></h3>           
 		            </div>
-					
-	            </div>
+	            </div> -->
+	            <a th:href="@{./experience/detail(id=${experience.id})}" class="pull-right">
+		            <div class="thumbnail">
+		            	<img th:src="@{/image/view(id=${experienceGallery.get(experience.id)})}" />
+			            <div class="caption1">
+			            	<h3 ><strong th:text="${experience.name}"></strong></h3>           
+			            </div>
+		            </div>
+	            </a>
 	      	</div> 		                    					
           </div>
            
@@ -453,26 +437,102 @@
         	<div class="col-lg-12">
         		<p class="text-left">※料金は最安値で税込み価格で表示しています。オプションや用具貸し出し等の料金は詳細ページでご確認ください。
         		</p>
-        		<p class="text-right"><a href="/experience/search">他の体験</a></p>
+        		<p class="text-right"><a href="/experience/search"><h4 class="pull-right"><font color="blue">他の体験</font></h4></a></p>
         	</div>
         </div>
       </div>
     </div><!-- Section experience -->
 
-    <div id="show-contact">
 
-    </div>
 
-    <div id="show-footer">
-      <footer class="footer" id="footer">
+
+
+
+
+
+		<div class="row" style="background:#D0CFC4;margin-bottom:0px; padding-left:50px;">
+			<div class="col-lg-12">
+	        	<div class="col-lg-4">
+	       			<h3><font color="white">CONTACT US</font></h3>
+	       			<p> <font size="2" color="white">
+	       			お問合せは以下のコンタクトフォームよりお願いします。 メールが正しく届かない場合はこのドメインが受信拒否と認識されているか、 ドメイン指定受信を設定されている可能性があります。 以下のドメインを受信できるように設定してください。@tsushimajapan.com
+	       			</font>
+	       			</p>
+	       			
+	       			<form class="form-horizontal" action="#" th:action="@{/email/new}" th:object="${email}" method="post">
+					  <fieldset>
+					    <div class="form-group">
+					      <label for="inputName" class="col-lg-3 control-label" style="text-align:left;">NAME</label>
+					      <div class="col-lg-9">
+					        <input type="text" class="form-control" id="inputName" name="name" th:field="*{name}" />
+					      </div>
+					    </div>
+					    <div class="form-group">
+					      <label for="inputEmail" class="col-lg-3 control-label" style="text-align:left;">EMAIL</label>
+					      <div class="col-lg-9">
+					        <input type="text" class="form-control" id="inputEmail" name="email" placeholder="" th:field="*{email}"/>
+					      </div>
+					    </div>
+					    <div class="form-group">
+					      <label for="textArea" class="col-lg-3 control-label" style="text-align:left;">MESSAGE</label>
+					      <div class="col-lg-9">
+					        <textarea class="form-control" rows="3" id="textArea" name="message" th:field="*{message}"></textarea>
+					      </div>
+					    </div>
+					    <div class="form-group">
+					      <div class="col-lg-9 col-lg-offset-3" style="display: table-cell;vertical-align: middle">
+					        <button type="submit" class="btn btn-sm pull-right" value="Submit" style="background-color:#443c38;width:80px;"><font color="white">送信</font></button>
+					      </div>
+					    </div>
+					  </fieldset>
+					</form>
+	        	</div>
+	        	<div class="col-lg-4">
+	        		<div class="img_vertical_center" style="margin-top:10px">
+	        			<img src="./img/logo-bottom.png" alt="..." />
+	        		</div>
+	        	</div>
+	        	<div class="col-lg-4">
+	        		<div class="row">
+			        	<div class="verticalLine" style="padding-top: 25px;padding-right: 50px; padding-bottom: 25px; padding-left: 25px;">
+
+			       			<a href="/"><h4><strong><font color="white">サイトマッフ</font></strong></h4></a>
+			       			<br />
+			       			<a href="/"><h4><strong><font color="white">会社概要</font></strong></h4></a>
+			       			<br />
+							<a href="/"><h4><strong><font color="white">利用規約 • 免責事項</font></strong></h4></a>
+							<br />
+							<a href="/"><h4><strong><font color="white">ソーシャルメディア</font></strong></h4></a>
+						
+						</div>
+						<div>
+			        		
+						</div>
+					</div>
+	        	</div>
+	       	
+	       	</div>
+        </div>
+        
+
+    	<footer class="footer" id="footer" style="background-color: #443c38;margin-top:0px;" >
             <div class="container">      
                 <div class="col-lg-12">
                     <p>つしまジャパン株式会社 〒817-0023 長崎県対馬市厳原町田渕860-1 @TSUSHIMA JAPAN.INC</p>
                     <p>Copyright © 2014 つしまジャパン株式会社 All Rights Reserved.</p>
                 </div>
             </div>
-      </footer>
-    </div>
+        </footer>
+
+    
+</div><!--from mid carousel-->
+
+
+
+
+
+
+    
 
 
 

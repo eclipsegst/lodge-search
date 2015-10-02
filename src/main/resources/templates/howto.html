@@ -129,40 +129,38 @@
         
         <div class="row">
         	<div class="col-lg-4">
-        		<div class="bs-component">
-        			<h3>CONTACT US</h3>
-        			<p>
-        			お問合せは以下のコンタクトフォームよりお願いします。 メールが正しく届かない場合はこのドメインが受信拒否と認識されているか、 ドメイン指定受信を設定されている可能性があります。 以下のドメインを受信できるように設定してください。@tsushimajapan.com
-        			</p>
-        			
-        			<form class="form-horizontal" action="#" th:action="@{/email/new}" th:object="${email}" method="post">
-					  <fieldset>
-					    <div class="form-group">
-					      <label for="inputName" class="col-lg-2 control-label">Name</label>
-					      <div class="col-lg-10">
-					        <input type="text" class="form-control" id="inputName" />
-					      </div>
-					    </div>
-					    <div class="form-group">
-					      <label for="inputEmail" class="col-lg-2 control-label">Email</label>
-					      <div class="col-lg-10">
-					        <input type="text" class="form-control" id="inputEmail" placeholder=""/>
-					      </div>
-					    </div>
-					    <div class="form-group">
-					      <label for="textArea" class="col-lg-2 control-label">Content</label>
-					      <div class="col-lg-10">
-					        <textarea class="form-control" rows="3" id="textArea" ></textarea>
-					      </div>
-					    </div>
-					    <div class="form-group">
-					      <div class="col-lg-10 col-lg-offset-2">
-					        <button type="submit" class="btn btn-primary pull-right" value="Submit">Submit</button>
-					      </div>
-					    </div>
-					  </fieldset>
-					</form>
-        		</div>
+       			<h3>CONTACT US</h3>
+       			<p>
+       			お問合せは以下のコンタクトフォームよりお願いします。 メールが正しく届かない場合はこのドメインが受信拒否と認識されているか、 ドメイン指定受信を設定されている可能性があります。 以下のドメインを受信できるように設定してください。@tsushimajapan.com
+       			</p>
+       			
+       			<form class="form-horizontal" action="#" th:action="@{/email/new}" th:object="${email}" method="post">
+				  <fieldset>
+				    <div class="form-group">
+				      <label for="inputName" class="col-lg-2 control-label">Name</label>
+				      <div class="col-lg-10">
+				        <input type="text" class="form-control" id="inputName" />
+				      </div>
+				    </div>
+				    <div class="form-group">
+				      <label for="inputEmail" class="col-lg-2 control-label">Email</label>
+				      <div class="col-lg-10">
+				        <input type="text" class="form-control" id="inputEmail" placeholder=""/>
+				      </div>
+				    </div>
+				    <div class="form-group">
+				      <label for="textArea" class="col-lg-2 control-label">Content</label>
+				      <div class="col-lg-10">
+				        <textarea class="form-control" rows="3" id="textArea" ></textarea>
+				      </div>
+				    </div>
+				    <div class="form-group">
+				      <div class="col-lg-10 col-lg-offset-2">
+				        <button type="submit" class="btn btn-primary pull-right" value="Submit">Submit</button>
+				      </div>
+				    </div>
+				  </fieldset>
+				</form>
         	</div>
         	<div class="col-lg-4">
         		<div class="bs-component">
@@ -170,31 +168,16 @@
         		</div>
         	</div>
         	<div class="col-lg-4">
-        		<div class="bs-component">
-	        		<br />
-	        		<br />
-        			<h4>サイトマッフ</h4>
-        			<h4>会社概要</h4>
-					<h4>利用規約 • 免責事項</h4>
-					<h4>ソーシャルメディア</h4>
-        		</div>
+        		<br />
+        		<br />
+       			<h4>サイトマッフ</h4>
+       			<h4>会社概要</h4>
+				<h4>利用規約 • 免責事項</h4>
+				<h4>ソーシャルメディア</h4>
         	</div>
         </div>
       </div>
 
-      <div id="source-modal" class="modal fade">
-        <div class="modal-dialog modal-lg">
-          <div class="modal-content">
-            <div class="modal-header">
-              <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-              <h4 class="modal-title">Source Code</h4>
-            </div>
-            <div class="modal-body">
-              <pre></pre>
-            </div>
-          </div>
-        </div>
-      </div>
 
       <footer>
         <div class="row">

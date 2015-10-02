@@ -1,4 +1,8 @@
 
+.img_vertical_center img {
+    vertical-align: middle;
+}
+		
 img {
     max-width: 100%;
     /* max-height: 200px; */
@@ -173,7 +177,10 @@ body {
 }
 
 #footer .footer-links span{
-	margin: 20px;
+	margin-top: 0px;
+    margin-bottom: 0px;
+    margin-right: 20px;
+    margin-left: 20px
 }
 
 #footer .footer-links a{
@@ -208,12 +215,6 @@ img.map{
 	max-height: 100px;
 	margin-bottom: 30px;
 }
-
-
-
-
-
-
 
 
 
@@ -354,7 +355,7 @@ now override the 3.3 new styles for modern browsers & apply opacity
 }
 #show-intro {
 	padding-top: 20px;
-	padding-bottom: 20px;
+	padding-bottom: 0px;
 	font-size: 18px;
 }
 #show-intro .page-header{
