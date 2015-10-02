@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+  <head>
+    <title th:remove="all">Template for HTML email with inline image</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+  </head>
+  <body>
+    <p th:text="'Hi ' + ${name} + ','">
+    </p>
+    <p>Hitonchi 事務局です。</p>
+    <p>ただいま以下の見積もりを算出、民泊オーナーさまに連絡をさせて頂きました。</p>
+ 	<p>民泊オーナーさんから登録されている電話番号まで１日以内にご連絡が入ります。</p>
+ 	<p>今しばらくお待ちください。</p>
+    <p>
+      <span th:text="${#dates.format(subscriptionDate)}"></span>
+    </p>
+    <p>✳︎予約情報   ---------------------------------------------------------------------------------------------</p>
+    <ul th:remove="all-but-first">
+      <li th:each="row : ${rows}" th:text="${row}"></li>
+    </ul>
+    <p>
+      ✳︎ 代表者情報 ---------------------------------------------------------------------------------------------
+    </p>
+    <div class="row" th:object="${userinfo}">
+	    <p>氏名<label th:text="${userinfo.name}"></label></p>
+	    <p>郵便番号<label th:text="${userinfo.zipcode}"></label></p>
+	    <p>住所<label th:text="${userinfo.address}"></label></p>
+	    <p>電話番号<label th:text="${userinfo.phone}"></label></p>
+	    <p>E-mail<label th:text="${userinfo.email}"></label></p>
+    </div>
+    <p>
+         ---------------------------------------------------------------------------------------------
+    </p>
+    <p>この見積もり内容で問題なければ予約確定となります。</p>
+	<p>お会計は現地で行ってください。</p>
+
+	<br/>
+	<p>ご利用ありがとうございました。</p>
+  </body>
+</html>

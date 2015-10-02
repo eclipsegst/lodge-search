@@ -8,8 +8,9 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.thymeleaf.context.Context;
+import org.thymeleaf.spring4.SpringTemplateEngine;
 
-import com.example.reserve.AppConfig;
 import com.example.reserve.domain.Cart;
 import com.example.reserve.domain.Gallery;
 import com.example.reserve.domain.Lodge;
@@ -30,15 +31,18 @@ import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
 
 import javax.annotation.Nonnull;
 import javax.mail.MessagingException;
 import javax.mail.internet.MimeMessage;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
+import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.JavaMailSenderImpl;
 import org.springframework.mail.javamail.MimeMessageHelper;
 
@@ -67,6 +71,12 @@ public class ShoppingCartController {
 	private ShoppingCart shoppingCart;
 	
 	@Autowired
+    private JavaMailSender mailSender;
+
+    @Autowired
+    private SpringTemplateEngine templateEngine;
+	
+	@Autowired
 	public ShoppingCartController(
 			@Nonnull final CartService cartService,
 			@Nonnull final ExperienceService experienceService,
@@ -85,6 +95,8 @@ public class ShoppingCartController {
 	
 	private String error;
 	private long shoppingid;
+	private Map<Long, String> cartName = new HashMap<Long, String>();
+	private Map<Long, String> cartFoodName = new HashMap<Long, String>();
 	
 	@RequestMapping(value="/shoppingcart")
 	public String mycart(@ModelAttribute UserInfo userinfo, Model model) {
@@ -119,8 +131,6 @@ public class ShoppingCartController {
 			System.out.println("cart empty");
 		}
 		
-		Map<Long, String> cartName = new HashMap<Long, String>();
-		Map<Long, String> cartFoodName = new HashMap<Long, String>();
 		if (carts != null) {
 			for(int i = 0; i < carts.size(); i++) {
 				Cart cart = carts.get(i);
@@ -185,13 +195,31 @@ public class ShoppingCartController {
 			// insert user info
 			userinfoService.save(userinfo);
 			
+			
 			System.out.println("carts size:" + carts.size());
 			
 			// insert detail to cart
 			for(int i = 0; i < carts.size(); i++) {
 				System.out.println("saving item #:" + i);
 				cartService.save(carts.get(i));
+				
+				
 			}
+			
+			List<String> rows = new ArrayList<String>();
+			
+			for(int i = 0; i < carts.size(); i++) {
+				Cart cart = carts.get(i);
+				String row =  cart.getCheckin()+
+						" " + cart.getCategory() +
+						" " + cartName.get(cart.getId()) +
+						" " + "大人" + cart.getAdult() + "名" +
+						" " + "子供人" + cart.getAdult() + "名" +
+						" " + "幼児" + cart.getAdult() + "名";
+				rows.add(row + " \t\n");
+			}
+			
+			rows.add("合計 " + total + "円" + "\t\n");
 			
 			// insert shopping session id to shopping
 			Shopping shopping = new Shopping();
@@ -200,25 +228,32 @@ public class ShoppingCartController {
 			shopping.setValid(true);
 			shoppingService.save(shopping);
 			
-			AnnotationConfigApplicationContext ctx = new AnnotationConfigApplicationContext();
-			ctx.register(AppConfig.class);
-			ctx.refresh();
+			Locale locale = new Locale("ja");
+			
+			final Context ctx = new Context(locale);
+			ctx.setVariable("name", userinfo.getName());
+			ctx.setVariable("subscriptionDate", new Date());
+			ctx.setVariable("rows", rows);
+			ctx.setVariable("userinfo", userinfo);
+//			ctx.setVariable("imageResourceName", imageResourceName); 
+			 
+			final String htmlContent = this.templateEngine.process("email-inlineimage", ctx);
+			
 			
 			// send email to user
-			JavaMailSenderImpl mailSender = ctx.getBean(JavaMailSenderImpl.class);
-			MimeMessage mimeMessage = mailSender.createMimeMessage();
+			MimeMessage mimeMessage = this.mailSender.createMimeMessage();
 			MimeMessageHelper mailMsg = new MimeMessageHelper(mimeMessage);
 			mailMsg.setFrom("tsushimarevive@gmail.com");
 			mailMsg.setTo(emailUser);
 			mailMsg.setSubject("Thanks!");
-			mailMsg.setText("Your order has been placed. Thanks!");
+			mailMsg.setText(htmlContent, true);
+//			mailMsg.setText("Your order has been placed. Thanks!");
 			mailSender.send(mimeMessage);
 			
 			System.out.println("---send email to user success---");
 			
 			// send email to admin
-			JavaMailSenderImpl mailToAdminSender = ctx.getBean(JavaMailSenderImpl.class);
-			MimeMessage mimeMessageToAdmin = mailToAdminSender.createMimeMessage();
+			MimeMessage mimeMessageToAdmin = this.mailSender.createMimeMessage();
 			MimeMessageHelper mailMsgToAdmin = new MimeMessageHelper(mimeMessageToAdmin);
 			mailMsg.setFrom("tsushimarevive@gmail.com");
 			mailMsgToAdmin.setTo("tsushimarevive@gmail.com");
@@ -228,6 +263,8 @@ public class ShoppingCartController {
 			
 			System.out.println("---send email to admin success---");
 		
+//			// use the true flag to indicate the text included is HTML
+//			helper.setText("<html><body><img src=''cid:identifier1234''></body></html>", true);
 		} else {
 			error = "Sorry. You cannot check out with an empty cart.";
 			return mycart(userinfo, model);
