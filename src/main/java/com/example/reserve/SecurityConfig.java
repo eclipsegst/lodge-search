@@ -27,7 +27,7 @@ class SecurityConfig extends WebSecurityConfigurerAdapter {
                 		"/experience/search", "/experience/detail", "/experience/addtocart", 
                 		"/shoppingcart/**", "/image/view", "/duima/**", "/register", 
                 		"/inquiry", "/howto", "/question", "/shoppingcart	",
-                		"/img/*", "/js/*", "/fonts/*", "/css/*", "/test").permitAll()
+                		"/img/**", "/js/**", "/fonts/**", "/css/**", "/test").permitAll()
                 .antMatchers("/users/**").hasAuthority("ADMIN")
                 .anyRequest().fullyAuthenticated()
                 .and()

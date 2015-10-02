@@ -6,29 +6,19 @@
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <link rel="shortcut icon" href="../img/logo-icon.png"/>
-  	<!-- 
+  	
   	<link rel="stylesheet" href="../css/bootstrap.min.css" />
   	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap-theme.min.css" />
 	<script src="../js/bootstrap.min.js"></script>
   	<script src="../js/jquery-1.11.0.min.js"></script>
   
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
-  <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script> -->
-	
 	<link rel="stylesheet" href="../css/bootstrap.css" media="screen" />
     <link rel="stylesheet" href="../css/custom.min.css" />
     
     <link rel="stylesheet" href="../css/tsushima.css"/>    
     <link rel="stylesheet" href="../css/font-awesome.min.css"/>
-    <link id="stylesheet" href="../css/bootstrap-datepicker.css" rel="stylesheet"/> 
 	
-	
-	<!-- datepicker -->
-	<link rel="stylesheet" href="http://code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css" />
-	<script src="http://code.jquery.com/jquery-1.10.2.js"></script>
-	<script src="http://code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
-	
-	
+	<link href="../../css/datepicker/jquery-ui.css" rel="stylesheet" />
 
   	<!-- carousel -->
 	<style>
@@ -80,6 +70,10 @@
 	</script>  
 
 
+	<script src="../../js/datepicker/external/jquery/jquery.js"></script>
+	<script src="../../js/datepicker/jquery-ui.js"></script>
+	<script src="../../js/datepicker/datepicker-ja.js"></script>
+		
 	<!--  datepicker -->
 	<script th:inline="javascript">
 		
@@ -151,10 +145,10 @@
         	
         	<li th:if="${currentUser != null}"><a th:href="@{/user/} + ${currentUser.id}">My Account</a></li>
         	
-          	<li><a href="../cart/" target="_blank"><i class="fa fa-shopping-cart"></i>マイカート</a></li>
-            <li><a href="../howto/" target="_blank">ご利用方法</a></li>
-            <li><a href="../question/" target="_blank"><i class="fa fa-envelope-o"></i>Q&amp;A</a></li>
-            <li><a href="../inquiry/" target="_blank"><i class="fa fa-weixin"></i>問合せ</a></li>  
+          	<li><a href="../cart" target="_blank"><i class="fa fa-shopping-cart"></i>マイカート</a></li>
+            <li><a href="../howto" target="_blank">ご利用方法</a></li>
+            <li><a href="../question" target="_blank"><i class="fa fa-envelope-o"></i>Q&amp;A</a></li>
+            <li><a href="../inquiry" target="_blank"><i class="fa fa-weixin"></i>問合せ</a></li>  
           </ul>
 
         </div>
@@ -427,22 +421,17 @@
 				  		<fieldset>
 				  			<div class="container0">
 	                                <div class="row">
-	
-	                                      <div class="col-sm-6 col-md-2">
-	                                        <div class="input-group date">
-	                                        	<div >
-	                                      			<input type="text" class="form-control" id="datepickercheckin" name="checkin" size="30" placeholder="Check in" th:value="${checkinout.checkin}" />
-	                                      		</div>
-	                                      	</div>
+									<div class="col-sm-6 col-md-3">
+	                                      	<div class="input-group">
+								                <input type="text" id="datepicker-my" class="form-control" name="checkin" size="30" placeholder="check in" />	
+								                <span class="input-group-addon" id="btn" style="cursor:pointer;">
+								                    <span class="glyphicon glyphicon-calendar"></span>
+								                </span>
+								            </div>
+	                                      
 	                                      </div>
 	                                      
-	                                      <!-- <div class="col-sm-6 col-md-2">
-	                                        <div class="input-group date"  data-date-format="yyyy-mm-dd">
-	                                        	<input type="text" class="form-control" id="datepickercheckout" name="checkout" placeholder="Check out" th:value="${checkinout.checkout}"/>
-	                                      	</div>
-	                                      </div> -->
-	                                      
-	                                      <div class="col-sm-6 col-md-2">
+	                                      <div class="col-sm-6 col-md-3">
 	                                          <div class="form-group">
 	                                                <select class="form-control" name="adults" id="select" th:field="*{adult}">
 	                                                  	<option th:value="1">Adult</option>
@@ -453,7 +442,7 @@
 	                                          </div>
 	                                      </div>
 	
-	                                      <div class="col-sm-6 col-md-2">
+	                                      <div class="col-sm-6 col-md-3">
 	                                          <div class="form-group">
 	                                                <select class="form-control" id="select" th:field="*{teenager}">
 	                                                  	<option th:value="0">Children</option>
@@ -464,7 +453,7 @@
 	                                          </div>
 	                                      </div>       
 	
-	                                      <div class="col-sm-6 col-md-2">
+	                                      <div class="col-sm-6 col-md-3">
 	                                          <div class="form-group">
 	                                                <select class="form-control" id="select" th:field="*{infant}">
 	                                                  	<option th:value="0">Infant</option>
@@ -477,9 +466,9 @@
                
 									</div>
 									
-									<div class="row">
+									<div class="row" style="margin-left: 0px;">
 	  
-	                                      <div class="col-sm-6 col-md-8">
+	                                      <div class="col-sm-6 col-md-12">
 		                                      <div class="form-group">
 		                                        	<select class="form-control" id="select" th:field="*{foodfk}">
 	                                                  	<option th:value="0">choose 套餐</option>
@@ -492,7 +481,7 @@
 	                                      
 	                            	</div><!--row-->
 									
-									<div class="row">
+									<div class="row" style="margin-left: 0px;">
 	  
 	                                      <div class="col-sm-6 col-md-2">
 		                                      <div class="form-group">
@@ -515,9 +504,17 @@
 	    </div>
 	    <div class="col-lg-4">
 	     
-	     <div id="datepicker"></div>
+	     <div id="datepicker" class="pull-right"></div>
 
 	    </div>
+
+	    </div><!-- row -->
+	    <div class="row">
+
+
+            
+
+
 	    </div>
 	    
 	    
@@ -542,11 +539,24 @@
             </div>
       </footer>
     </div>
-
-    <!-- <script src="../js/jquery-1.10.2.min.js"></script>
+    
+	<script>
+	$('#btn').click(function(){
+	    //alert('clcikec');
+	    $(document).ready(function(){
+	        $("#datepicker-my").datepicker({
+	        	minDate: -0, 
+		    	maxDate: "+1Y +0M +0D",
+		        dateFormat: 'yy-mm-dd',
+		        /* dateFormat: 'dd MM yy', */
+		        beforeShowDay: unavailable
+	        }).focus();
+	    });
+	});
+	</script>
     <script src="../js/bootstrap.min.js"></script>
     <script src="../js/bootswatch.js"></script>
-    <script src="../js/myjs.js"></script>   -->
+    <script src="../js/myjs.js"></script>
     
 </body>
 </html>
