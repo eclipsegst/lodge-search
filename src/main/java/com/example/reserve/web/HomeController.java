@@ -112,6 +112,7 @@ public class HomeController {
 	@RequestMapping(value="/howto")
 	@Transactional(readOnly = true)
 	public String howto(Model model) {
+		model.addAttribute("email", new Email());
 		return "howto";
 	}
 	

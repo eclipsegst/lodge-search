@@ -3,7 +3,7 @@
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
     <meta charset="utf-8"/>
-    <title>lodge search</title>
+    <title>how to</title>
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <link rel="shortcut icon" href="../img/logo-icon.png"/>
@@ -13,44 +13,25 @@
     <link rel="stylesheet" href="../css/tsushima.css"/>    
     <link rel="stylesheet" href="../css/font-awesome.min.css"/>
     <link id="stylesheet" href="../css/bootstrap-datepicker.css" rel="stylesheet"/> 
-
-
-  <link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css"/>
-  <script src="//code.jquery.com/jquery-1.10.2.js"></script>
-  <script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
-  <script>
-	  $(function() {
-	    $( "#datepicker" ).datepicker({
-	  		dateFormat: 'yy-mm-dd'
-		});
-	  });
   
-	$(function() {
-	  	$( "#datepickercheckin" ).datepicker({
-	  		minDate: -0, 
-	    	maxDate: "+1Y +0M +0D",
-	        dateFormat: 'yy-mm-dd',
-		});
-	  	$( "#datepickercheckout" ).datepicker({
-	  		minDate: -0, 
-	    	maxDate: "+1Y +0M +0D",
-	        dateFormat: 'yy-mm-dd',
-		});
-	});
-  </script>
- 
+
 	<style>
-		img {
-		    max-width: 100%;
-		    max-height: 100%;
+		.white {
+		    background-color: #F4F4F4;
 		}
-		
+		.verticalLine {
+			margin-top:50px;
+			margin-bottom:20px;
+			margin-left:10px;
+			margin-right:10px;
+		    border-left: thin solid #fff;
+		}
 	</style>
 </head>
 <body>
 <!-- <div th:replace="fragments/header :: header">&nbsp;</div> -->
 <!-- <div class="navbar navbar-default navbar-fixed-top"> -->
-<div class="navbar navbar-default">
+<div class="navbar navbar-default navbar-fixed-top">
       <div class="container">
         <div class="navbar-header">
           <button class="navbar-toggle" type="button" data-toggle="collapse" data-target="#navbar-main">
@@ -75,8 +56,8 @@
           	<!-- <li th:if="${currentUser == null}"><a href="/login">Login</a></li> -->
           	<!-- <li th:if="${currentUser != null}"><a href="/logout" th:href="@{/logout}">logout</a></li>
         	
-        	<li th:if="${currentUser != null}"><a th:href="@{/user/} + ${currentUser.id}">My Account</a></li> -->
-        	
+        	<li th:if="${currentUser != null}"><a th:href="@{/user/} + ${currentUser.id}">My Account</a></li>
+        	 -->
           	<li><a href="../shoppingcart" target="_blank"><i class="fa fa-shopping-cart"></i>マイカート</a></li>
             <li><a href="../howto" target="_blank">ご利用方法</a></li>
             <li><a href="../question" target="_blank"><i class="fa fa-envelope-o"></i>Q&amp;A</a></li>
@@ -88,134 +69,119 @@
     </div>
 
 
-    <div class="container">
+<div class="white" id="show-intro">
+      <div class="container" style="margin-bottom:20px;"> 
+        <div class="page-header">
+          <h2><strong>ご利用方法</strong></h2>
+        </div>   
 
-      <!-- <div class="page-header" id="banner">
-        <div class="row">
-          <div class="col-lg-8 col-md-7 col-sm-6">
-            <h1>Yeti</h1>
-            <p class="lead">A friendly foundation</p>
-          </div>
-          <div class="col-lg-4 col-md-5 col-sm-6">
-            <div class="sponsor">
-              <a href="http://www.shopify.com/?ref=bootswatch" target="_blank" onclick="_gaq.push(['_trackEvent', 'banner', 'click', 'shopify']);">
-                <img src="../assets/img/shopify.png" alt="Shopify" width="180" height="150" onload="_gaq.push(['_trackEvent', 'banner', 'impression', 'shopify']);" />
-              </a>
-            </div>
-          </div>
-        </div>
-      </div> -->
-<!-- Tables
-      ================================================== -->
-      <div class="bs-docs-section">
+		
+		 <div class="show-searchers container0">
+          <div class="row" id="row-searchers">   
+			<div class="row">
+			  <div class="span4"></div>
+			  <div class="span4"><img class="center-block" src="../img/howto_1.png" height="100%" width="100%" /></div>
+			  <div class="span4"></div>
+			</div>
+			
+			<div class="row">
+			  <div class="span4"></div>
+			  <div class="span4"><img class="center-block" src="../img/howto_2.png" height="100%" width="100%" /></div>
+			  <div class="span4"></div>
+			</div>
 
-        <div class="row">
-          <div class="col-lg-12">
-            <div class="page-header">
-              <h1 id="tables">ご利用方法</h1>
-            </div>
-
-            <div class="bs-component">
-	            <img src="../img/howto_1.png" alt="..." />
-	            <img src="../img/howto_2.png" alt="..." />
-              
-            </div><!-- /example -->
           </div>
+
+		
+	  </div>
+	</div>
+	
+ 
+		<div class="row" style="background:#D0CFC4;margin-bottom:0px; padding-left:50px;">
+			<div class="col-lg-12">
+	        	<div class="col-lg-4">
+	       			<h3><font color="white">CONTACT US</font></h3>
+	       			<p> <font size="2" color="white">
+	       			お問合せは以下のコンタクトフォームよりお願いします。 メールが正しく届かない場合はこのドメインが受信拒否と認識されているか、 ドメイン指定受信を設定されている可能性があります。 以下のドメインを受信できるように設定してください。@tsushimajapan.com
+	       			</font>
+	       			</p>
+	       			
+	       			<form class="form-horizontal" action="#" th:action="@{/email/new}" th:object="${email}" method="post">
+					  <fieldset>
+					    <div class="form-group">
+					      <label for="inputName" class="col-lg-3 control-label" style="text-align:left;"><font color="white">NAME</font></label>
+					      <div class="col-lg-9">
+					        <input type="text" class="form-control" id="inputName" name="name" th:field="*{name}" />
+					      </div>
+					    </div>
+					    <div class="form-group">
+					      <label for="inputEmail" class="col-lg-3 control-label" style="text-align:left;"><font color="white">EMAIL</font></label>
+					      <div class="col-lg-9">
+					        <input type="text" class="form-control" id="inputEmail" name="email" placeholder="" th:field="*{email}"/>
+					      </div>
+					    </div>
+					    <div class="form-group">
+					      <label for="textArea" class="col-lg-3 control-label" style="text-align:left;"><font color="white">MESSAGE</font></label>
+					      <div class="col-lg-9">
+					        <textarea class="form-control" rows="3" id="textArea" name="message" th:field="*{message}"></textarea>
+					      </div>
+					    </div>
+					    <div class="form-group">
+					      <div class="col-lg-9 col-lg-offset-3" style="display: table-cell;vertical-align: middle">
+					        <button type="submit" class="btn btn-sm pull-right" value="Submit" style="background-color:#443c38;width:80px;"><font color="white">送信</font></button>
+					      </div>
+					    </div>
+					  </fieldset>
+					</form>
+	        	</div>
+	        	<div class="col-lg-4">
+	        		<div class="img_vertical_center" style="margin-top:10px">
+	        			<img src="./img/logo-bottom.png" alt="..." />
+	        		</div>
+	        	</div>
+	        	<div class="col-lg-4">
+	        		<div class="row">
+			        	<div class="verticalLine" style="padding-top: 25px;padding-right: 50px; padding-bottom: 25px; padding-left: 25px;">
+
+			       			<a href="/"><h4><strong><font color="white">サイトマッフ</font></strong></h4></a>
+			       			<br />
+			       			<a href="/about"><h4><strong><font color="white">会社概要</font></strong></h4></a>
+			       			<br />
+							<a href="/"><h4><strong><font color="white">利用規約 • 免責事項</font></strong></h4></a>
+							<br />
+							<a href="/"><h4><strong><font color="white">ソーシャルメディア</font></strong></h4></a>
+						
+						</div>
+						<div>
+			        		
+						</div>
+					</div>
+	        	</div>
+	       	
+	       	</div>
         </div>
         
-      </div>
-      
-      <div class="bs-docs-section">
-        
-        <div class="row">
-        	<div class="col-lg-4">
-       			<h3>CONTACT US</h3>
-       			<p>
-       			お問合せは以下のコンタクトフォームよりお願いします。 メールが正しく届かない場合はこのドメインが受信拒否と認識されているか、 ドメイン指定受信を設定されている可能性があります。 以下のドメインを受信できるように設定してください。@tsushimajapan.com
-       			</p>
-       			
-       			<form class="form-horizontal" action="#" th:action="@{/email/new}" th:object="${email}" method="post">
-				  <fieldset>
-				    <div class="form-group">
-				      <label for="inputName" class="col-lg-2 control-label">Name</label>
-				      <div class="col-lg-10">
-				        <input type="text" class="form-control" id="inputName" />
-				      </div>
-				    </div>
-				    <div class="form-group">
-				      <label for="inputEmail" class="col-lg-2 control-label">Email</label>
-				      <div class="col-lg-10">
-				        <input type="text" class="form-control" id="inputEmail" placeholder=""/>
-				      </div>
-				    </div>
-				    <div class="form-group">
-				      <label for="textArea" class="col-lg-2 control-label">Content</label>
-				      <div class="col-lg-10">
-				        <textarea class="form-control" rows="3" id="textArea" ></textarea>
-				      </div>
-				    </div>
-				    <div class="form-group">
-				      <div class="col-lg-10 col-lg-offset-2">
-				        <button type="submit" class="btn btn-primary pull-right" value="Submit">Submit</button>
-				      </div>
-				    </div>
-				  </fieldset>
-				</form>
-        	</div>
-        	<div class="col-lg-4">
-        		<div class="bs-component">
-        			<h3>Contact</h3>
-        		</div>
-        	</div>
-        	<div class="col-lg-4">
-        		<br />
-        		<br />
-       			<h4>サイトマッフ</h4>
-       			<h4>会社概要</h4>
-				<h4>利用規約 • 免責事項</h4>
-				<h4>ソーシャルメディア</h4>
-        	</div>
-        </div>
-      </div>
 
-
-      <footer>
-        <div class="row">
-          <div class="col-lg-12">
-
-            <ul class="list-unstyled">
-              <li class="pull-right"><a href="#top">Back to top</a></li>
-              <li><a href="">GitHub</a></li>
-              <li><a href="../help/#api">API</a></li>
-              <li><a href="../help/#support">Support</a></li>
-            </ul>
-            <p><strong>つしまジャパン株式会社 〒817-0023 長崎県対馬市厳原町田渕 860-1 @TSUSHIMA JAPAN.INC</strong></p>
-            <p><strong>Copyright © 2014 つしまジャパン株式会社 All Rights Reserved.</strong></p>
-          </div>
-        </div>
-
-      </footer>
-
-
-    </div>
-
-
-    <div id="show-footer">
-      <footer class="footer" id="footer">
+    	<footer class="footer" id="footer" style="background-color: #443c38;margin-top:0px;" >
             <div class="container">      
                 <div class="col-lg-12">
                     <p>つしまジャパン株式会社 〒817-0023 長崎県対馬市厳原町田渕860-1 @TSUSHIMA JAPAN.INC</p>
                     <p>Copyright © 2014 つしまジャパン株式会社 All Rights Reserved.</p>
                 </div>
             </div>
-      </footer>
-    </div>
+        </footer>
 
-    <!-- <script src="../js/jquery-1.10.2.min.js"></script>
-    <script src="../js/bootstrap.min.js"></script>
-    <script src="../js/bootswatch.js"></script>
-    <script src="../js/myjs.js"></script>   -->
-	
-</body>
+    
+</div>
 
+
+    <script src="./js/jquery-1.10.2.min.js"></script>
+    <script src="./js/bootstrap.min.js"></script>
+    <script src="./js/bootswatch.js"></script>
+    <script src="./js/myjs.js"></script>  
+    <script src="./duima/bootstrap-datepicker.js"></script>    
+    <script src="./duima/bootstrap-datepicker.ja.min.js"></script>    
+
+		
+	</body>
 </html>
