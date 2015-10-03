@@ -41,7 +41,7 @@ public class HomeController {
 
 	@Autowired
     private JavaMailSender mailSender;
-	
+	 	
 	@Autowired
 	public HomeController(
 			@Nonnull final LodgeService lodgeService,
@@ -54,7 +54,7 @@ public class HomeController {
 	}
 	
 	public List<String> locations = Arrays.asList("厳原港近辺", "比田勝港近辺", "対馬空港近辺");
-	public List<String> categories = Arrays.asList("boating", "climbing", "cooking", "fishing");
+	public List<String> categories = Arrays.asList("郷土料理体験", "農林業体験", "漁業体験", "ものづくり体験", "自然探索体験", "その他");
 	public List<Integer> numbers = Arrays.asList(0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10);
 	
 	@RequestMapping(value="/")
@@ -131,6 +131,13 @@ public class HomeController {
 	@Transactional(readOnly = true)
 	public String pagenotfound(Model model) {
 		return "pagenotfound";
+	}
+	
+	@RequestMapping(value="/about")
+	@Transactional(readOnly = true)
+	public String about(Model model) {
+		model.addAttribute("email", new Email());
+		return "about";
 	}
 	
 	@RequestMapping(value="/email/new", method=RequestMethod.POST)

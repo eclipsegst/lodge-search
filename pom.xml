@@ -5,7 +5,7 @@
 
 	<groupId>com.zhaolongzhong</groupId>
 	<artifactId>lodge</artifactId>
-	<version>0.0.1-SNAPSHOT</version>
+	<version>0.0.6-SNAPSHOT</version>
 	<packaging>war</packaging>
 
 	<name>lodge-search</name>

@@ -100,7 +100,7 @@
                                                   </select> -->
                                                   
                                                   <select class="form-control" name="location" id="location">
-										        	<option th:value="null">Choose a location</option>
+										        	<option th:value="null">￼アクセスを選んでください。</option>
 										        	<option th:each="location : ${locations}" 
 											          th:value="${location}" 
 											          th:text="${location}"></option>
@@ -110,7 +110,7 @@
 
                                         <div class="col-sm-6 col-md-3">
                                             <div class="input-group date" id="start_date">
-                                              <input type="text" class="form-control" name="checkin" placeholder="Check in"/>
+                                              <input type="text" class="form-control" name="checkin" placeholder="チェックイン"/>
                                               <span class="input-group-addon">
                                               <i class="glyphicon glyphicon-th"></i>
                                               </span>
@@ -119,7 +119,7 @@
 
                                         <div class="col-sm-6 col-md-3">
                                             <div class="input-group date" id="end_date">
-                                              <input type="text" class="form-control" name="checkout" placeholder="Check out"/>
+                                              <input type="text" class="form-control" name="checkout" placeholder="チェックアウト"/>
                                               <span class="input-group-addon"><i class="glyphicon glyphicon-th"></i></span>
                                             </div>
                                         </div>
@@ -127,7 +127,7 @@
                                         <div class="col-sm-6 col-md-2">
                                             <div class="form-group">
                                                   <select class="form-control" name="adult" id="adult">
-                                                    <option value="1">Adults</option>
+                                                    <option value="1">大人</option>
                                                     <option value="1">1</option>
                                                     <option value="2">2</option>
                                                     <option value="3">3</option>
@@ -140,7 +140,7 @@
                                         <div class="col-sm-6 col-md-2">
                                             <div class="form-group">
                                                   <select class="form-control" name="teenager" id="teenager">
-                                                    <option value="0">Children</option>
+                                                    <option value="0">子供</option>
                                                     <option value="1">1</option>
                                                     <option value="2">2</option>
                                                     <option value="3">3</option>
@@ -153,7 +153,7 @@
                                         <div class="col-sm-6 col-md-2">
                                             <div class="form-group">
                                                   <select class="form-control" name="infant" id="infant">
-                                                    <option value="0">Infants</option>
+                                                    <option value="0">幼児</option>
                                                     <option value="1">1</option>
                                                     <option value="2">2</option>
                                                     <option value="3">3</option>
@@ -165,10 +165,10 @@
 
     
                                         <div class="col-sm-12 col-md-6 col-lg-4">
-                                          <button type="submit" class="btn btn-danger btn-block"><strong>Search</strong></button>
+                                          <button type="submit" class="btn btn-primary btn-block"><strong>検索</strong></button>
                                         </div>  
                                         <div class="col-sm-12 col-md-6 col-lg-8">
-                                          <h4><strong>Lodging</strong></h4>
+                                          <h4><strong><font color="white">あなたの民泊を探してください。</font></strong></h4>
                                           <p>※連泊される際は初日の宿泊日を選択してください。</p>
                                         </div>   
 
@@ -194,7 +194,7 @@
                                                     <option>E</option>
                                                   </select> -->
                                                   <select class="form-control" name="location" id="location">
-										        	<option th:value="null">Choose a location</option>
+										        	<option th:value="null">地域を選んでください。</option>
 										        	<option th:each="location : ${locations}" 
 											          th:value="${location}" 
 											          th:text="${location}"></option>
@@ -213,7 +213,7 @@
                                                     <option>E</option>
                                                   </select> -->
 	                                                <select class="form-control" name="category" id="category" >
-											        	<option th:value="null">select a category</option>
+											        	<option th:value="null">体験の種類を選んでください。</option>
 													  	<option th:each="category : ${categories}" 
 												          th:value="${category}" 
 												          th:text="${category}"></option>
@@ -224,7 +224,7 @@
 
                                         <div class="col-sm-6 col-md-6 col-lg-6">
                                             <div class="input-group date" id="start_date">
-                                              <input type="text" class="form-control" placeholder="Date" name="checkin" id="checkin"/>
+                                              <input type="text" class="form-control" placeholder="体験したい日" name="checkin" id="checkin"/>
                                               <span class="input-group-addon"><i class="glyphicon glyphicon-th"></i></span>
                                             </div>
                                         </div>
@@ -233,7 +233,7 @@
                                         <div class="col-sm-6 col-md-2">
                                             <div class="form-group">
                                                   <select class="form-control" name="adult" id="adult">
-                                                    <option value="1">Adults</option>
+                                                    <option value="1">大人</option>
                                                     <option value="1">1</option>
                                                     <option value="2">2</option>
                                                     <option value="3">3</option>
@@ -246,7 +246,7 @@
                                         <div class="col-sm-6 col-md-2">
                                             <div class="form-group">
                                                   <select class="form-control" name="teenager" id="teenager">
-                                                    <option value="0">Children</option>
+                                                    <option value="0">子供</option>
                                                     <option value="1">1</option>
                                                     <option value="2">2</option>
                                                     <option value="3">3</option>
@@ -259,7 +259,7 @@
                                         <div class="col-sm-6 col-md-2">
                                             <div class="form-group">
                                                   <select class="form-control" name="infant" id="infant">
-                                                    <option value="0">Infants</option>
+                                                    <option value="0">幼児</option>
                                                     <option value="1">1</option>
                                                     <option value="2">2</option>
                                                     <option value="3">3</option>
@@ -270,11 +270,11 @@
                                         </div> 
 
                                         <div class="col-sm-12 col-md-6 col-lg-8">
-                                          <h4><strong>Experience</strong></h4>
+                                          <h4><strong>あなたの体験を探してください。</strong></h4>
                                           <p>※連泊される際は初日の宿泊日を選択してください。</p>
                                         </div>              
                                         <div class="col-sm-12 col-md-6 col-lg-4">
-                                          <button type="submit" class="btn btn-primary btn-block"><strong>Search</strong></button>
+                                          <button type="submit" class="btn btn-primary btn-block"><strong>検索</strong></button>
                                         </div>  
 
                               </div><!--row-->
@@ -462,19 +462,19 @@
 	       			<form class="form-horizontal" action="#" th:action="@{/email/new}" th:object="${email}" method="post">
 					  <fieldset>
 					    <div class="form-group">
-					      <label for="inputName" class="col-lg-3 control-label" style="text-align:left;">NAME</label>
+					      <label for="inputName" class="col-lg-3 control-label" style="text-align:left;"><font color="white">NAME</font></label>
 					      <div class="col-lg-9">
 					        <input type="text" class="form-control" id="inputName" name="name" th:field="*{name}" />
 					      </div>
 					    </div>
 					    <div class="form-group">
-					      <label for="inputEmail" class="col-lg-3 control-label" style="text-align:left;">EMAIL</label>
+					      <label for="inputEmail" class="col-lg-3 control-label" style="text-align:left;"><font color="white">EMAIL</font></label>
 					      <div class="col-lg-9">
 					        <input type="text" class="form-control" id="inputEmail" name="email" placeholder="" th:field="*{email}"/>
 					      </div>
 					    </div>
 					    <div class="form-group">
-					      <label for="textArea" class="col-lg-3 control-label" style="text-align:left;">MESSAGE</label>
+					      <label for="textArea" class="col-lg-3 control-label" style="text-align:left;"><font color="white">MESSAGE</font></label>
 					      <div class="col-lg-9">
 					        <textarea class="form-control" rows="3" id="textArea" name="message" th:field="*{message}"></textarea>
 					      </div>
@@ -498,7 +498,7 @@
 
 			       			<a href="/"><h4><strong><font color="white">サイトマッフ</font></strong></h4></a>
 			       			<br />
-			       			<a href="/"><h4><strong><font color="white">会社概要</font></strong></h4></a>
+			       			<a href="/about"><h4><strong><font color="white">会社概要</font></strong></h4></a>
 			       			<br />
 							<a href="/"><h4><strong><font color="white">利用規約 • 免責事項</font></strong></h4></a>
 							<br />
@@ -526,14 +526,6 @@
 
     
 </div><!--from mid carousel-->
-
-
-
-
-
-
-    
-
 
 
     <script src="./js/jquery-1.10.2.min.js"></script>
