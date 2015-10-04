@@ -23,6 +23,7 @@ import com.example.reserve.domain.Landlord;
 import com.example.reserve.domain.Lodge;
 import com.example.reserve.domain.Calendar;
 import com.example.reserve.domain.CheckInOut;
+import com.example.reserve.domain.Email;
 import com.example.reserve.domain.Experience;
 import com.example.reserve.domain.Food;
 import com.example.reserve.service.GalleryService;
@@ -66,7 +67,7 @@ public class ExperienceController{
 	}
 	
 	public List<String> locations = Arrays.asList("厳原港近辺", "比田勝港近辺", "対馬空港近辺");
-	public List<String> categories = Arrays.asList("boating", "climbing", "cooking", "fishing");
+	public List<String> categories = Arrays.asList("郷土料理体験", "農林業体験", "漁業体験", "ものづくり体験", "自然探索体験", "その他");
 	public List<Integer> numbers = Arrays.asList(0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10);
 	
 	@RequestMapping(value="/experience")
@@ -204,6 +205,7 @@ public class ExperienceController{
 	@Transactional(readOnly = true)
 	public String searchExperienceDefault(
 	Model model) {
+		model.addAttribute("email", new Email());
 		
 		model.addAttribute("locations", locations);
 		model.addAttribute("categories", categories);
@@ -241,6 +243,7 @@ public class ExperienceController{
 			@RequestParam(value = "teenager") int teenager, 
 			@RequestParam(value = "infant") int infant,
 			Model model) {
+		model.addAttribute("email", new Email());
 		
 		model.addAttribute("experience", new Experience());
 		model.addAttribute("checkinout", new CheckInOut());
@@ -306,7 +309,8 @@ public class ExperienceController{
 	@RequestMapping(value="/experience/search", method=RequestMethod.POST)
 	@Transactional(readOnly = true)
 	public String searchExperienceResult(@ModelAttribute Experience experience, @ModelAttribute CheckInOut checkinout, Model model) {
-        model.addAttribute("experience", experience);
+		model.addAttribute("email", new Email());
+		model.addAttribute("experience", experience);
         model.addAttribute("checkinout", new CheckInOut());
         
         String location = experience.getLocation();

@@ -37,6 +37,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.example.reserve.domain.Calendar;
 import com.example.reserve.domain.CheckInOut;
+import com.example.reserve.domain.Email;
 import com.example.reserve.domain.Experience;
 import com.example.reserve.domain.Food;
 import com.example.reserve.domain.Gallery;
@@ -86,7 +87,7 @@ public class LodgeController{
 	protected long fk = -1L;
 	
 	public List<String> locations = Arrays.asList("厳原港近辺", "比田勝港近辺", "対馬空港近辺");
-	public List<String> categories = Arrays.asList("boating", "climbing", "cooking", "fishing");
+	public List<String> categories = Arrays.asList("郷土料理体験", "農林業体験", "漁業体験", "ものづくり体験", "自然探索体験", "その他");
 	public List<Integer> numbers = Arrays.asList(0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10);
 	
 	@RequestMapping(value="/lodge")
@@ -219,6 +220,7 @@ public class LodgeController{
 	@Transactional(readOnly = true)
 	public String searchLodgeDefault(
 	Model model) {
+		model.addAttribute("email", new Email());
 		
 		model.addAttribute("locations", locations);
 		model.addAttribute("categories", categories);
@@ -256,7 +258,8 @@ public class LodgeController{
 			@RequestParam(value = "teenager") int teenager, 
 			@RequestParam(value = "infant") int infant, 
 			Model model) throws ParseException {
-				
+		model.addAttribute("email", new Email());
+		
 		model.addAttribute("lodge", new Lodge());
 		model.addAttribute("checkinout", new CheckInOut());
 		
@@ -345,6 +348,7 @@ public class LodgeController{
 			@ModelAttribute Lodge lodge, 
 			@ModelAttribute CheckInOut checkinout,  
 			Model model) {
+		model.addAttribute("email", new Email());
         model.addAttribute("lodge", lodge);
         model.addAttribute("checkinout", new CheckInOut());
         
