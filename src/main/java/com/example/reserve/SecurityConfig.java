@@ -26,8 +26,8 @@ class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/", "/public/**", "/lodge/search", "/lodge/detail", "/lodge/addtocart", 
                 		"/experience/search", "/experience/detail", "/experience/addtocart", 
                 		"/shoppingcart/**", "/image/view", "/duima/**", "/register", 
-                		"/inquiry", "/howto", "/question", "/shoppingcart	",
-                		"/img/**", "/js/**", "/fonts/**", "/css/**", "/test", "/email/new", "/about").permitAll()
+                		"/inquiry", "/howto", "/question", "/shoppingcart",
+                		"/img/**", "/js/**", "/fonts/**", "/css/**", "/test", "/email/new", "/about", "/shoppingcart/update").permitAll()
                 .antMatchers("/users/**").hasAuthority("ADMIN")
                 .anyRequest().fullyAuthenticated()
                 .and()

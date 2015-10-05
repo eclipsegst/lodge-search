@@ -8,10 +8,13 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.thymeleaf.context.Context;
 import org.thymeleaf.spring4.SpringTemplateEngine;
 
+import com.example.reserve.domain.Calendar;
 import com.example.reserve.domain.Cart;
+import com.example.reserve.domain.Food;
 import com.example.reserve.domain.Gallery;
 import com.example.reserve.domain.Lodge;
 import com.example.reserve.domain.Shopping;
@@ -37,6 +40,7 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
+import java.util.UUID;
 
 import javax.annotation.Nonnull;
 import javax.mail.MessagingException;
@@ -95,32 +99,12 @@ public class ShoppingCartController {
 	
 	private String error;
 	private long shoppingid;
-	private Map<Long, String> cartName = new HashMap<Long, String>();
-	private Map<Long, String> cartFoodName = new HashMap<Long, String>();
+	private Map<UUID, String> cartName = new HashMap<UUID, String>();
+	private Map<UUID, String> cartFoodName = new HashMap<UUID, String>();
 	
 	@RequestMapping(value="/shoppingcart")
 	public String mycart(@ModelAttribute UserInfo userinfo, Model model) {
 		model.addAttribute("userinfo", new UserInfo());
-		
-		List list = shoppingCart.getCarts();
-		
-		if (list != null && !list.isEmpty()) {
-			
-			shoppingid = ((Cart)list.get(0)).getShoppingid();
-			System.out.println("shoppingid:" + shoppingid);
-			
-			System.out.println(list.size());
-			for(int i = 0; i < list.size(); i++) {
-				Cart good = (Cart) list.get(i);
-				System.out.println(good.getFk() + ":" + good.getCategory());
-				
-			}
-			Iterator iterater = list.iterator();
-			if (iterater.hasNext()) {
-				Cart good = (Cart) iterater.next();
-				System.out.println(good.getFk() + ":" + good.getCategory());
-			}
-		}
 		
 		List<Cart> carts = new ArrayList<Cart>();
 		carts = shoppingCart.getCarts();
@@ -148,13 +132,16 @@ public class ShoppingCartController {
 					name = experienceService.findOne(experienceId).getName();
 				}
 				
-				cartName.put(cart.getId(), name);
-				
+				// cart.getId() always return 0, so we cannot use cart id
+				// but we can use fk and category as unique key for sure
+				cartName.put(cart.getUuid(), name);
+				System.out.println("uuid:" + cart.getUuid());
+				System.out.println("name:" + name);
 				// get food name
 				long foodId = cart.getFoodfk();
 				foodName = foodService.findOne(foodId).getTitle();
 				
-				cartFoodName.put(cart.getId(), foodName);
+				cartFoodName.put(cart.getUuid(), foodName);
 				
 			}
 		}
@@ -165,10 +152,29 @@ public class ShoppingCartController {
 		return "cart";
 	}
 	
+	@RequestMapping(value="/shoppingcart/update")
+	public String update(
+			@Nonnull @RequestParam(value = "id", required = true) final UUID uuid,
+			@Nonnull @RequestParam(value = "action", required = true) final String action,
+			Model model) {
+		model.addAttribute("userinfo", new UserInfo());
+		
+		System.out.println("shopping cart delete start");
+		if (action.equalsIgnoreCase("delete")) {
+			System.out.println("shopping cart deleteing");
+			shoppingCart.remove(uuid);
+			System.out.println("shopping cart delete end");
+		}
+		
+
+		return mycart(new UserInfo(), model);
+	}
+	
+	
 	@RequestMapping(value="/shoppingcart/checkout", method=RequestMethod.POST)
 	public String checkout(@ModelAttribute UserInfo userinfo, Model model) throws MessagingException {
 		model.addAttribute("userinfo", userinfo);
-        
+		
 		System.out.println("user info: name=" + userinfo.getName() + ", phone=" + userinfo.getPhone() + ", address=" + 
 				userinfo.getAddress() + ", zipcode=" + userinfo.getZipcode() + ", email=" + userinfo.getEmail());
 		
@@ -202,8 +208,6 @@ public class ShoppingCartController {
 			for(int i = 0; i < carts.size(); i++) {
 				System.out.println("saving item #:" + i);
 				cartService.save(carts.get(i));
-				
-				
 			}
 			
 			List<String> rows = new ArrayList<String>();
@@ -212,9 +216,9 @@ public class ShoppingCartController {
 				Cart cart = carts.get(i);
 				String row =  cart.getCheckin()+
 						" " + cart.getCategory() +
-						" " + cartName.get(cart.getId()) +
+						" " + cartName.get(cart.getUuid()) +
 						" " + "大人" + cart.getAdult() + "名" +
-						" " + "子供人" + cart.getAdult() + "名" +
+						" " + "子供" + cart.getTeenager() + "名" +
 						" " + "幼児" + cart.getAdult() + "名";
 				rows.add(row + " \t\n");
 			}
@@ -247,7 +251,6 @@ public class ShoppingCartController {
 			mailMsg.setTo(emailUser);
 			mailMsg.setSubject("Thanks!");
 			mailMsg.setText(htmlContent, true);
-//			mailMsg.setText("Your order has been placed. Thanks!");
 			mailSender.send(mimeMessage);
 			
 			System.out.println("---send email to user success---");
@@ -255,16 +258,32 @@ public class ShoppingCartController {
 			// send email to admin
 			MimeMessage mimeMessageToAdmin = this.mailSender.createMimeMessage();
 			MimeMessageHelper mailMsgToAdmin = new MimeMessageHelper(mimeMessageToAdmin);
-			mailMsg.setFrom("tsushimarevive@gmail.com");
+			mailMsgToAdmin.setFrom("tsushimarevive@gmail.com");
 			mailMsgToAdmin.setTo("tsushimarevive@gmail.com");
 			mailMsgToAdmin.setSubject("New Order");
-			mailMsgToAdmin.setText("We have a new order.");
+			mailMsgToAdmin.setText(htmlContent, true);
 			mailSender.send(mimeMessageToAdmin);
 			
 			System.out.println("---send email to admin success---");
 		
+			
+			
+			// send email to landlord
+			// TODO: get landlord email
+//			MimeMessage mimeMessageToLandlord = this.mailSender.createMimeMessage();
+//			MimeMessageHelper mailMsgToLandlord = new MimeMessageHelper(mimeMessageToLandlord);
+//			mailMsgToLandlord.setFrom("tsushimarevive@gmail.com");
+//			mailMsgToLandlord.setTo("tsushimarevive@gmail.com");
+//			mailMsgToLandlord.setSubject("New Order to landlord");
+//			mailMsg.setText(htmlContent, true);
+//			mailSender.send(mimeMessageToAdmin);
+//			
+//			System.out.println("---send email to landlord success---");
 //			// use the true flag to indicate the text included is HTML
 //			helper.setText("<html><body><img src=''cid:identifier1234''></body></html>", true);
+			
+			// clear shoppingcart
+			shoppingCart.clearCarts();
 		} else {
 			error = "Sorry. You cannot check out with an empty cart.";
 			return mycart(userinfo, model);

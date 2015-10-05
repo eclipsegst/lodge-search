@@ -2,6 +2,7 @@ package com.example.reserve.domain;
 
 import java.math.BigDecimal;
 import java.sql.Timestamp;
+import java.util.UUID;
 import java.sql.Date;
 
 import javax.persistence.Column;
@@ -10,6 +11,10 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import javax.persistence.Transient;
+
+import org.springframework.context.annotation.Scope;
+import org.springframework.context.annotation.ScopedProxyMode;
 
 @Entity
 @Table(name = "cart")
@@ -51,9 +56,12 @@ public class Cart {
 	@Column(nullable = false)
     private Timestamp created;
 	
+	@Transient
+	private UUID uuid;
+	
 	public Cart() {}
 
-    public Cart(long shoppingid, long fk, String category, long foodfk, Date checkin, Date checkout, int adult, int teenager, int infant, BigDecimal payment, Timestamp created) {
+    public Cart(long shoppingid, long fk, String category, long foodfk, Date checkin, Date checkout, int adult, int teenager, int infant, BigDecimal payment, Timestamp created, UUID uuid) {
         this.shoppingid = shoppingid;
     	this.fk = fk;
         this.category = category;
@@ -65,6 +73,7 @@ public class Cart {
         this.infant = infant;
         this.payment = payment;
         this.created = created;
+        this.uuid = uuid;
     }
 
 	public long getId() {
@@ -162,5 +171,12 @@ public class Cart {
 	public void setCreated(Timestamp created) {
 		this.created = created;
 	}
-    
+
+	public UUID getUuid() {
+		return uuid;
+	}
+
+	public void setUuid(UUID uuid) {
+		this.uuid = uuid;
+	}
 }

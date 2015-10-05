@@ -48,17 +48,17 @@
 	</style>
 	<script type="text/javascript">
 		
-	function updateCart(cartId) {
+/* 	function updateCart(cartId) {
 	    var form = $("#foodEatenForm-" + cartId);
 	    var action = $("#action-" + cartId);
 	    $(action).val("update");
 	    $(form).submit();
-	}
+	} */
 	
-	function deleteCart(cartId) {
+	function deleteCart(uuid) {
 		if ( confirm('Are you sure you want to delete this cart entry?')) {
-			var form = $("#foodEatenForm-" + cartId);
-	        var action = $("#action-" + cartId);
+			var form = $("#foodEatenForm-" + uuid);
+	        var action = $("#action-" + uuid);
 	        $(action).val("delete");
 	        $(form).submit();
 		}
@@ -152,25 +152,24 @@
 						</thead>
 						<tbody>
 							<tr th:each="cart : ${carts}">
-								<form th:id="'foodEatenForm-' + ${cart.id}" action="./update">
-					                    <input type="hidden" name="id" th:value="${cart.id}"/>
-					                    <input type="hidden" th:id="'action-' + ${cart.id}" name="action" value="update"/>
+								<form th:id="'foodEatenForm-' + ${cart.uuid}" action="./shoppingcart/update">
+					                    <input type="hidden" name="id" th:value="${cart.uuid}"/>
+					                    <input type="hidden" th:id="'action-' + ${cart.uuid}" name="action" value="update"/>
 					                    		
 								<!-- <td th:text="${cart.shoppingid}"></td>
 								<td th:text="${cart.fk}"></td> -->
 								<td th:text="${cart.category}"></td>
-								<td th:text="${cartname.get(cart.id)}"></td>
-								<td th:text="${foodname.get(cart.id)}"></td>
+								<td th:text="${cartname.get(cart.uuid)}"></td>
+								<td th:text="${foodname.get(cart.uuid)}"></td>
 								<td th:text="${cart.checkin}"></td>
 								<td th:text="${cart.checkout}"></td>
 								<td th:text="${cart.adult}"></td>
 								<td th:text="${cart.teenager}"></td>
 								<td th:text="${cart.infant}"></td>
 								<td th:text="${cart.payment}"></td>
-								<!-- <td>
-									<a href="#" th:onclick="'deleteCart(\'' + ${cart.id} + '\');'">Delete</a>
-				                    <a href="#" th:onclick="'updateCart(\'' + ${cart.id} + '\');'">Update</a>
-				                </td> -->
+								<td>
+									<a href="#" th:onclick="'deleteCart(\'' + ${cart.uuid}+ '\');'">Delete</a>
+				                </td>
 								</form>
 							</tr>
 						</tbody>

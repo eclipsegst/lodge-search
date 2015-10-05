@@ -1,6 +1,7 @@
 package com.example.reserve.domain;
 
 import java.util.List;
+import java.util.UUID;
 
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
@@ -41,6 +42,21 @@ public class ShoppingCart {
 
 	public void setCarts(List<Cart> carts) {
 		this.carts = carts;
+	}
+	
+	public void clearCarts() {
+		this.carts = null;
+	}
+	
+	public void remove(UUID uuid) {
+		if (this.carts != null) {
+			for(Cart cart : this.carts) {
+				if (cart.getUuid().equals(uuid)) {
+					this.carts.remove(cart);
+					break;
+				}
+			}
+		}
 	}
 	
 }

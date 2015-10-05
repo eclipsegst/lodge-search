@@ -8,6 +8,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Iterator;
 import java.util.List;
+import java.util.UUID;
 
 import javax.annotation.Nonnull;
 
@@ -184,7 +185,10 @@ public class DetailLodgeController {
 	
 		cart.setCheckin(checkin);
 		cart.setCheckout(checkout);
-
+		
+		UUID uniqueKey = UUID.randomUUID(); 
+		cart.setUuid(uniqueKey);
+		
 //		// calculate the payment by food id and the number of customer
 		System.out.println("foodId:" + cart.getFoodfk());
 		long foodId = cart.getFoodfk();
