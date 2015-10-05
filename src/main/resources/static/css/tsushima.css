@@ -395,3 +395,11 @@ now override the 3.3 new styles for modern browsers & apply opacity
 //	margin-left: 1em;
 //	margin-right: 1em;
 }
+
+.verticalLine {
+	margin-top:50px;
+	margin-bottom:20px;
+	margin-left:10px;
+	margin-right:10px;
+    border-left: thin solid #fff;
+}

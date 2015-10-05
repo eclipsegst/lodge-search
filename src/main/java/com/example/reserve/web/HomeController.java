@@ -119,12 +119,14 @@ public class HomeController {
 	@RequestMapping(value="/question")
 	@Transactional(readOnly = true)
 	public String question(Model model) {
+		model.addAttribute("email", new Email());
 		return "question";
 	}
 	
 	@RequestMapping(value="/inquiry")
 	@Transactional(readOnly = true)
 	public String inquiry(Model model) {
+		model.addAttribute("email", new Email());
 		return "inquiry";
 	}
 	

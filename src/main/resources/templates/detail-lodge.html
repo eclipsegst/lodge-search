@@ -1,73 +1,79 @@
 <!doctype html>
 <html lang="en">
 <head>
-  	<meta charset="utf-8" />
-    <title>lodge details</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <link rel="shortcut icon" href="../img/logo-icon.png"/>
-  	
-  	<link rel="stylesheet" href="../css/bootstrap.min.css" />
-  	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap-theme.min.css" />
-	<script src="../js/bootstrap.min.js"></script>
-  	<script src="../js/jquery-1.11.0.min.js"></script>
-  
-	<link rel="stylesheet" href="../css/bootstrap.css" media="screen" />
-    <link rel="stylesheet" href="../css/custom.min.css" />
-    
-    <link rel="stylesheet" href="../css/tsushima.css"/>    
-    <link rel="stylesheet" href="../css/font-awesome.min.css"/>
-	
-	<link href="../../css/datepicker/jquery-ui.css" rel="stylesheet" />
+<meta charset="utf-8" />
+<title>lodge details</title>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<link rel="shortcut icon" href="../img/logo-icon.png" />
+<link rel="stylesheet" href="../css/bootstrap.css" media="screen" />
+<link rel="stylesheet" href="../css/custom.min.css" />
+<link rel="stylesheet" href="../css/tsushima.css" />
+<link rel="stylesheet" href="../css/font-awesome.min.css" />
+<link href="../../css/datepicker/jquery-ui.css" rel="stylesheet" />
 
-  	<!-- carousel -->
-	<style>
-		.carousel-inner > .item > img,
-		.carousel-inner > .item > a > img {
-		    width: 70%;
-		    margin: auto;
-		}
-	</style>
-	  
-	<!-- google map -->
-	<style type="text/css">
-		div#map_container{
-			width:100%;
-			height:350px;
-		}
-	</style>
-	<style>
-		div.ui-datepicker{
-		 	font-size:20px;
-		}
-	</style>
-	<style>
-		#square {
-			width: 100%;
-			height: 0;
-			padding-bottom: 100%;
-			border:1px solid #000;
-			background:#fff;
-		}
-		
-		#square-map {
-			width: 100%;
-			height: 0;
-			padding-bottom: 100%;
-			border:1px solid #000;
-		}
-		
-		.vh-center {
-		    position: absolute;
-		    top: 50%;
-		    left: 50%;
-		    -moz-transform: translateX(-50%) translateY(-50%);
-		    -webkit-transform: translateX(-50%) translateY(-50%);
-		    transform: translateX(-50%) translateY(-50%);
-		}
-	</style>
-	<script type="text/javascript" src="http://maps.googleapis.com/maps/api/js?sensor=false" ></script>
-	<script type="text/javascript" th:inline="javascript">
+<style>
+div.ui-datepicker {
+	font-size: 20px;
+}
+</style>
+<script src="../js/bootstrap.min.js"></script>
+<script src="../js/jquery-1.11.0.min.js"></script>
+
+<script src="../../js/datepicker/external/jquery/jquery.js"></script>
+<script src="../../js/datepicker/jquery-ui.js"></script>
+<script src="../../js/datepicker/datepicker-ja.js"></script>
+
+<link href="../../css/datepicker/jquery-ui.css" rel="stylesheet" />
+
+<!-- carousel -->
+<style>
+.carousel-inner>.item>img, .carousel-inner>.item>a>img {
+	width: 70%;
+	margin: auto;
+}
+</style>
+
+<!-- google map -->
+<style type="text/css">
+div#map_container {
+	width: 100%;
+	height: 350px;
+}
+</style>
+<style>
+div.ui-datepicker {
+	font-size: 20px;
+}
+</style>
+<style>
+#square {
+	width: 100%;
+	height: 0;
+	padding-bottom: 100%;
+	border: 1px solid #000;
+	background: #fff;
+}
+
+#square-map {
+	width: 100%;
+	height: 0;
+	padding-bottom: 100%;
+	border: 1px solid #000;
+}
+
+.vh-center {
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	-moz-transform: translateX(-50%) translateY(-50%);
+	-webkit-transform: translateX(-50%) translateY(-50%);
+	transform: translateX(-50%) translateY(-50%);
+}
+</style>
+<script type="text/javascript"
+	src="http://maps.googleapis.com/maps/api/js?sensor=false"></script>
+<script type="text/javascript" th:inline="javascript">
 	  function loadMap(latitude, longitude) {
 		/* var latlng = new google.maps.LatLng(38.93316170, -92.33202460); */
 		var latlng = new google.maps.LatLng(latitude, longitude);
@@ -87,8 +93,8 @@
 	  }
 	</script>
 
-	<!-- load google map -->
-	<script type="text/javascript" th:inline="javascript">
+<!-- load google map -->
+<script type="text/javascript" th:inline="javascript">
 	$(document).ready(function() {
 		<!-- pass the parameter from controller to html -->
 		<!-- http://www.thymeleaf.org/doc/tutorials/2.1/usingthymeleaf.html#script-inlining-javascript-and-dart -->
@@ -97,15 +103,15 @@
 	    var unavailableDates2 = [[${closedDate}]];
 	    loadMap(latitude, longitude);
 	 });
-	</script>  
+	</script>
 
 
-	<script src="../../js/datepicker/external/jquery/jquery.js"></script>
-	<script src="../../js/datepicker/jquery-ui.js"></script>
-	<script src="../../js/datepicker/datepicker-ja.js"></script>
-		
-	<!--  datepicker -->
-	<script th:inline="javascript">
+<script src="../../js/datepicker/external/jquery/jquery.js"></script>
+<script src="../../js/datepicker/jquery-ui.js"></script>
+<script src="../../js/datepicker/datepicker-ja.js"></script>
+
+<!--  datepicker -->
+<script th:inline="javascript">
 		
 		var unavailableDates = [[${closedDate}]];
 		/* var unavailableDates = ["29-9-2015", "14-10-2015", "15-10-2015"]; */
@@ -133,8 +139,8 @@
 		
 		});
 	</script>
-	
-	<script>
+
+<script>
 		$(function() {
 		  	$( "#datepickercheckin" ).datepicker({
 		  		dateFormat: 'yy-mm-dd'
@@ -148,528 +154,375 @@
 </head>
 <body>
 
-<div class="navbar navbar-default navbar-fixed-top">
-      <div class="container">
-        <div class="navbar-header">
-          <button class="navbar-toggle" type="button" data-toggle="collapse" data-target="#navbar-main">
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-          </button>
-          <a href="/" class="navbar-brand">
-            <img src="../img/logo.png" class="non-img-responsive" alt="logo"/>
-          </a>
-        </div>
-        <div class="navbar-collapse collapse" id="navbar-main">
-          <ul class="nav navbar-nav">
-            <li>
-              <a href="/"></a>
-            </li>
+	<div th:replace="fragments/header :: header">&nbsp;</div>
 
-          </ul>
-
-          <ul class="nav navbar-nav navbar-right">
-          	
-          	<!-- <li th:if="${currentUser == null}"><a href="/login">Login</a></li>
-          	<li th:if="${currentUser != null}"><a href="/logout" th:href="@{/logout}">logout</a></li>
-        	
-        	<li th:if="${currentUser != null}"><a th:href="@{/user/} + ${currentUser.id}">My Account</a></li> -->
-        	
-          	<li><a href="../cart" target="_blank"><i class="fa fa-shopping-cart"></i>マイカート</a></li>
-            <li><a href="../howto" target="_blank">ご利用方法</a></li>
-            <li><a href="../question" target="_blank"><i class="fa fa-envelope-o"></i>Q&amp;A</a></li>
-            <li><a href="../inquiry" target="_blank"><i class="fa fa-weixin"></i>問合せ</a></li>  
-          </ul>
-
-        </div>
-      </div>
-    </div>
-
-
-
-    <div class="container" style="margin-bottom:40px;">
-
-     <!-- <div class="page-header">
-        <div class="row">
-          <div class="col-lg-8 col-md-7 col-sm-6">
-            <h1 th:text="${lodge.name}"></h1>
-          </div>
-        </div>
-      </div> -->
-      
-		<!-- carousel
-      ================================================== -->
-      <div class="bs-docs-section">
-
-        <div class="row">
-          <div class="col-lg-12">
-          	<div class="page-header">
-              <h2 id="tables" th:text="${lodge.name}">Lodge Detail</h2>
-            </div>
-
-
-              <div id="myCarousel" class="carousel slide" data-ride="carousel">
-  <!-- Indicators -->
-  <ol class="carousel-indicators">
-    <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
-    <li data-target="#myCarousel" data-slide-to="1"></li>
-    <li data-target="#myCarousel" data-slide-to="2"></li>
-    <li data-target="#myCarousel" data-slide-to="3"></li>
-    <li data-target="#myCarousel" data-slide-to="4"></li>
-  </ol>
-
-  <!-- Wrapper for slides -->
-  <div class="carousel-inner" role="listbox">
-  
-  	 <div  class="item active">
-      <img th:src="@{/image/view(id=${defaultImage.id})}" />
-     </div> 
-  	<div class="item " th:each="gallery : ${gallerys}">
-      <img th:src="@{/image/view(id=${gallery.id})}" />
-    </div>
-	    
-  </div>
-
-  <!-- Left and right controls -->
-  <a class="left carousel-control" href="#myCarousel" role="button" data-slide="prev">
-    <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
-    <span class="sr-only">Previous</span>
-  </a>
-  <a class="right carousel-control" href="#myCarousel" role="button" data-slide="next">
-    <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
-    <span class="sr-only">Next</span>
-  </a>
-</div>
-              
-         
-              
-           
-
-          </div>
-        </div>
-      </div>
-
-<div class="bs-docs-section">
-
-	<div class="row">
-	  <div class="col-lg-12">
-<!-- 	    <div class="page-header">
-	      <h2>Landlord</h2>
-	    </div> -->
-	
-	    <div class="row">
-          		<div class="col-lg-12">
-          			
-          			<div class="col-lg-3">
-          				<div class="row">
-	          				<div class="col-lg-12">
-	          				
-						            <div class="thumbnail">
-						            	<img th:src="@{/image/view(id=${defaultLandlordPhoto.id})}" />
-							            <div class="caption1">
-							            	<div class="row">
-							            		<div class="col-lg-6">
-							            		<h3>民泊: <strong th:text="${landlord.lodgeNumber}"></strong></h3>
-							            		</div>
-							            		<div class="col-lg-6 pull-right">
-							            		<h3>体験 : <strong th:text="${landlord.experienceNumber}"></strong> </h3> 
-							            		</div>
-							            	</div>
-							            	      
-							            </div>					
-						            </div>
-						   
-	          				</div>
-          				</div>
-          			</div>
-          			<div class="col-lg-6">
-          			<h3 ><strong th:text="${landlord.name}"></strong> - <strong th:text="${lodge.name}"></strong></h3>  
-          			<p th:text="${landlord.description}"></p>
-          			</div>
-          			<div class="col-lg-3">
-          				<div id ="square-map" >
-          					<div id="map_container" style="height:250px;"></div>
-          				</div>
-          			</div>
-          			
-          		</div>
-          	  </div>
-	  </div>
-	</div>
-    
-</div>
-
-
-      
-<div class="bs-docs-section">
-
-    <div class="row">
-      <div class="col-lg-12">
-<!--         <div class="page-header">
-          <h2>Detail</h2>
-        </div> -->
-        	<div class="row">
-              	<div class="col-lg-12" th:object="${lodge}">
-              	
-						    <div class="row" style="padding:5px;">
-						    	<div class="col-lg-12">
-						    	
-						    		<div class="col-lg-2">
-							    		<div id="square" >
-								    		<div class="vh-center">
-									    		<label>
-									    			<h3><strong>宿泊料金</strong></h3>
-									    		</label>
-								    		</div>
-							    		</div>
-							    	</div>
-							      	<div class="col-lg-10">
-							        	<h3 th:text="*{price}"></h3>
-							      	</div>
-						      	</div>
-						    </div>
-						    
-						    <div class="row" style="padding:5px;">
-						    	<div class="col-lg-12">
-							    	<div class="col-lg-2">
-							    		<div id="square"  >
-								    		<div class="vh-center">
-									    		<label>
-									    			<h3><strong>食事</strong></h3>
-									    		</label>
-								    		</div>
-							    		</div>
-							    		
-							    	</div>
-							      	<div class="col-lg-10">
-							      		<h3 th:text="*{food}"></h3>
-							      	</div>
-						      	</div>
-						    </div>
-					
-						    <div class="row" style="padding:5px;">
-						    	<div class="col-lg-12">
-							    	<div class="col-lg-2">
-							    		<div id="square"  >
-								    		<div class="vh-center">
-									    		<label>
-									    			<h3><strong>客室</strong></h3>
-									    		</label>
-								    		</div>
-							    		</div>
-							    	</div>
-							      	<div class="col-lg-10">
-							      		<h3 th:text="*{capacity}"></h3>
-							      	</div>
-						      	</div>
-						    </div>
-						    
-						    <div class="row" style="padding:5px;">
-						    	<div class="col-lg-12">
-							    	<div class="col-lg-2">
-							    		<div id="square"  >
-								    		<div class="vh-center">
-									    		<label>
-									    			<h3><strong>客室内設備</strong></h3>
-									    		</label>
-								    		</div>
-							    		</div>
-							    		
-							    	</div>
-							      	<div class="col-lg-10">
-							      		<h3 th:text="*{equipment}"></h3>
-							      	</div>
-						      	</div>
-						    </div>
-						    
-						    <div class="row" style="padding:5px;">
-						    	<div class="col-lg-12">
-							    	<div class="col-lg-2">
-							    		<div id="square"  >
-								    		<div class="vh-center">
-									    		<label>
-									    			<h3><strong>アメニティ</strong></h3>
-									    		</label>
-								    		</div>
-							    		</div>
-							    	</div>
-							      	<div class="col-lg-10">
-							      		<h3 th:text="*{amenity}"></h3>
-							      	</div>
-						      	</div>
-						    </div>
-						    
-						    <div class="row" style="padding:5px;">
-						    	<div class="col-lg-12">
-							    	<div class="col-lg-2">
-							    		<div id="square"  >
-								    		<div class="vh-center">
-									    		<label>
-									    			<h3><strong>アクセス</strong></h3>
-									    		</label>
-								    		</div>
-							    		</div>
-							    	</div>
-							      	<div class="col-lg-10">
-							      		<h3 th:text="*{traffic}"></h3>
-							      	</div>
-						      	</div>
-						    </div>
-						    
-						    <div class="row" style="padding:5px;">
-						    	<div class="col-lg-12">
-							    	<div class="col-lg-2">
-							    		<div id="square"  >
-								    		<div class="vh-center">
-									    		<label>
-									    			<h3><strong>送迎</strong></h3>
-									    		</label>
-								    		</div>
-							    		</div>
-							    	</div>
-							      	<div class="col-lg-10">
-							      		<h3 th:text="*{pickup}"></h3>
-							      	</div>
-						      	</div>
-						    </div>
-			
-              	</div>
-              </div>
-        
-      </div>
-    </div>
-    
-</div>
-
-<div class="bs-docs-section">
-
-	<div class="row">
-	  <div class="col-lg-12">
-	   	<div class="page-header">
-	      <!-- <h2>お見積もり</h2> -->
-	    </div>
-	    
-	    <div class="row">
-	    <div class="col-lg-8">
-	    
-	    <div class="row">
-	    	<div class="col-lg-12">
-			    <div style="background-color:orange;margin-top:-14px;padding-left:10px;">
-			      <h2><font color="white">お見積もり</font></h2>
-			    </div>
-		    </div>
-	    </div>
-
-        <div class="col-sm-12 col-md-12 col-lg-12">            
-                <form class="form-search form-horizontal" action="#" th:action="@{/lodge/addtocart}" th:object="${cart}"  method="post">             
-					<div class="row" style="margin-bottom:10px;">
-		
-	                    <div class="col-sm-6 col-md-3">
-	                        <div class="input-group">
-				                <input type="text" id="datepicker-my" class="form-control" name="checkin" size="30" placeholder="チェックイン" />	
-				                <span class="input-group-addon" id="btn" style="cursor:pointer;">
-				                    <span class="glyphicon glyphicon-calendar"></span>
-				                </span>
-				            </div>
-	                    </div>
-	
-	                    <div class="col-sm-6 col-md-3">
-	                        <!-- <div class="input-group date" id="end_date">
-	                          <input type="text" class="form-control" name="checkout" placeholder="Check out"/>
-	                          <span class="input-group-addon"><i class="glyphicon glyphicon-th"></i></span>
-	                        </div> -->
-	                        <div class="input-group">
-				                <input type="text" id="datepicker-checkout" class="form-control" name="checkout" size="30" placeholder="￼チェックアウ" />	
-				                <span class="input-group-addon" id="btn-checkout" style="cursor:pointer;">
-				                    <span class="glyphicon glyphicon-calendar"></span>
-				                </span>
-				            </div>
-	                    </div>
-	
-	                    <div class="col-sm-6 col-md-2">
-	                        <div >
-	                            <select class="form-control" name="adults" id="select" th:field="*{adult}">
-	                              	<option th:value="1">大人</option>
-									<option th:each="number : ${numbers}" 
-								        th:value="${number}" 
-								        th:text="${number}"></option>
-                                </select>
-                         	</div>
-                        </div>
-	
-                        <div class="col-sm-6 col-md-2">
-                           <div >
-                                <select class="form-control" id="select" th:field="*{teenager}">
-                                  	<option th:value="0">子供</option>
-									<option th:each="number : ${numbers}" 
-								        th:value="${number}" 
-								        th:text="${number}"></option>
-                                </select>
-                           </div>
-                        </div>       
-	
-                        <div class="col-sm-6 col-md-2">
-                           <div >
-                               <select class="form-control" id="select" th:field="*{infant}">
-                                 	<option th:value="0">幼児</option>
-									<option th:each="number : ${numbers}" 
-								        th:value="${number}" 
-								        th:text="${number}"></option>
-                               </select>
-                          </div>
-                       </div> 
-                     </div>
-                 <div class="row" style="margin-bottom:30px;">
-	                            
-                     <div class="col-lg-12">
-                        <div >
-	                     	<select class="form-control" id="select" th:field="*{foodfk}">
-	                              	<option th:value="0">コース</option>
-									<option th:each="food : ${foods}" 
-								        th:value="${food.id}" 
-								        th:text="${food.title} + ' 大人 ' + ${food.adult} + '円(中学生以上)' + ' お子様' + ${food.teenager} + '円(3才~小学生)'"></option>
-                            </select>
-	                    </div> 
-                     </div>
-                </div>
-	
-				<div class="row">
-                    <div class="col-sm-12 col-md-6 col-lg-3 pull-right">
-                      <button type="submit" class="btn btn-block" style="background-color:orange;"><strong><font color="white">カートへ</font></strong></button>
-                    </div>  
-                    <!-- <div class="col-sm-12 col-md-6 col-lg-8">
-                      <h4><strong>Lodging</strong></h4>
-                      <p>※連泊される際は初日の宿泊日を選択してください。</p>
-                    </div>  -->  
-	            </div>
-
-            </form>
-        </div>
-          
-
-
-	    </div>
-	    <div class="col-lg-4">
-	     
-		     <div class="row" >
-		     	<div id="datepicker" class="input-group date inline_date" style="margin-left:20px"></div>
-		    </div>
-		    <div class="row" style="margin:5px">
-		    	<div class="col-lg-6">
-			    	<div class="col-lg-4">
-			    		<div style="width:20px;height:20px;border:1px solid #000;background:#D7D7D7"></div>
-			    	</div>
-			    	<div class="col-lg-8">
-			    		予約可能
-			    	</div>
-		    	</div>
-		    	<div class="col-lg-6">
-			    	<div class="col-lg-4">
-			    		<div style="width:20px;height:20px;border:1px solid #000;background:#F7F7F7" ></div>
-			    	</div>
-			    	<div class="col-lg-8">
-			    		予約不可能
-			    	</div>
-		    	</div>
-		    	
-		    </div>
-		    
-		 </div>
-		 
-		 
-	    </div>
-	    
-	   
-	  </div>
-	</div>
-    
-</div>
-
-
-
-    </div>
-
-
-    
-
-    
-
-		<div class="row" style="background:#D0CFC4;margin-bottom:0px; padding-left:50px;">
+	<div class="container" style="margin-top: 100px; margin-bottom: 40px;">
+		<div class="row">
 			<div class="col-lg-12">
-	        	<div class="col-lg-4">
-	       			<h3><font color="white">CONTACT US</font></h3>
-	       			<p> <font size="2" color="white">
-	       			お問合せは以下のコンタクトフォームよりお願いします。 メールが正しく届かない場合はこのドメインが受信拒否と認識されているか、 ドメイン指定受信を設定されている可能性があります。 以下のドメインを受信できるように設定してください。@tsushimajapan.com
-	       			</font>
-	       			</p>
-	       			
-	       			<form class="form-horizontal" action="#" th:action="@{/email/new}" th:object="${email}" method="post">
-					  <fieldset>
-					    <div class="form-group">
-					      <label for="inputName" class="col-lg-3 control-label" style="text-align:left;"><font color="white">NAME</font></label>
-					      <div class="col-lg-9">
-					        <input type="text" class="form-control" id="inputName" name="name" th:field="*{name}" />
-					      </div>
-					    </div>
-					    <div class="form-group">
-					      <label for="inputEmail" class="col-lg-3 control-label" style="text-align:left;"><font color="white">EMAIL</font></label>
-					      <div class="col-lg-9">
-					        <input type="text" class="form-control" id="inputEmail" name="email" placeholder="" th:field="*{email}"/>
-					      </div>
-					    </div>
-					    <div class="form-group">
-					      <label for="textArea" class="col-lg-3 control-label" style="text-align:left;"><font color="white">MESSAGE</font></label>
-					      <div class="col-lg-9">
-					        <textarea class="form-control" rows="3" id="textArea" name="message" th:field="*{message}"></textarea>
-					      </div>
-					    </div>
-					    <div class="form-group">
-					      <div class="col-lg-9 col-lg-offset-3" style="display: table-cell;vertical-align: middle">
-					        <button type="submit" class="btn btn-sm pull-right" value="Submit" style="background-color:#443c38;width:80px;"><font color="white">送信</font></button>
-					      </div>
-					    </div>
-					  </fieldset>
-					</form>
-	        	</div>
-	        	<div class="col-lg-4">
-	        		<div class="img_vertical_center" style="margin-top:10px">
-	        			<img src="../img/logo-bottom.png" alt="..." />
-	        		</div>
-	        	</div>
-	        	<div class="col-lg-4">
-	        		<div class="row">
-			        	<div class="verticalLine" style="padding-top: 25px;padding-right: 50px; padding-bottom: 25px; padding-left: 25px;">
+				<div class="page-header">
+					<h2 id="tables" th:text="${lodge.name}">Lodge Detail</h2>
+				</div>
 
-			       			<a href="/"><h4><strong><font color="white">サイトマッフ</font></strong></h4></a>
-			       			<br />
-			       			<a href="/about"><h4><strong><font color="white">会社概要</font></strong></h4></a>
-			       			<br />
-							<a href="/"><h4><strong><font color="white">利用規約 • 免責事項</font></strong></h4></a>
-							<br />
-							<a href="/"><h4><strong><font color="white">ソーシャルメディア</font></strong></h4></a>
-						
+
+				<div id="myCarousel" class="carousel slide" data-ride="carousel">
+					<!-- Indicators -->
+					<ol class="carousel-indicators">
+						<li data-target="#myCarousel" data-slide-to="0" class="active"></li>
+						<li data-target="#myCarousel" data-slide-to="1"></li>
+						<li data-target="#myCarousel" data-slide-to="2"></li>
+						<li data-target="#myCarousel" data-slide-to="3"></li>
+						<li data-target="#myCarousel" data-slide-to="4"></li>
+					</ol>
+
+					<!-- Wrapper for slides -->
+					<div class="carousel-inner" role="listbox">
+
+						<div class="item active">
+							<img th:src="@{/image/view(id=${defaultImage.id})}" />
 						</div>
-						<div>
-			        		
+						<div class="item " th:each="gallery : ${gallerys}">
+							<img th:src="@{/image/view(id=${gallery.id})}" />
+						</div>
+
+					</div>
+
+					<!-- Left and right controls -->
+					<a class="left carousel-control" href="#myCarousel" role="button"
+						data-slide="prev"> <span
+						class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
+						<span class="sr-only">Previous</span>
+					</a> <a class="right carousel-control" href="#myCarousel" role="button"
+						data-slide="next"> <span
+						class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
+						<span class="sr-only">Next</span>
+					</a>
+				</div>
+			</div>
+		</div>
+
+		<div class="row">
+			<div class="col-lg-12">
+				<div class="page-header"></div>
+				<div class="row">
+					<div class="col-lg-12">
+						<div class="col-lg-3">
+							<div class="row">
+								<div class="col-lg-12">
+
+									<div class="thumbnail">
+										<img th:src="@{/image/view(id=${defaultLandlordPhoto.id})}" />
+										<div class="caption1">
+											<div class="row">
+												<div class="col-lg-6">
+													<h3>
+														民泊: <strong th:text="${landlord.lodgeNumber}"></strong>
+													</h3>
+												</div>
+												<div class="col-lg-6 pull-right">
+													<h3>
+														体験 : <strong th:text="${landlord.experienceNumber}"></strong>
+													</h3>
+												</div>
+											</div>
+
+										</div>
+									</div>
+
+								</div>
+							</div>
+						</div>
+						<div class="col-lg-6">
+							<h3>
+								<strong th:text="${landlord.name}"></strong> - <strong
+									th:text="${lodge.name}"></strong>
+							</h3>
+							<p th:text="${landlord.description}"></p>
+						</div>
+						<div class="col-lg-3">
+							<div id="square-map">
+								<div id="map_container" style="height: 250px;"></div>
+							</div>
+						</div>
+
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<div class="row">
+			<div class="col-lg-12">
+				<div class="row">
+					<div class="col-lg-12" th:object="${lodge}">
+
+						<div class="row" style="padding: 5px;">
+							<div class="col-lg-12">
+
+								<div class="col-lg-2">
+									<div id="square">
+										<div class="vh-center">
+											<label>
+												<h3>
+													<strong>宿泊料金</strong>
+												</h3>
+											</label>
+										</div>
+									</div>
+								</div>
+								<div class="col-lg-10">
+									<h3 th:text="*{price}"></h3>
+								</div>
+							</div>
+						</div>
+
+						<div class="row" style="padding: 5px;">
+							<div class="col-lg-12">
+								<div class="col-lg-2">
+									<div id="square">
+										<div class="vh-center">
+											<label>
+												<h3>
+													<strong>食事</strong>
+												</h3>
+											</label>
+										</div>
+									</div>
+
+								</div>
+								<div class="col-lg-10">
+									<h3 th:text="*{food}"></h3>
+								</div>
+							</div>
+						</div>
+
+						<div class="row" style="padding: 5px;">
+							<div class="col-lg-12">
+								<div class="col-lg-2">
+									<div id="square">
+										<div class="vh-center">
+											<label>
+												<h3>
+													<strong>客室</strong>
+												</h3>
+											</label>
+										</div>
+									</div>
+								</div>
+								<div class="col-lg-10">
+									<h3 th:text="*{capacity}"></h3>
+								</div>
+							</div>
+						</div>
+
+						<div class="row" style="padding: 5px;">
+							<div class="col-lg-12">
+								<div class="col-lg-2">
+									<div id="square">
+										<div class="vh-center">
+											<label>
+												<h3>
+													<strong>客室内設備</strong>
+												</h3>
+											</label>
+										</div>
+									</div>
+
+								</div>
+								<div class="col-lg-10">
+									<h3 th:text="*{equipment}"></h3>
+								</div>
+							</div>
+						</div>
+
+						<div class="row" style="padding: 5px;">
+							<div class="col-lg-12">
+								<div class="col-lg-2">
+									<div id="square">
+										<div class="vh-center">
+											<label>
+												<h3>
+													<strong>アメニティ</strong>
+												</h3>
+											</label>
+										</div>
+									</div>
+								</div>
+								<div class="col-lg-10">
+									<h3 th:text="*{amenity}"></h3>
+								</div>
+							</div>
+						</div>
+
+						<div class="row" style="padding: 5px;">
+							<div class="col-lg-12">
+								<div class="col-lg-2">
+									<div id="square">
+										<div class="vh-center">
+											<label>
+												<h3>
+													<strong>アクセス</strong>
+												</h3>
+											</label>
+										</div>
+									</div>
+								</div>
+								<div class="col-lg-10">
+									<h3 th:text="*{traffic}"></h3>
+								</div>
+							</div>
+						</div>
+
+						<div class="row" style="padding: 5px;">
+							<div class="col-lg-12">
+								<div class="col-lg-2">
+									<div id="square">
+										<div class="vh-center">
+											<label>
+												<h3>
+													<strong>送迎</strong>
+												</h3>
+											</label>
+										</div>
+									</div>
+								</div>
+								<div class="col-lg-10">
+									<h3 th:text="*{pickup}"></h3>
+								</div>
+							</div>
 						</div>
 					</div>
-	        	</div>
-	       	
-	       	</div>
-        </div>
-        
+				</div>
+			</div>
+		</div>
 
-    	<footer class="footer" id="footer" style="background-color: #443c38;margin-top:0px;" >
-            <div class="container">      
-                <div class="col-lg-12">
-                    <p>つしまジャパン株式会社 〒817-0023 長崎県対馬市厳原町田渕860-1 @TSUSHIMA JAPAN.INC</p>
-                    <p>Copyright © 2014 つしまジャパン株式会社 All Rights Reserved.</p>
-                </div>
-            </div>
-        </footer>
+		<div class="row">
+			<div class="col-lg-12">
+				<div class="page-header"></div>
 
-    
-<!-- </div> -->
+				<div class="row">
+					<div class="col-lg-8">
+
+						<div class="row">
+							<div class="col-lg-12">
+								<div
+									style="background-color: orange; margin-top: -14px; padding-left: 10px;">
+									<h2>
+										<font color="white">お見積もり</font>
+									</h2>
+								</div>
+							</div>
+						</div>
+
+						<div class="col-sm-12 col-md-12 col-lg-12">
+							<form class="form-search form-horizontal" action="#"
+								th:action="@{/lodge/addtocart}" th:object="${cart}"
+								method="post">
+								<div class="row" style="margin-bottom: 10px;">
+									<div class="col-sm-6 col-md-3">
+										<div class="input-group">
+											<input type="text" id="datepicker-my" class="form-control"
+												name="checkin" size="30" placeholder="チェックイン" /> <span
+												class="input-group-addon" id="btn" style="cursor: pointer;">
+												<span class="glyphicon glyphicon-calendar"></span>
+											</span>
+										</div>
+									</div>
+
+									<div class="col-sm-6 col-md-3">
+										<div class="input-group">
+											<input type="text" id="datepicker-checkout"
+												class="form-control" name="checkout" size="30"
+												placeholder="￼チェックアウ" /> <span class="input-group-addon"
+												id="btn-checkout" style="cursor: pointer;"> <span
+												class="glyphicon glyphicon-calendar"></span>
+											</span>
+										</div>
+									</div>
+
+									<div class="col-sm-6 col-md-2">
+										<div>
+											<select class="form-control" name="adults" id="select"
+												th:field="*{adult}">
+												<option th:value="1">大人</option>
+												<option th:each="number : ${numbers}" th:value="${number}"
+													th:text="${number}"></option>
+											</select>
+										</div>
+									</div>
+
+									<div class="col-sm-6 col-md-2">
+										<div>
+											<select class="form-control" id="select"
+												th:field="*{teenager}">
+												<option th:value="0">子供</option>
+												<option th:each="number : ${numbers}" th:value="${number}"
+													th:text="${number}"></option>
+											</select>
+										</div>
+									</div>
+
+									<div class="col-sm-6 col-md-2">
+										<div>
+											<select class="form-control" id="select" th:field="*{infant}">
+												<option th:value="0">幼児</option>
+												<option th:each="number : ${numbers}" th:value="${number}"
+													th:text="${number}"></option>
+											</select>
+										</div>
+									</div>
+								</div>
+								<div class="row" style="margin-bottom: 30px;">
+									<div class="col-lg-12">
+										<div>
+											<select class="form-control" id="select" th:field="*{foodfk}">
+												<option th:value="0">コース</option>
+												<option th:each="food : ${foods}" th:value="${food.id}"
+													th:text="${food.title} + ' 大人 ' + ${food.adult} + '円(中学生以上)' + ' お子様' + ${food.teenager} + '円(3才~小学生)'"></option>
+											</select>
+										</div>
+									</div>
+								</div>
+
+								<div class="row">
+									<div class="col-sm-12 col-md-6 col-lg-3 pull-right">
+										<button type="submit" class="btn btn-block"
+											style="background-color: orange;">
+											<strong><font color="white">カートへ</font></strong>
+										</button>
+									</div>
+								</div>
+							</form>
+						</div>
+					</div>
+					<div class="col-lg-4">
+
+						<div class="row">
+							<div id="datepicker" class="input-group date inline_date"
+								style="margin-left: 20px"></div>
+						</div>
+						<div class="row" style="margin: 5px">
+							<div class="col-lg-6">
+								<div class="col-lg-4">
+									<div
+										style="width: 20px; height: 20px; border: 1px solid #000; background: #D7D7D7"></div>
+								</div>
+								<div class="col-lg-8">予約可能</div>
+							</div>
+							<div class="col-lg-6">
+								<div class="col-lg-4">
+									<div
+										style="width: 20px; height: 20px; border: 1px solid #000; background: #F7F7F7"></div>
+								</div>
+								<div class="col-lg-8">予約不可能</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<!-- FOOTER -->
+	<div th:replace="fragments/footer :: footer">&nbsp;</div>
 
 	<script>
 	$('#btn').click(function(){
@@ -697,9 +550,9 @@
 	    });
 	});
 	</script>
-    <script src="../js/bootstrap.min.js"></script>
-    <script src="../js/bootswatch.js"></script>
-    <script src="../js/myjs.js"></script>
-    
-	</body>
+	<script src="../js/bootstrap.min.js"></script>
+	<script src="../js/bootswatch.js"></script>
+	<script src="../js/myjs.js"></script>
+
+</body>
 </html>
