@@ -23,6 +23,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import com.example.reserve.domain.Calendar;
 import com.example.reserve.domain.Cart;
 import com.example.reserve.domain.CheckInOut;
+import com.example.reserve.domain.Email;
 import com.example.reserve.domain.Food;
 import com.example.reserve.domain.Gallery;
 import com.example.reserve.domain.Landlord;
@@ -86,6 +87,7 @@ public class DetailLodgeController {
 	public String detail(
 			@Nonnull @RequestParam(value = "id", required = true) final long lodgeId,
 			Model model) {
+		model.addAttribute("email", new Email());
 		model.addAttribute("cart", new Cart());
 		model.addAttribute("checkinout", new CheckInOut());
 		this.lodgeId = lodgeId;

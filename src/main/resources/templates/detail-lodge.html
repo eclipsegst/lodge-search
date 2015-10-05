@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   	<meta charset="utf-8" />
-    <title>Lodge Details</title>
+    <title>lodge details</title>
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <link rel="shortcut icon" href="../img/logo-icon.png"/>
@@ -39,6 +39,31 @@
 	<style>
 		div.ui-datepicker{
 		 	font-size:20px;
+		}
+	</style>
+	<style>
+		#square {
+			width: 100%;
+			height: 0;
+			padding-bottom: 100%;
+			border:1px solid #000;
+			background:#fff;
+		}
+		
+		#square-map {
+			width: 100%;
+			height: 0;
+			padding-bottom: 100%;
+			border:1px solid #000;
+		}
+		
+		.vh-center {
+		    position: absolute;
+		    top: 50%;
+		    left: 50%;
+		    -moz-transform: translateX(-50%) translateY(-50%);
+		    -webkit-transform: translateX(-50%) translateY(-50%);
+		    transform: translateX(-50%) translateY(-50%);
 		}
 	</style>
 	<script type="text/javascript" src="http://maps.googleapis.com/maps/api/js?sensor=false" ></script>
@@ -123,7 +148,7 @@
 </head>
 <body>
 
-<div class="navbar navbar-default">
+<div class="navbar navbar-default navbar-fixed-top">
       <div class="container">
         <div class="navbar-header">
           <button class="navbar-toggle" type="button" data-toggle="collapse" data-target="#navbar-main">
@@ -162,7 +187,7 @@
 
 
 
-    <div class="container">
+    <div class="container" style="margin-bottom:40px;">
 
      <!-- <div class="page-header">
         <div class="row">
@@ -202,17 +227,6 @@
   	<div class="item " th:each="gallery : ${gallerys}">
       <img th:src="@{/image/view(id=${gallery.id})}" />
     </div>
-    
-<!-- 	<div class="item">
-      <img src="../duima/1.jpg" alt="Chania" />
-    </div> -->
-     	
-<!--   	<div  class="item active" th:each="image : ${image1}">
-      <img th:src="${image.value}" />
-     </div>  -->
-<!--      <div  class="item" th:each="image : ${image2}">
-      <img th:src="${image.value}" />
-     </div>  -->
 	    
   </div>
 
@@ -239,12 +253,10 @@
 
 	<div class="row">
 	  <div class="col-lg-12">
-	    <div class="page-header">
+<!-- 	    <div class="page-header">
 	      <h2>Landlord</h2>
-	    </div>
+	    </div> -->
 	
-	    <div class="bs-component">
-	    
 	    <div class="row">
           		<div class="col-lg-12">
           			
@@ -275,14 +287,13 @@
           			<p th:text="${landlord.description}"></p>
           			</div>
           			<div class="col-lg-3">
-          			<div id="map_container"></div>
+          				<div id ="square-map" >
+          					<div id="map_container" style="height:250px;"></div>
+          				</div>
           			</div>
           			
           		</div>
           	  </div>
-	    
-	    
-	    </div>
 	  </div>
 	</div>
     
@@ -294,100 +305,128 @@
 
     <div class="row">
       <div class="col-lg-12">
-        <div class="page-header">
+<!--         <div class="page-header">
           <h2>Detail</h2>
-        </div>
+        </div> -->
         	<div class="row">
               	<div class="col-lg-12" th:object="${lodge}">
               	
-              	
-              		
-
-						    <div class="row">
+						    <div class="row" style="padding:5px;">
 						    	<div class="col-lg-12">
-							    	<div class="col-lg-2">
-							    		<label>
-							    			<h3>宿泊料金</h3>
-							    		</label>
+						    	
+						    		<div class="col-lg-2">
+							    		<div id="square" >
+								    		<div class="vh-center">
+									    		<label>
+									    			<h3><strong>宿泊料金</strong></h3>
+									    		</label>
+								    		</div>
 							    		</div>
+							    	</div>
 							      	<div class="col-lg-10">
 							        	<h3 th:text="*{price}"></h3>
 							      	</div>
 						      	</div>
 						    </div>
 						    
-						    <div class="row">
+						    <div class="row" style="padding:5px;">
 						    	<div class="col-lg-12">
 							    	<div class="col-lg-2">
-							    		<label>
-							    			<h3>食事</h3>
-							    		</label>
+							    		<div id="square"  >
+								    		<div class="vh-center">
+									    		<label>
+									    			<h3><strong>食事</strong></h3>
+									    		</label>
+								    		</div>
 							    		</div>
+							    		
+							    	</div>
 							      	<div class="col-lg-10">
 							      		<h3 th:text="*{food}"></h3>
 							      	</div>
 						      	</div>
 						    </div>
 					
-						    <div class="row">
+						    <div class="row" style="padding:5px;">
 						    	<div class="col-lg-12">
 							    	<div class="col-lg-2">
-							    		<label>
-							    			<h3>客室</h3>
-							    		</label>
+							    		<div id="square"  >
+								    		<div class="vh-center">
+									    		<label>
+									    			<h3><strong>客室</strong></h3>
+									    		</label>
+								    		</div>
 							    		</div>
+							    	</div>
 							      	<div class="col-lg-10">
 							      		<h3 th:text="*{capacity}"></h3>
 							      	</div>
 						      	</div>
 						    </div>
 						    
-						    <div class="row">
+						    <div class="row" style="padding:5px;">
 						    	<div class="col-lg-12">
 							    	<div class="col-lg-2">
-							    		<label>
-							    			<h3>客室内設備</h3>
-							    		</label>
+							    		<div id="square"  >
+								    		<div class="vh-center">
+									    		<label>
+									    			<h3><strong>客室内設備</strong></h3>
+									    		</label>
+								    		</div>
 							    		</div>
+							    		
+							    	</div>
 							      	<div class="col-lg-10">
 							      		<h3 th:text="*{equipment}"></h3>
 							      	</div>
 						      	</div>
 						    </div>
 						    
-						    <div class="row">
+						    <div class="row" style="padding:5px;">
 						    	<div class="col-lg-12">
 							    	<div class="col-lg-2">
-							    		<label>
-							    			<h3>アメニティ</h3>
-							    		</label>
+							    		<div id="square"  >
+								    		<div class="vh-center">
+									    		<label>
+									    			<h3><strong>アメニティ</strong></h3>
+									    		</label>
+								    		</div>
 							    		</div>
+							    	</div>
 							      	<div class="col-lg-10">
 							      		<h3 th:text="*{amenity}"></h3>
 							      	</div>
 						      	</div>
 						    </div>
 						    
-						    <div class="row">
+						    <div class="row" style="padding:5px;">
 						    	<div class="col-lg-12">
 							    	<div class="col-lg-2">
-							    		<label>
-							    			<h3>アクセス</h3>
-							    		</label>
+							    		<div id="square"  >
+								    		<div class="vh-center">
+									    		<label>
+									    			<h3><strong>アクセス</strong></h3>
+									    		</label>
+								    		</div>
 							    		</div>
+							    	</div>
 							      	<div class="col-lg-10">
 							      		<h3 th:text="*{traffic}"></h3>
 							      	</div>
 						      	</div>
 						    </div>
 						    
-						    <div class="row">
+						    <div class="row" style="padding:5px;">
 						    	<div class="col-lg-12">
 							    	<div class="col-lg-2">
-							    		<label>
-							    			<h3>送迎</h3>
-							    		</label>
+							    		<div id="square"  >
+								    		<div class="vh-center">
+									    		<label>
+									    			<h3><strong>送迎</strong></h3>
+									    		</label>
+								    		</div>
 							    		</div>
+							    	</div>
 							      	<div class="col-lg-10">
 							      		<h3 th:text="*{pickup}"></h3>
 							      	</div>
@@ -406,21 +445,28 @@
 
 	<div class="row">
 	  <div class="col-lg-12">
-	    <div class="page-header">
-	      <h2>お見積もり</h2>
+	   	<div class="page-header">
+	      <!-- <h2>お見積もり</h2> -->
 	    </div>
 	    
 	    <div class="row">
 	    <div class="col-lg-8">
 	    
+	    <div class="row">
+	    	<div class="col-lg-12">
+			    <div style="background-color:orange;margin-top:-14px;padding-left:10px;">
+			      <h2><font color="white">お見積もり</font></h2>
+			    </div>
+		    </div>
+	    </div>
 
-        <div id="house-searcher" class="col-sm-12 col-md-12 col-lg-12">            
+        <div class="col-sm-12 col-md-12 col-lg-12">            
                 <form class="form-search form-horizontal" action="#" th:action="@{/lodge/addtocart}" th:object="${cart}"  method="post">             
 					<div class="row" style="margin-bottom:10px;">
 		
 	                    <div class="col-sm-6 col-md-3">
 	                        <div class="input-group">
-				                <input type="text" id="datepicker-my" class="form-control" name="checkin" size="30" placeholder="check in" />	
+				                <input type="text" id="datepicker-my" class="form-control" name="checkin" size="30" placeholder="チェックイン" />	
 				                <span class="input-group-addon" id="btn" style="cursor:pointer;">
 				                    <span class="glyphicon glyphicon-calendar"></span>
 				                </span>
@@ -433,7 +479,7 @@
 	                          <span class="input-group-addon"><i class="glyphicon glyphicon-th"></i></span>
 	                        </div> -->
 	                        <div class="input-group">
-				                <input type="text" id="datepicker-checkout" class="form-control" name="checkout" size="30" placeholder="check out" />	
+				                <input type="text" id="datepicker-checkout" class="form-control" name="checkout" size="30" placeholder="￼チェックアウ" />	
 				                <span class="input-group-addon" id="btn-checkout" style="cursor:pointer;">
 				                    <span class="glyphicon glyphicon-calendar"></span>
 				                </span>
@@ -443,7 +489,7 @@
 	                    <div class="col-sm-6 col-md-2">
 	                        <div >
 	                            <select class="form-control" name="adults" id="select" th:field="*{adult}">
-	                              	<option th:value="1">Adult</option>
+	                              	<option th:value="1">大人</option>
 									<option th:each="number : ${numbers}" 
 								        th:value="${number}" 
 								        th:text="${number}"></option>
@@ -454,7 +500,7 @@
                         <div class="col-sm-6 col-md-2">
                            <div >
                                 <select class="form-control" id="select" th:field="*{teenager}">
-                                  	<option th:value="0">Children</option>
+                                  	<option th:value="0">子供</option>
 									<option th:each="number : ${numbers}" 
 								        th:value="${number}" 
 								        th:text="${number}"></option>
@@ -465,7 +511,7 @@
                         <div class="col-sm-6 col-md-2">
                            <div >
                                <select class="form-control" id="select" th:field="*{infant}">
-                                 	<option th:value="0">Infant</option>
+                                 	<option th:value="0">幼児</option>
 									<option th:each="number : ${numbers}" 
 								        th:value="${number}" 
 								        th:text="${number}"></option>
@@ -488,8 +534,8 @@
                 </div>
 	
 				<div class="row">
-                    <div class="col-sm-12 col-md-6 col-lg-4">
-                      <button type="submit" class="btn btn-danger btn-block"><strong>カートへ</strong></button>
+                    <div class="col-sm-12 col-md-6 col-lg-3 pull-right">
+                      <button type="submit" class="btn btn-block" style="background-color:orange;"><strong><font color="white">カートへ</font></strong></button>
                     </div>  
                     <!-- <div class="col-sm-12 col-md-6 col-lg-8">
                       <h4><strong>Lodging</strong></h4>
@@ -543,18 +589,88 @@
 
     </div>
 
- 
- <div id="show-footer">
-      <footer class="footer" id="footer">
+
+    
+
+    
+
+		<div class="row" style="background:#D0CFC4;margin-bottom:0px; padding-left:50px;">
+			<div class="col-lg-12">
+	        	<div class="col-lg-4">
+	       			<h3><font color="white">CONTACT US</font></h3>
+	       			<p> <font size="2" color="white">
+	       			お問合せは以下のコンタクトフォームよりお願いします。 メールが正しく届かない場合はこのドメインが受信拒否と認識されているか、 ドメイン指定受信を設定されている可能性があります。 以下のドメインを受信できるように設定してください。@tsushimajapan.com
+	       			</font>
+	       			</p>
+	       			
+	       			<form class="form-horizontal" action="#" th:action="@{/email/new}" th:object="${email}" method="post">
+					  <fieldset>
+					    <div class="form-group">
+					      <label for="inputName" class="col-lg-3 control-label" style="text-align:left;"><font color="white">NAME</font></label>
+					      <div class="col-lg-9">
+					        <input type="text" class="form-control" id="inputName" name="name" th:field="*{name}" />
+					      </div>
+					    </div>
+					    <div class="form-group">
+					      <label for="inputEmail" class="col-lg-3 control-label" style="text-align:left;"><font color="white">EMAIL</font></label>
+					      <div class="col-lg-9">
+					        <input type="text" class="form-control" id="inputEmail" name="email" placeholder="" th:field="*{email}"/>
+					      </div>
+					    </div>
+					    <div class="form-group">
+					      <label for="textArea" class="col-lg-3 control-label" style="text-align:left;"><font color="white">MESSAGE</font></label>
+					      <div class="col-lg-9">
+					        <textarea class="form-control" rows="3" id="textArea" name="message" th:field="*{message}"></textarea>
+					      </div>
+					    </div>
+					    <div class="form-group">
+					      <div class="col-lg-9 col-lg-offset-3" style="display: table-cell;vertical-align: middle">
+					        <button type="submit" class="btn btn-sm pull-right" value="Submit" style="background-color:#443c38;width:80px;"><font color="white">送信</font></button>
+					      </div>
+					    </div>
+					  </fieldset>
+					</form>
+	        	</div>
+	        	<div class="col-lg-4">
+	        		<div class="img_vertical_center" style="margin-top:10px">
+	        			<img src="../img/logo-bottom.png" alt="..." />
+	        		</div>
+	        	</div>
+	        	<div class="col-lg-4">
+	        		<div class="row">
+			        	<div class="verticalLine" style="padding-top: 25px;padding-right: 50px; padding-bottom: 25px; padding-left: 25px;">
+
+			       			<a href="/"><h4><strong><font color="white">サイトマッフ</font></strong></h4></a>
+			       			<br />
+			       			<a href="/about"><h4><strong><font color="white">会社概要</font></strong></h4></a>
+			       			<br />
+							<a href="/"><h4><strong><font color="white">利用規約 • 免責事項</font></strong></h4></a>
+							<br />
+							<a href="/"><h4><strong><font color="white">ソーシャルメディア</font></strong></h4></a>
+						
+						</div>
+						<div>
+			        		
+						</div>
+					</div>
+	        	</div>
+	       	
+	       	</div>
+        </div>
+        
+
+    	<footer class="footer" id="footer" style="background-color: #443c38;margin-top:0px;" >
             <div class="container">      
                 <div class="col-lg-12">
                     <p>つしまジャパン株式会社 〒817-0023 長崎県対馬市厳原町田渕860-1 @TSUSHIMA JAPAN.INC</p>
                     <p>Copyright © 2014 つしまジャパン株式会社 All Rights Reserved.</p>
                 </div>
             </div>
-      </footer>
-    </div>
+        </footer>
+
     
+<!-- </div> -->
+
 	<script>
 	$('#btn').click(function(){
 	    //alert('clcikec');
@@ -585,5 +701,5 @@
     <script src="../js/bootswatch.js"></script>
     <script src="../js/myjs.js"></script>
     
-</body>
+	</body>
 </html>
