@@ -1,32 +1,60 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="utf-8" />
-    <title>List of Users</title>
+<meta charset="utf-8" />
+<title>Food Update</title>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<link rel="shortcut icon" href="../../img/logo-icon.png" />
+<link rel="stylesheet" href="../../css/bootstrap.css" media="screen" />
+<link rel="stylesheet" href="../../css/custom.min.css" />
+<link rel="stylesheet" href="../../css/tsushima.css" />
+<link rel="stylesheet" href="../../css/font-awesome.min.css" />
+<script src="../../js/jquery-1.10.2.js"></script>
+<style>
+#footer {
+	background-color: red;
+	position: fixed;
+	bottom: 0px;
+	left: 0px;
+	right: 0px;
+	height: 80px;
+	margin-bottom: 0px;
+}
+
+body {
+	margin-bottom: 100px;
+}
+</style>
 </head>
 <body>
-<nav role="navigation">
-    <ul>
-        <li><a href="/">Home</a></li>
-        <li><a href="/user/create">Create a new user</a></li>
-    </ul>
-</nav>
+	<div th:replace="fragments/header-admin :: header-admin">&nbsp;</div>
 
-<h1>List of Users</h1>
+	<div class="container" style="margin-top: 100px;">
 
-<table>
-    <thead>
-    <tr>
-        <th>E-mail</th>
-        <th>Role</th>
-    </tr>
-    </thead>
-    <tbody>
-    <tr th:each="user : ${users}">
-        <td><a href="/user/${user.id}" th:text="${user.email}"></a></td>
-        <td th:text="${user.role}"></td>
-    </tr>
-    </tbody>
-</table>
+		<nav role="navigation">
+			<ul>
+				<li><a href="/">Home</a></li>
+				<li><a href="/user/create">Create a new user</a></li>
+			</ul>
+		</nav>
+
+		<h1>List of Users</h1>
+
+		<table>
+			<thead>
+				<tr>
+					<th>E-mail</th>
+					<th>Role</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr th:each="user : ${users}">
+					<td><a href="/user/${user.id}" th:text="${user.email}"></a></td>
+					<td th:text="${user.role}"></td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
 </body>
 </html>

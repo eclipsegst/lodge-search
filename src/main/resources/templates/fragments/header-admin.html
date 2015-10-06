@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>	
+</head>
+<body>
+<div class="navbar navbar-default navbar-fixed-top" th:fragment="header-admin">
+      <div class="container">
+        <div class="navbar-header">
+          <button class="navbar-toggle" type="button" data-toggle="collapse" data-target="#navbar-main">
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a href="/" class="navbar-brand">
+            <img src="../../img/logo.png" class="non-img-responsive" alt="logo"/>
+          </a>
+        </div>
+        <div class="navbar-collapse collapse" id="navbar-main">
+          <ul class="nav navbar-nav">
+             <li class="dropdown">
+              <a class="dropdown-toggle" data-toggle="dropdown" href="#" id="themes">Management <span class="caret"></span></a>
+              <ul class="dropdown-menu" aria-labelledby="themes">
+                <li><a href="/">Home</a></li>
+                <li class="divider"></li>
+                <li><a href="/lodge/">Lodge</a></li>
+                <li><a href="/experience/">Experience</a></li>
+                <li><a href="/landlord/">Landlord</a></li>
+                 </ul>
+                 </li>
+
+          </ul>
+
+          <ul class="nav navbar-nav navbar-right">
+          	
+          	<!-- <li th:if="${currentUser == null}"><a href="/login">Login</a></li>
+          	<li th:if="${currentUser != null}"><a href="/logout" th:href="@{/logout}">logout</a></li>
+        	
+        	<li th:if="${currentUser != null}"><a th:href="@{/user/} + ${currentUser.id}">My Account</a></li> -->
+        	
+          	<li><a href="/shoppingcart" target="_blank"><i class="fa fa-shopping-cart"></i>マイカート</a></li>
+            <li><a href="/howto" target="_blank">ご利用方法</a></li>
+            <li><a href="/question" target="_blank"><i class="fa fa-envelope-o"></i>Q&amp;A</a></li>
+            <li><a href="/inquiry" target="_blank"><i class="fa fa-weixin"></i>問合せ</a></li> 
+           
+          </ul>
+
+        </div>
+      </div>
+    </div>
+
+</body>
+</html>

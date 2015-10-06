@@ -29,45 +29,7 @@
 	</style>
 </head>
 <body>
-<!-- <div th:replace="fragments/header :: header">&nbsp;</div> -->
-<!-- <div class="navbar navbar-default navbar-fixed-top"> -->
-<div class="navbar navbar-default navbar-fixed-top">
-      <div class="container">
-        <div class="navbar-header">
-          <button class="navbar-toggle" type="button" data-toggle="collapse" data-target="#navbar-main">
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-          </button>
-          <a href="/" class="navbar-brand">
-            <img src="../img/logo.png" class="non-img-responsive" alt="logo"/>
-          </a>
-        </div>
-        <div class="navbar-collapse collapse" id="navbar-main">
-          <ul class="nav navbar-nav">
-            <li>
-              <a href="/"></a>
-            </li>
-
-          </ul>
-
-          <ul class="nav navbar-nav navbar-right">
-          	
-          	<!-- <li th:if="${currentUser == null}"><a href="/login">Login</a></li> -->
-          	<!-- <li th:if="${currentUser != null}"><a href="/logout" th:href="@{/logout}">logout</a></li>
-        	
-        	<li th:if="${currentUser != null}"><a th:href="@{/user/} + ${currentUser.id}">My Account</a></li>
-        	 -->
-          	<li><a href="../shoppingcart" target="_blank"><i class="fa fa-shopping-cart"></i>マイカート</a></li>
-            <li><a href="../howto" target="_blank">ご利用方法</a></li>
-            <li><a href="../question" target="_blank"><i class="fa fa-envelope-o"></i>Q&amp;A</a></li>
-            <li><a href="../inquiry" target="_blank"><i class="fa fa-weixin"></i>問合せ</a></li>  
-          </ul>
-
-        </div>
-      </div>
-    </div>
-
+<div th:replace="fragments/header :: header">&nbsp;</div>
 
 <div class="white" id="show-intro">
       <div class="container" style="margin-bottom:20px;"> 
@@ -105,7 +67,7 @@
 		    </div> -->
 		    
 		    <div class="row">
-		    	<img src="../img/特定商取引法.png" alt="..." />
+		    	<img src="./img/teding.png" alt="..." />
 		    </div>
 
           </div>
