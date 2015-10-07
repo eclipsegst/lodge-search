@@ -94,16 +94,63 @@ div.ui-datepicker {
 
 <!-- load google map -->
 <script type="text/javascript" th:inline="javascript">
+
+	var globalObj = this; 
+
 	$(document).ready(function() {
 		<!-- pass the parameter from controller to html -->
 		<!-- http://www.thymeleaf.org/doc/tutorials/2.1/usingthymeleaf.html#script-inlining-javascript-and-dart -->
 	    var latitude = [[${experience.latitude}]];
 	    var longitude = [[${experience.longitude}]];
 	    var unavailableDates2 = [[${closedDate}]];
+	    
+	    globalObj = [[${foods}]];
+	    
 	    loadMap(latitude, longitude);
 	 });
 	</script>
 
+
+
+<script type="text/javascript">
+	
+	function leaveChange(control) {
+		var adult = document.getElementById("adult");
+		var adultnum = adult.options[adult.selectedIndex].value;
+		
+		var teenager = document.getElementById("teenager");
+		var teenagernum = teenager.options[teenager.selectedIndex].value;
+		
+		var infant = document.getElementById("infant");
+		var infantnum = infant.options[infant.selectedIndex].value;
+		
+		var selectfood = document.getElementById("selectfood");
+		var foodprice = selectfood.options[selectfood.selectedIndex].innerHTML;
+		
+		var foodpriceafter = foodprice.split('大人')[1];
+		var numberPattern = /\d+/g;
+		var prices = foodpriceafter.match(numberPattern);
+
+		
+		var adultprice = 0;
+		var teenagerprice = 0;
+		
+		adultprice = prices[0];
+		teenagerprice = prices[1];
+		var total;
+		
+		var adultpayment = adultnum * adultprice 
+		var teenagerpayment = teenagernum * teenagerprice;
+		var infantpayment = infantnum * teenagerprice;
+		var total = adultpayment + teenagerpayment + infantpayment;
+		
+	   	document.getElementById("message").innerHTML = total;
+	   
+	   /* alert('adultprice: ' + adultpayment + ", teenagerprice:" + teenagerpayment  + ", infantpayment:" + infantpayment); */
+	}
+
+	</script>
+	
 
 <script src="../../js/datepicker/external/jquery/jquery.js"></script>
 <script src="../../js/datepicker/jquery-ui.js"></script>
@@ -155,7 +202,7 @@ div.ui-datepicker {
 
 	<div th:replace="fragments/header :: header">&nbsp;</div>
 
-	<div class="container" style="margin-top:100px;margin-bottom: 40px;">
+	<div class="container" style="margin-top: 100px; margin-bottom: 40px;">
 		<div class="row">
 			<div class="col-lg-12">
 				<div class="page-header">
@@ -342,8 +389,8 @@ div.ui-datepicker {
 
 									<div class="col-sm-6 col-md-3">
 										<div class="form-group">
-											<select class="form-control" name="adults" id="select"
-												th:field="*{adult}">
+											<select class="form-control" name="adults" id="adult"
+												onchange="leaveChange()" th:field="*{adult}">
 												<option th:value="1">大人</option>
 												<option th:each="number : ${numbers}" th:value="${number}"
 													th:text="${number}"></option>
@@ -353,8 +400,8 @@ div.ui-datepicker {
 
 									<div class="col-sm-6 col-md-3">
 										<div class="form-group">
-											<select class="form-control" id="select"
-												th:field="*{teenager}">
+											<select class="form-control" id="teenager"
+												onchange="leaveChange()" th:field="*{teenager}">
 												<option th:value="0">子供</option>
 												<option th:each="number : ${numbers}" th:value="${number}"
 													th:text="${number}"></option>
@@ -364,7 +411,8 @@ div.ui-datepicker {
 
 									<div class="col-sm-6 col-md-3">
 										<div class="form-group">
-											<select class="form-control" id="select" th:field="*{infant}">
+											<select class="form-control" id="infant" th:field="*{infant}"
+												onchange="leaveChange()">
 												<option th:value="0">幼児</option>
 												<option th:each="number : ${numbers}" th:value="${number}"
 													th:text="${number}"></option>
@@ -378,7 +426,8 @@ div.ui-datepicker {
 
 									<div class="col-sm-6 col-md-12">
 										<div class="form-group">
-											<select class="form-control" id="select" th:field="*{foodfk}">
+											<select class="form-control" id="selectfood" th:field="*{foodfk}"
+												onchange="leaveChange()">
 												<option th:value="0">コース</option>
 												<option th:each="food : ${foods}" th:value="${food.id}"
 													th:text="${food.title} + ' 大人 ' + ${food.adult} + '円(中学生以上)' + ' お子様' + ${food.teenager} + '円(3才~小学生)'"></option>
@@ -390,6 +439,12 @@ div.ui-datepicker {
 								<!--row-->
 
 								<div class="row">
+									<div class="col-sm-12 col-md-6 col-lg-4 ">
+									<font size="4px">合計金額 </font>
+									
+									<font size="10px"><strong id="message">0</strong></font>
+									<font size="4px"> 円</font>
+									</div>
 									<div class="col-sm-12 col-md-6 col-lg-3 pull-right">
 										<button type="submit" class="btn btn-block"
 											style="background-color: #039BE5;">
