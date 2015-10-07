@@ -150,7 +150,7 @@ div.ui-datepicker {
 	}
 
 	</script>
-	
+
 
 <script src="../../js/datepicker/external/jquery/jquery.js"></script>
 <script src="../../js/datepicker/jquery-ui.js"></script>
@@ -426,8 +426,8 @@ div.ui-datepicker {
 
 									<div class="col-sm-6 col-md-12">
 										<div class="form-group">
-											<select class="form-control" id="selectfood" th:field="*{foodfk}"
-												onchange="leaveChange()">
+											<select class="form-control" id="selectfood"
+												th:field="*{foodfk}" onchange="leaveChange()">
 												<option th:value="0">コース</option>
 												<option th:each="food : ${foods}" th:value="${food.id}"
 													th:text="${food.title} + ' 大人 ' + ${food.adult} + '円(中学生以上)' + ' お子様' + ${food.teenager} + '円(3才~小学生)'"></option>
@@ -440,10 +440,8 @@ div.ui-datepicker {
 
 								<div class="row">
 									<div class="col-sm-12 col-md-6 col-lg-4 ">
-									<font size="4px">合計金額 </font>
-									
-									<font size="10px"><strong id="message">0</strong></font>
-									<font size="4px"> 円</font>
+										<font size="4px">合計金額 </font> <font size="6px"><strong
+											id="message">0</strong></font> <font size="4px"> 円/天</font>
 									</div>
 									<div class="col-sm-12 col-md-6 col-lg-3 pull-right">
 										<button type="submit" class="btn btn-block"

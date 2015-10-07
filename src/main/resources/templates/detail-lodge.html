@@ -105,6 +105,44 @@ div.ui-datepicker {
 	 });
 	</script>
 
+<script type="text/javascript">
+	
+	function leaveChange(control) {
+		var adult = document.getElementById("adult");
+		var adultnum = adult.options[adult.selectedIndex].value;
+		
+		var teenager = document.getElementById("teenager");
+		var teenagernum = teenager.options[teenager.selectedIndex].value;
+		
+		var infant = document.getElementById("infant");
+		var infantnum = infant.options[infant.selectedIndex].value;
+		
+		var selectfood = document.getElementById("selectfood");
+		var foodprice = selectfood.options[selectfood.selectedIndex].innerHTML;
+		
+		var foodpriceafter = foodprice.split('大人')[1];
+		var numberPattern = /\d+/g;
+		var prices = foodpriceafter.match(numberPattern);
+
+		
+		var adultprice = 0;
+		var teenagerprice = 0;
+		
+		adultprice = prices[0];
+		teenagerprice = prices[1];
+		var total;
+		
+		var adultpayment = adultnum * adultprice 
+		var teenagerpayment = teenagernum * teenagerprice;
+		var infantpayment = infantnum * teenagerprice;
+		var total = adultpayment + teenagerpayment + infantpayment;
+		
+	   	document.getElementById("message").innerHTML = total;
+	   
+	   /* alert('adultprice: ' + adultpayment + ", teenagerprice:" + teenagerpayment  + ", infantpayment:" + infantpayment); */
+	}
+
+	</script>
 
 <script src="../../js/datepicker/external/jquery/jquery.js"></script>
 <script src="../../js/datepicker/jquery-ui.js"></script>
@@ -440,7 +478,7 @@ div.ui-datepicker {
 
 									<div class="col-sm-6 col-md-2">
 										<div>
-											<select class="form-control" name="adults" id="select"
+											<select class="form-control" name="adults" id="adult" onchange="leaveChange()"
 												th:field="*{adult}">
 												<option th:value="1">大人</option>
 												<option th:each="number : ${numbers}" th:value="${number}"
@@ -451,7 +489,7 @@ div.ui-datepicker {
 
 									<div class="col-sm-6 col-md-2">
 										<div>
-											<select class="form-control" id="select"
+											<select class="form-control" id="teenager" onchange="leaveChange()"
 												th:field="*{teenager}">
 												<option th:value="0">子供</option>
 												<option th:each="number : ${numbers}" th:value="${number}"
@@ -462,7 +500,7 @@ div.ui-datepicker {
 
 									<div class="col-sm-6 col-md-2">
 										<div>
-											<select class="form-control" id="select" th:field="*{infant}">
+											<select class="form-control" id="infant" onchange="leaveChange()" th:field="*{infant}">
 												<option th:value="0">幼児</option>
 												<option th:each="number : ${numbers}" th:value="${number}"
 													th:text="${number}"></option>
@@ -473,7 +511,7 @@ div.ui-datepicker {
 								<div class="row" style="margin-bottom: 30px;">
 									<div class="col-lg-12">
 										<div>
-											<select class="form-control" id="select" th:field="*{foodfk}">
+											<select class="form-control" id="selectfood" onchange="leaveChange()" th:field="*{foodfk}">
 												<option th:value="0">コース</option>
 												<option th:each="food : ${foods}" th:value="${food.id}"
 													th:text="${food.title} + ' 大人 ' + ${food.adult} + '円(中学生以上)' + ' お子様' + ${food.teenager} + '円(3才~小学生)'"></option>
@@ -483,6 +521,10 @@ div.ui-datepicker {
 								</div>
 
 								<div class="row">
+									<div class="col-sm-12 col-md-6 col-lg-4 ">
+										<font size="4px">合計金額 </font> <font size="6px"><strong
+											id="message">0</strong></font> <font size="4px"> 円/天</font>
+									</div>
 									<div class="col-sm-12 col-md-6 col-lg-3 pull-right">
 										<button type="submit" class="btn btn-block"
 											style="background-color: orange;">
