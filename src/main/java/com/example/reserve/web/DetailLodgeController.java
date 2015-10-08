@@ -176,9 +176,11 @@ public class DetailLodgeController {
 			e.printStackTrace();
 		}
 		
+		int numberofday = checkout.getDate() - checkin.getDate();
 		
 		System.out.println("checkin:" + checkin);
 		System.out.println("checkout:" + checkout);
+		System.out.println("numberofday:" + numberofday);
 
 		cart.setFk(lodge.getId());
 		cart.setCategory("lodge");
@@ -195,7 +197,7 @@ public class DetailLodgeController {
 		Food food = foodService.findOne(foodId);
 		int adultPayment= food.getAdult() * cart.getAdult();
 		int childrenPayment = food.getTeenager() * (cart.getTeenager() + cart.getInfant());
-		int payment = adultPayment + childrenPayment;
+		int payment = (adultPayment + childrenPayment) * numberofday;
 		cart.setPayment(new BigDecimal(payment));
 	
 		List<Cart> cards = new ArrayList<Cart>();
@@ -211,9 +213,6 @@ public class DetailLodgeController {
 			cart.setShoppingid(shoppingid);
 			System.out.println("cart shopping id:" + cart.getShoppingid());
 			cards.add(cart);
-			
-			
-			
 		} else {
 			long shoppingid = cards.get(0).getShoppingid();
 			System.out.println("exist shopping id:" + shoppingid);

@@ -22,9 +22,11 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import com.example.reserve.domain.Email;
 import com.example.reserve.domain.Experience;
 import com.example.reserve.domain.Gallery;
+import com.example.reserve.domain.Landlord;
 import com.example.reserve.domain.Lodge;
 import com.example.reserve.service.ExperienceService;
 import com.example.reserve.service.GalleryService;
+import com.example.reserve.service.LandlordService;
 import com.example.reserve.service.LodgeService;
 
 @Controller
@@ -40,17 +42,22 @@ public class HomeController {
 	private final GalleryService galleryService;
 
 	@Autowired
+	private final LandlordService landlordService;
+	
+	@Autowired
     private JavaMailSender mailSender;
 	 	
 	@Autowired
 	public HomeController(
 			@Nonnull final LodgeService lodgeService,
 			@Nonnull final ExperienceService experienceService,
-			@Nonnull final GalleryService galleryService
+			@Nonnull final GalleryService galleryService,
+			@Nonnull final LandlordService landlordService
 			) {
 		this.lodgeService = lodgeService;
 		this.experienceService = experienceService;
 		this.galleryService = galleryService;
+		this.landlordService = landlordService;
 	}
 	
 	public List<String> locations = Arrays.asList("厳原港近辺", "比田勝港近辺", "対馬空港近辺");
@@ -66,36 +73,71 @@ public class HomeController {
 		model.addAttribute("categories", categories);
 		model.addAttribute("numbers", numbers);
 		
-		List<Lodge> lodges = lodgeService.findAll();
+		List<Lodge> lodges = lodgeService.findThree();
 		
 		System.out.println("lodges size: " + lodges.size());
 		Map<Long, Long> lodgeGallery = new HashMap<Long, Long>();
+		Map<Long, Landlord> lodgeLandlord = new HashMap<Long, Landlord>();
+		Map<Long, Long> landlordGallery = new HashMap<Long, Long>();
 		for(int i = 0; i < lodges.size(); i++) {
 			List<Gallery> galleries = galleryService.findByFkByCategory(lodges.get(i).getId(), "lodge");
 			if (!galleries.isEmpty()) {
-				System.out.println(galleries.size());
 				long imageId = galleries.get(0).getId();
-				System.out.println("image id: " + imageId);
 				lodgeGallery.put(lodges.get(i).getId(), galleries.get(0).getId());
 			}
+			
+			Landlord landlord = null;
+			
+			if (lodges.get(i).getFk() != null) {
+				landlord = landlordService.findOne(lodges.get(i).getFk());
+				lodgeLandlord.put(lodges.get(i).getId(), landlord);
+				
+				List<Gallery> landlordGalleries = galleryService.findByFkByCategory(landlord.getId(), "landlord");
+				if (!landlordGalleries.isEmpty()) {
+					long landlordImageId = landlordGalleries.get(0).getId();
+					landlordGallery.put(lodges.get(i).getId(), landlordImageId);
+				}
+			}
 		}
+		
+		
+		
+
+		model.addAttribute("lodgeLandlord", lodgeLandlord);
+		model.addAttribute("landlordGallery", landlordGallery);
 		
 		model.addAttribute("lodges", lodges);
 		model.addAttribute("lodgeGallery", lodgeGallery);
 		
 		// experience and gallery
-		List<Experience> experiences = experienceService.findAll();
+		List<Experience> experiences = experienceService.findThree();
 		
 		Map<Long, Long> experienceGallery = new HashMap<Long, Long>();
+		Map<Long, Landlord> experienceLandlord = new HashMap<Long, Landlord>();
+		Map<Long, Long> experienceLandlordGallery = new HashMap<Long, Long>();
 		for(int i = 0; i < experiences.size(); i++) {
 			List<Gallery> galleries = galleryService.findByFkByCategory(experiences.get(i).getId(), "experience");
 			if (!galleries.isEmpty()) {
-				System.out.println(galleries.size());
 				long imageId = galleries.get(0).getId();
-				System.out.println("image id: " + imageId);
 				experienceGallery.put(experiences.get(i).getId(), galleries.get(0).getId());
 			}
+			
+			Landlord landlord = null;
+			
+			if (experiences.get(i).getFk() != null) {
+				landlord = landlordService.findOne(experiences.get(i).getFk());
+				experienceLandlord.put(experiences.get(i).getId(), landlord);
+				
+				List<Gallery> landlordGalleries = galleryService.findByFkByCategory(landlord.getId(), "landlord");
+				if (!landlordGalleries.isEmpty()) {
+					long landlordImageId = landlordGalleries.get(0).getId();
+					experienceLandlordGallery.put(experiences.get(i).getId(), landlordImageId);
+				}
+			}
 		}
+		
+		model.addAttribute("experienceLandlord", experienceLandlord);
+		model.addAttribute("experienceLandlordGallery", experienceLandlordGallery);
 		
 		model.addAttribute("experiences", experiences);
 		model.addAttribute("experienceGallery", experienceGallery);

@@ -24,6 +24,11 @@ public final class ExperienceService {
 		return experiences;
 	}
 	
+	public final List<Experience> findThree() {
+		final List<Experience> experiences = (List<Experience>) experienceRepository.findThree();
+		return experiences;
+	}
+	
 	public final Experience findOne(Long experienceId) {
 		final Experience experience = experienceRepository.findOne(experienceId);
 		return experience;

@@ -18,6 +18,7 @@
 .white {
 	background-color: #fff;
 }
+
 </style>
 
 <style type="text/css">
@@ -433,9 +434,22 @@ div.centre {
 						<div class="thumbnail">
 							<img th:src="@{/image/view(id=${lodgeGallery.get(lodge.id)})}" />
 							<div class="caption1">
-								<h3>
-									<strong th:text="${lodge.name}"></strong>
-								</h3>
+								<div class="row">
+									<div class="col-lg-12">
+										<div class="col-lg-4" style="padding-top:0px;margin-top:20px;">
+											<img th:src="@{/image/view(id=${landlordGallery.get(lodge.id)})}" width="120%" height="120%"/>
+										</div>
+										<div class="col-lg-8" style="margin-left:0;padding-left:0;">
+											<h3>
+												<strong th:text="${lodge.name}"></strong>
+											</h3>
+											<h6>最高宿泊可能数<strong th:text="${lodge.adult}"></strong>名 / <strong th:text="${lodgeLandlord.get(lodge.id).lodgenumber}"></strong>部屋</h6>
+											<h6 style="margin:0"><strong th:text="${lodge.location}"></strong></h6>
+											<h3 style="margin:0" class="pull-right"><font color="#49c0e8">¥<strong th:text="${lodge.adultprice}"></strong></font> <font size="2px"> /名</font></h3>
+										</div>
+									</div>
+								</div>
+								
 							</div>
 						</div>
 					</a>
@@ -504,9 +518,22 @@ div.centre {
 							<img
 								th:src="@{/image/view(id=${experienceGallery.get(experience.id)})}" />
 							<div class="caption1">
-								<h3>
-									<strong th:text="${experience.name}"></strong>
-								</h3>
+								
+								<div class="row">
+									<div class="col-lg-12">
+										<div class="col-lg-4" style="padding-top:0px;margin-top:20px;">
+											<img th:src="@{/image/view(id=${experienceLandlordGallery.get(experience.id)})}" width="120%" height="120%"/>
+										</div>
+										<div class="col-lg-8" style="margin-left:0;padding-left:0;">
+											<h3>
+												<strong th:text="${experience.name}"></strong>
+											</h3>
+											<h6 style="margin:0" th:text="${experience.description}"></h6>
+											<h6 style="margin:0"><strong th:text="${experience.location}"></strong></h6>
+											<h3 style="margin:0" class="pull-right"><font color="#49c0e8">¥<strong th:text="${experience.adultprice}"></strong></font> <font size="2px"> /名</font></h3>
+										</div>
+									</div>
+								</div>
 							</div>
 						</div>
 					</a>

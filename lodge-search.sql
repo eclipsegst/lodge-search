@@ -9,8 +9,8 @@ create table landlord (
 	description varchar(500),
 	location varchar(200),
 	email varchar(200),
-	lodge_number int,
-	experience_number int,
+	lodgenumber int,
+	experiencenumber int,
 	primary key (id)
 ) Engine=InnoDB CHARACTER SET='utf8' COLLATE 'utf8_unicode_ci';
 show columns from landlord;
@@ -37,7 +37,9 @@ create table lodge (
 	
 	latitude decimal(10, 8),
 	longitude decimal(11, 8),
+	
 	fk bigint,
+	adultprice int,
 	primary key (id)
 ) Engine=InnoDB CHARACTER SET='utf8' COLLATE 'utf8_unicode_ci';
 
@@ -63,6 +65,8 @@ create table experience (
 	longitude decimal(11, 8),
 	
 	fk  bigint,
+	adultprice int,
+	
 	primary key (id)
 ) Engine=InnoDB CHARACTER SET='utf8' COLLATE 'utf8_unicode_ci';
 

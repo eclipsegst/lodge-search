@@ -33,5 +33,13 @@ public interface ExperienceRepository extends CrudRepository<Experience, Long> {
             @Param("teenager") int teenager,
             @Param("infant") int infant
             
-    );    
+    );  
+    
+    @Query(
+    		value = "SELECT * FROM Experience experience "
+    				+ "ORDER BY experience.name DESC LIMIT 3",
+            nativeQuery = true
+    )
+    @Nonnull
+    public List<Experience> findThree();
 }

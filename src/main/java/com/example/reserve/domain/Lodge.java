@@ -65,9 +65,12 @@ public class Lodge {
 	@Column(nullable = false)
 	private Long fk;
 	
+	@Column(nullable = false)
+	private Integer adultprice;
+	
     public Lodge() {}
 
-    public Lodge(String name, String description, String location, String price, String food, String capacity, String equipment, String amenity, String traffic, String pickup, Integer adult, Integer teenager, Integer infant, BigDecimal latitude, BigDecimal longitude, long fk) {
+    public Lodge(String name, String description, String location, String price, String food, String capacity, String equipment, String amenity, String traffic, String pickup, Integer adult, Integer teenager, Integer infant, BigDecimal latitude, BigDecimal longitude, long fk, Integer adultprice) {
         this.name = name;
         this.description = description;
         this.location = location;
@@ -84,6 +87,7 @@ public class Lodge {
         this.latitude = latitude;
         this.longitude = longitude;
         this.fk = fk;
+        this.adultprice = adultprice;
     }
 
     @Override
@@ -220,5 +224,13 @@ public class Lodge {
 
 	public void setFk(Long fk) {
 		this.fk = fk;
+	}
+
+	public Integer getAdultprice() {
+		return adultprice;
+	}
+
+	public void setAdultprice(Integer adultprice) {
+		this.adultprice = adultprice;
 	}
 }

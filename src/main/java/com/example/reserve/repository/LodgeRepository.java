@@ -30,4 +30,12 @@ public interface LodgeRepository extends CrudRepository<Lodge, Long> {
             @Param("infant") int infant
             
     );
+    
+    @Query(
+    		value = "SELECT * FROM Lodge lodge "
+    				+ "ORDER BY lodge.name DESC LIMIT 3",
+            nativeQuery = true
+    )
+    @Nonnull
+    public List<Lodge> findThree();
 }

@@ -29,6 +29,11 @@ public final class LodgeService {
 		return lodge;
 	}
 	
+	public final List<Lodge>  findThree() {
+		final List<Lodge>  lodges = (List<Lodge>) lodgeRepository.findThree();
+		return lodges;
+	}
+	
 	public final void save(Lodge lodge) {
 		this.lodgeRepository.save(lodge);
 	}

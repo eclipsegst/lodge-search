@@ -25,20 +25,20 @@ public class Landlord {
     private String email;
 	
 	@Column(nullable = true)
-    private int lodgeNumber;
+    private int lodgenumber;
 	
 	@Column(nullable = true)
-    private int experienceNumber;
+    private int experiencenumber;
     
     public Landlord() {}
 
-    public Landlord(String name, String description, String location, String email, int lodgeNumber, int experienceNumber) {
+    public Landlord(String name, String description, String location, String email, int lodgenumber, int experiencenumber) {
         this.name = name;
         this.description = description;
         this.location = location;
         this.email = email;
-        this.lodgeNumber = lodgeNumber;
-        this.experienceNumber = experienceNumber;
+        this.lodgenumber = lodgenumber;
+        this.experiencenumber = experiencenumber;
     }
 
     @Override
@@ -88,19 +88,19 @@ public class Landlord {
 		this.email = email;
 	}
 
-	public int getLodgeNumber() {
-		return lodgeNumber;
+	public int getLodgenumber() {
+		return lodgenumber;
 	}
 
-	public void setLodgeNumber(int lodgeNumber) {
-		this.lodgeNumber = lodgeNumber;
+	public void setLodgenumber(int lodgenumber) {
+		this.lodgenumber = lodgenumber;
 	}
 
-	public int getExperienceNumber() {
-		return experienceNumber;
+	public int getExperiencenumber() {
+		return experiencenumber;
 	}
 
-	public void setExperienceNumber(int experienceNumber) {
-		this.experienceNumber = experienceNumber;
+	public void setExperiencenumber(int experiencenumber) {
+		this.experiencenumber = experiencenumber;
 	}
 }
