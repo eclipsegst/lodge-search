@@ -70,6 +70,17 @@ div.ui-datepicker {
 	-webkit-transform: translateX(-50%) translateY(-50%);
 	transform: translateX(-50%) translateY(-50%);
 }
+
+.area {
+	height: 80px;
+	width: 200px;
+	background: white;
+	margin: 10px;
+	text-align: center;
+	display: table-cell;
+	vertical-align: middle;
+	border: 1px solid #000;
+}
 </style>
 <script type="text/javascript"
 	src="http://maps.googleapis.com/maps/api/js?sensor=false"></script>
@@ -135,11 +146,20 @@ div.ui-datepicker {
 		var adultpayment = adultnum * adultprice 
 		var teenagerpayment = teenagernum * teenagerprice;
 		var infantpayment = infantnum * teenagerprice;
-		var total = adultpayment + teenagerpayment + infantpayment;
+		var oneday = adultpayment + teenagerpayment + infantpayment;
 		
+		var checkin = document.getElementById("datepicker-checkin").value;
+	   	var checkout = document.getElementById("datepicker-checkout").value;
+	   	
+	   	var checkindate = new Date(checkin);
+	   	var checkoutdate = new Date(checkout);
+	   	var date = checkoutdate.getDate() - checkindate.getDate();
+	   	
+	   	var total = oneday * date;
 	   	document.getElementById("message").innerHTML = total;
-	   
-	   /* alert('adultprice: ' + adultpayment + ", teenagerprice:" + teenagerpayment  + ", infantpayment:" + infantpayment); */
+	   	
+	   	/* alert("checkin:" + date); */
+	   	/* alert('adultprice: ' + adultpayment + ", teenagerprice:" + teenagerpayment  + ", infantpayment:" + infantpayment); */
 	}
 
 	</script>
@@ -278,7 +298,7 @@ div.ui-datepicker {
 						</div>
 						<div class="col-lg-3">
 							<div id="square-map">
-								<div id="map_container" style="height: 250px;"></div>
+								<div id="map_container" style="height: 255px;"></div>
 							</div>
 						</div>
 
@@ -315,16 +335,13 @@ div.ui-datepicker {
 						<div class="row" style="padding: 5px;">
 							<div class="col-lg-12">
 								<div class="col-lg-2">
-									<div id="square">
-										<div class="vh-center">
-											<label>
-												<h3>
-													<strong>食事</strong>
-												</h3>
-											</label>
+									<div class="area">
+										<div class="content">
+											<h3>
+												<strong>食事</strong>
+											</h3>
 										</div>
 									</div>
-
 								</div>
 								<div class="col-lg-10">
 									<h3 th:text="*{food}"></h3>
@@ -335,13 +352,11 @@ div.ui-datepicker {
 						<div class="row" style="padding: 5px;">
 							<div class="col-lg-12">
 								<div class="col-lg-2">
-									<div id="square">
-										<div class="vh-center">
-											<label>
-												<h3>
-													<strong>客室</strong>
-												</h3>
-											</label>
+									<div class="area">
+										<div class="content">
+											<h3>
+												<strong>客室</strong>
+											</h3>
 										</div>
 									</div>
 								</div>
@@ -354,16 +369,13 @@ div.ui-datepicker {
 						<div class="row" style="padding: 5px;">
 							<div class="col-lg-12">
 								<div class="col-lg-2">
-									<div id="square">
-										<div class="vh-center">
-											<label>
-												<h3>
-													<strong>客室内設備</strong>
-												</h3>
-											</label>
+									<div class="area">
+										<div class="content">
+											<h3>
+												<strong>客室内設備</strong>
+											</h3>
 										</div>
 									</div>
-
 								</div>
 								<div class="col-lg-10">
 									<h3 th:text="*{equipment}"></h3>
@@ -374,13 +386,11 @@ div.ui-datepicker {
 						<div class="row" style="padding: 5px;">
 							<div class="col-lg-12">
 								<div class="col-lg-2">
-									<div id="square">
-										<div class="vh-center">
-											<label>
-												<h3>
-													<strong>アメニティ</strong>
-												</h3>
-											</label>
+									<div class="area">
+										<div class="content">
+											<h3>
+												<strong>アメニティ</strong>
+											</h3>
 										</div>
 									</div>
 								</div>
@@ -393,13 +403,11 @@ div.ui-datepicker {
 						<div class="row" style="padding: 5px;">
 							<div class="col-lg-12">
 								<div class="col-lg-2">
-									<div id="square">
-										<div class="vh-center">
-											<label>
-												<h3>
-													<strong>アクセス</strong>
-												</h3>
-											</label>
+									<div class="area">
+										<div class="content">
+											<h3>
+												<strong>アクセス</strong>
+											</h3>
 										</div>
 									</div>
 								</div>
@@ -412,13 +420,11 @@ div.ui-datepicker {
 						<div class="row" style="padding: 5px;">
 							<div class="col-lg-12">
 								<div class="col-lg-2">
-									<div id="square">
-										<div class="vh-center">
-											<label>
-												<h3>
-													<strong>送迎</strong>
-												</h3>
-											</label>
+									<div class="area">
+										<div class="content">
+											<h3>
+												<strong>送迎</strong>
+											</h3>
 										</div>
 									</div>
 								</div>
@@ -457,10 +463,11 @@ div.ui-datepicker {
 								<div class="row" style="margin-bottom: 10px;">
 									<div class="col-sm-6 col-md-3">
 										<div class="input-group">
-											<input type="text" id="datepicker-my" class="form-control"
-												name="checkin" size="30" placeholder="チェックイン" /> <span
-												class="input-group-addon" id="btn" style="cursor: pointer;">
-												<span class="glyphicon glyphicon-calendar"></span>
+											<input type="text" id="datepicker-checkin"
+												class="form-control" name="checkin" size="30"
+												placeholder="チェックイン" /> <span class="input-group-addon"
+												id="btn" style="cursor: pointer;"> <span
+												class="glyphicon glyphicon-calendar"></span>
 											</span>
 										</div>
 									</div>
@@ -477,41 +484,115 @@ div.ui-datepicker {
 									</div>
 
 									<div class="col-sm-6 col-md-2">
-										<div>
-											<select class="form-control" name="adults" id="adult" onchange="leaveChange()"
-												th:field="*{adult}">
+										<!-- <div>
+											<select class="form-control" name="adults" id="adult"
+												onchange="leaveChange()" th:field="*{adult}">
 												<option th:value="1">大人</option>
 												<option th:each="number : ${numbers}" th:value="${number}"
 													th:text="${number}"></option>
 											</select>
+										</div> -->
+
+										<div class="row">
+											<div class="col-lg-12">
+												<select class="form-control" name="adult" id="adult"
+													onchange="leaveChange()">
+													<option value="1">大人</option>
+													<option value="1">1</option>
+													<option value="2">2</option>
+													<option value="3">3</option>
+													<option value="4">4</option>
+													<option value="5">5</option>
+													<option value="6">6</option>
+													<option value="7">7</option>
+													<option value="8">8</option>
+													<option value="9">9</option>
+													<option value="10">10</option>
+												</select>
+											</div>
+										</div>
+										<div class="row">
+											<div class="col-lg-12" style="text-align: center">
+												<div style="display: inline-block;">13 才以上</div>
+											</div>
 										</div>
 									</div>
 
 									<div class="col-sm-6 col-md-2">
-										<div>
-											<select class="form-control" id="teenager" onchange="leaveChange()"
-												th:field="*{teenager}">
+										<!-- <div>
+											<select class="form-control" id="teenager"
+												onchange="leaveChange()" th:field="*{teenager}">
 												<option th:value="0">子供</option>
 												<option th:each="number : ${numbers}" th:value="${number}"
 													th:text="${number}"></option>
 											</select>
+										</div> -->
+										<div class="row">
+											<div class="col-lg-12">
+												<select class="form-control" name="teenager" id="teenager"
+													onchange="leaveChange()">
+													<option value="0">子供</option>
+													<option value="0">0</option>
+													<option value="1">1</option>
+													<option value="2">2</option>
+													<option value="3">3</option>
+													<option value="4">4</option>
+													<option value="5">5</option>
+													<option value="6">6</option>
+													<option value="7">7</option>
+													<option value="8">8</option>
+													<option value="9">9</option>
+													<option value="10">10</option>
+												</select>
+											</div>
+										</div>
+										<div class="row">
+											<div class="col-lg-12" style="text-align: center">
+												<div style="display: inline-block;">3 - 12 才</div>
+											</div>
 										</div>
 									</div>
 
 									<div class="col-sm-6 col-md-2">
-										<div>
-											<select class="form-control" id="infant" onchange="leaveChange()" th:field="*{infant}">
+										<!-- <div>
+											<select class="form-control" id="infant"
+												onchange="leaveChange()" th:field="*{infant}">
 												<option th:value="0">幼児</option>
 												<option th:each="number : ${numbers}" th:value="${number}"
 													th:text="${number}"></option>
 											</select>
+										</div> -->
+										<div class="row">
+											<div class="col-lg-12">
+												<select class="form-control" name="infant" id="infant"
+													onchange="leaveChange()">
+													<option value="0">幼児</option>
+													<option value="0">0</option>
+													<option value="1">1</option>
+													<option value="2">2</option>
+													<option value="3">3</option>
+													<option value="4">4</option>
+													<option value="5">5</option>
+													<option value="6">6</option>
+													<option value="7">7</option>
+													<option value="8">8</option>
+													<option value="9">9</option>
+													<option value="10">10</option>
+												</select>
+											</div>
+										</div>
+										<div class="row">
+											<div class="col-lg-12" style="text-align: center">
+												<div style="display: inline-block;">0 - 3 才</div>
+											</div>
 										</div>
 									</div>
 								</div>
 								<div class="row" style="margin-bottom: 30px;">
 									<div class="col-lg-12">
 										<div>
-											<select class="form-control" id="selectfood" onchange="leaveChange()" th:field="*{foodfk}">
+											<select class="form-control" id="selectfood"
+												onchange="leaveChange()" th:field="*{foodfk}">
 												<option th:value="0">コース</option>
 												<option th:each="food : ${foods}" th:value="${food.id}"
 													th:text="${food.title} + ' 大人 ' + ${food.adult} + '円(中学生以上)' + ' お子様' + ${food.teenager} + '円(3才~小学生)'"></option>
@@ -522,10 +603,11 @@ div.ui-datepicker {
 
 								<div class="row">
 									<div class="col-sm-12 col-md-6 col-lg-4 ">
-										<font size="4px">合計金額 </font> <font size="6px"><strong
-											id="message">0</strong></font> <font size="4px"> 円/天</font>
+										<font size="4px">合計金額 &nbsp;</font> <font size="6px"><strong
+											id="message">0</strong></font> <font size="4px"> &nbsp;円</font>
 									</div>
-									<div class="col-sm-12 col-md-6 col-lg-3 pull-right">
+									<div class="col-sm-12 col-md-6 col-lg-3 pull-right"
+										style="padding-right: 0;">
 										<button type="submit" class="btn btn-block"
 											style="background-color: orange;">
 											<strong><font color="white">カートへ</font></strong>
@@ -570,7 +652,7 @@ div.ui-datepicker {
 	$('#btn').click(function(){
 	    //alert('clcikec');
 	    $(document).ready(function(){
-	        $("#datepicker-my").datepicker({
+	        $("#datepicker-checkin").datepicker({
 	        	minDate: -0, 
 		    	maxDate: "+1Y +0M +0D",
 		        dateFormat: 'yy-mm-dd',
