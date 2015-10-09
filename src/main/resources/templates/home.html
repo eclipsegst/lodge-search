@@ -385,49 +385,6 @@ div.centre {
 			</h2>
 		</div>
 		<div class="row">
-
-			<div class="col-sm-6 col-md-4">
-				<div class="thumbnail">
-					<img src="../duima/1.jpg" alt="..." />
-					<div class="caption1">
-						<h3>
-							<strong>Rosethorn Hall</strong>
-						</h3>
-					</div>
-				</div>
-			</div>
-			<div class="col-sm-6 col-md-4">
-				<div class="thumbnail">
-					<img src="../duima/2.jpg" alt="..." />
-					<div class="caption1">
-						<h3>
-							<strong>Breezehome</strong>
-						</h3>
-					</div>
-				</div>
-			</div>
-			<div class="col-sm-6 col-md-4">
-				<div class="thumbnail">
-					<img src="./duima/3.jpg" alt="..." />
-					<div class="caption1">
-						<h3>
-							<strong>Lakeview Manor</strong>
-						</h3>
-					</div>
-				</div>
-			</div>
-
-			<div class="col-sm-6 col-md-4">
-				<div class="thumbnail">
-					<img src="./duima/3.jpg" alt="..." />
-					<div class="caption1">
-						<h3>
-							<strong>Lakeview Manor</strong>
-						</h3>
-					</div>
-				</div>
-			</div>
-
 			<div th:each="lodge : ${lodges}">
 				<div class="col-sm-6 col-md-4">
 					<a th:href="@{./lodge/detail(id=${lodge.id})}" class="pull-right">
@@ -478,37 +435,6 @@ div.centre {
 			</h2>
 		</div>
 		<div class="row">
-			<div class="col-sm-6 col-md-4">
-				<div class="thumbnail">
-					<img src="./duima/1(1).jpg" alt="..." />
-					<div class="caption1">
-						<h3>
-							<strong>Boating</strong>
-						</h3>
-					</div>
-				</div>
-			</div>
-			<div class="col-sm-6 col-md-4">
-				<div class="thumbnail">
-					<img src="./duima/2(1).jpg" alt="..." />
-					<div class="caption1">
-						<h3>
-							<strong>Cooking</strong>
-						</h3>
-					</div>
-				</div>
-			</div>
-
-			<div class="col-sm-6 col-md-4">
-				<div class="thumbnail">
-					<img src="./duima/5.jpg" alt="..." />
-					<div class="caption1">
-						<h3>
-							<strong>Fishing</strong>
-						</h3>
-					</div>
-				</div>
-			</div>
 
 			<div th:each="experience : ${experiences}">
 				<div class="col-sm-6 col-md-4">

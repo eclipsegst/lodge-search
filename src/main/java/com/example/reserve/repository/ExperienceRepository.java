@@ -36,7 +36,7 @@ public interface ExperienceRepository extends CrudRepository<Experience, Long> {
     );  
     
     @Query(
-    		value = "SELECT * FROM Experience experience "
+    		value = "SELECT * FROM experience experience "
     				+ "ORDER BY experience.name DESC LIMIT 3",
             nativeQuery = true
     )

@@ -466,7 +466,7 @@ div.ui-datepicker {
 											<input type="text" id="datepicker-checkin"
 												class="form-control" name="checkin" size="30"
 												placeholder="チェックイン" /> <span class="input-group-addon"
-												id="btn" style="cursor: pointer;"> <span
+												id="btn-checkin" style="cursor: pointer;"> <span
 												class="glyphicon glyphicon-calendar"></span>
 											</span>
 										</div>
@@ -482,7 +482,6 @@ div.ui-datepicker {
 											</span>
 										</div>
 									</div>
-
 									<div class="col-sm-6 col-md-2">
 										<!-- <div>
 											<select class="form-control" name="adults" id="adult"
@@ -649,7 +648,7 @@ div.ui-datepicker {
 	<div th:replace="fragments/footer :: footer">&nbsp;</div>
 
 	<script>
-	$('#btn').click(function(){
+	$('#btn-checkin').click(function(){
 	    //alert('clcikec');
 	    $(document).ready(function(){
 	        $("#datepicker-checkin").datepicker({

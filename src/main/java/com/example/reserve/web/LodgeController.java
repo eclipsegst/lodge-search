@@ -174,7 +174,11 @@ public class LodgeController{
 	@RequestMapping(value="/lodge/new", method=RequestMethod.GET)
     public String lodgeForm(Model model) {
         model.addAttribute("lodge", new Lodge());
-        return "new-lodge";
+        
+        List<Landlord> landlords = landlordService.findAll();
+		model.addAttribute("landlords", landlords);
+        
+		return "new-lodge";
     }
 
 	@RequestMapping(value="/lodge/new", method=RequestMethod.POST)

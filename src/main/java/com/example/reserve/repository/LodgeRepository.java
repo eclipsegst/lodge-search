@@ -32,7 +32,7 @@ public interface LodgeRepository extends CrudRepository<Lodge, Long> {
     );
     
     @Query(
-    		value = "SELECT * FROM Lodge lodge "
+    		value = "SELECT * FROM lodge lodge "
     				+ "ORDER BY lodge.name DESC LIMIT 3",
             nativeQuery = true
     )
