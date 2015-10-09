@@ -101,8 +101,14 @@ public class HomeController {
 		}
 		
 		
+		List<Gallery> carousels = galleryService.findByFkByCategory(-1L, "carousel");
+		model.addAttribute("carousels", carousels);
 		
-
+		// have to set up active carousel item
+		Gallery defaultImage = carousels.get(0);
+		model.addAttribute("defaultImage", defaultImage);
+		carousels.remove(0);
+		
 		model.addAttribute("lodgeLandlord", lodgeLandlord);
 		model.addAttribute("landlordGallery", landlordGallery);
 		
